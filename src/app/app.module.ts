@@ -8,6 +8,7 @@ import { SimplebarAngularModule } from 'simplebar-angular';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SimplebarAngularModule
+    SimplebarAngularModule,
+     NgApexchartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
