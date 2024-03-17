@@ -23,7 +23,7 @@
 }
 
 [data-sidebar-color=dark] {
-    --tw-sidebar-bg: #262626;
+    --tw-sidebar-bg: #11153e;
     --tw-sidebar-item-color: #a3a3a3;
     --tw-sidebar-item-hover-color: #fff;
     --tw-sidebar-item-hover-bg: rgb(255 255 255 / 5%);
@@ -41,7 +41,7 @@
 }
 
 [data-topbar-color=dark] {
-    --tw-topbar-bg: #262626;
+    --tw-topbar-bg: #11153e;
     --tw-topbar-item-color: #a3a3a3;
     --tw-topbar-item-hover-color: #fff;
     --tw-topbar-item-hover-bg: rgb(255 255 255 / 5%);

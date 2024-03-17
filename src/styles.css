@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root{
+    --theme-bg : #11153e
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+
+/* login start */
+.login-outer{
+    height: 100%;
+    background: #f8f9fd;
+}
+
+.login-text-color{
+    color: var(--theme-bg);
+}
+
+.login-input{
+    
+    background: #f2f2f2;
+}
+
+.login-bg-color{
+    background:  var(--theme-bg);
+}
+
+.login-checkbox {
+    color:  var(--theme-bg) !important;
+}
+
+.login-btn{
+    position: absolute;
+    bottom: -6%;
+    left: 50%;
+    transform: translateX(-50%);
+    background:  var(--theme-bg);
+}
