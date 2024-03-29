@@ -13,7 +13,7 @@ export class APIService {
     private router : Router,
     ) { }
 
-  private readonly APIorigin : string = "darshilsavaliya"
+  private readonly APIorigin : string = "https://r1dq4k84-7246.inc1.devtunnels.ms"
 
   async Userlogin(email:string, password : string){
     try{
