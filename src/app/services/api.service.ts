@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
-import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, lastValueFrom, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,21 +8,16 @@ import { Router } from '@angular/router';
 export class APIService {
 
   constructor(
-    private httpClient : HttpClient,
-    private router : Router,
-    ) { }
+    private httpClient: HttpClient
+  ) { }
 
-  private readonly APIorigin : string = "https://r1dq4k84-7246.inc1.devtunnels.ms"
+  private readonly APIorigin: string = "https://r1dq4k84-7246.inc1.devtunnels.ms"
 
-  async Userlogin(email:string, password : string){
-    try{
-      console.log(email + " " + password)
-      let response = await lastValueFrom(this.httpClient.post(this.APIorigin + '/api/user/login', {email : email, password : password} ))
-      console.log(response)
+  Userlogin(email: string, password: string) : Observable<any> {
+      return this.httpClient.post(this.APIorigin + '/api/user/login', { email: email, password: password }).pipe(catchError(this.handleError))
+  }
 
-      this.router.navigate(['dashboard'])
-    }catch(e){
-      console.log("something is wrong")
-    }
+  handleError(error: HttpErrorResponse) {
+    return throwError(error);
   }
 }
