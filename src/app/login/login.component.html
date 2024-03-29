@@ -22,8 +22,8 @@
             </div>
             <p *ngIf="msg!=null || msg!=''" class="ml-2 text-center mb-3 text-red-600">{{msg}}</p>
             <div class="flex justify-between items-center mb-4">
-                <label class="flex items-center text-sm">
-                    <input type="checkbox" class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox"><span
+                <label  class="flex items-center text-sm">
+                    <input [formControl]="rememberMe" type="checkbox" class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox"><span
                         class="ml-2 login-text-color">Remember Me</span>
                 </label>
                 <a href="#" class="text-sm hover:underline login-text-color">Forgot Password?</a>
