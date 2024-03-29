@@ -48,3 +48,11 @@ html,body{
 .login-btn[disabled]{
     background: var(--disabled-button-color);
 }   
+
+/* Login End */
+
+
+/* Side Nav Bar Start */
+#side-nav-bar{
+    background: var(--theme-bg);
+}
