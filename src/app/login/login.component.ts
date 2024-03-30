@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
           this.isLogingIn = false
         },
         (error) => {
+          console.log(error.error )
           if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
             this.msg = error.error.errorMessages[0]
           } else {
