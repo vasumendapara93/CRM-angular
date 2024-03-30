@@ -54,10 +54,10 @@
 
     <!-- Fullscreen Toggle Button -->
     <div class="md:flex hidden">
-        <button data-toggle="fullscreen" type="button" class="nav-link p-2 waves-effect">
+        <button (click)="toggleFullScreen()" data-toggle="fullscreen" type="button" class="nav-link p-2 waves-effect">
             <span class="sr-only">Fullscreen Mode</span>
             <span class="flex items-center justify-center h-6 w-6">
-                <i class="fa-solid fa-expand fa-rotate-by fa-lg" style="--fa-rotate-angle: 45deg;"></i>
+                <i id="fullScreenToggleBtnIcon" class="fa-solid fa-expand fa-lg"></i>
             </span>
         </button>
     </div>

@@ -12,10 +12,6 @@ class App {
         this.defaultConfig = window.config;
     }
 
-    initComponents() {
-        Waves.init()
-    }
-
     initSidenav() {
         var self = this;
         var pageUrl = window.location.href.split(/[?#]/)[0];
@@ -132,42 +128,11 @@ class App {
         }
     }
 
-    // Topbar Fullscreen Button
-    initfullScreenListener() {
-        var self = this;
-        var fullScreenBtn = document.querySelector('[data-toggle="fullscreen"]');
-
-        if (fullScreenBtn) {
-            fullScreenBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.body.classList.toggle('fullscreen-enable')
-                if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
-                    if (document.documentElement.requestFullscreen) {
-                        document.documentElement.requestFullscreen();
-                    } else if (document.documentElement.mozRequestFullScreen) {
-                        document.documentElement.mozRequestFullScreen();
-                    } else if (document.documentElement.webkitRequestFullscreen) {
-                        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                    }
-                } else {
-                    if (document.cancelFullScreen) {
-                        document.cancelFullScreen();
-                    } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen();
-                    } else if (document.webkitCancelFullScreen) {
-                        document.webkitCancelFullScreen();
-                    }
-                }
-            });
-        }
-    }
-
     init() {
-        this.initComponents();
         this.initSidenav();
         this.initSwitchListener();
-        this.initfullScreenListener();
     }
 }
 
-new App().init();
+var app = new App()
+app.init()
