@@ -14,6 +14,10 @@ html,body{
     width: 100%;
 }
 
+a{
+    cursor: pointer;
+}
+
 
 /* login start */
 .login-outer{
@@ -57,3 +61,7 @@ html,body{
 #side-nav-bar{
     background: var(--theme-bg);
 }
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
