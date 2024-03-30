@@ -4,7 +4,8 @@
 
 
 :root{
-    --theme-bg : #11153e
+    --theme-bg : #11153e;
+    --disabled-button-color : #555888;
 }
 
 html,body{
@@ -42,4 +43,16 @@ html,body{
     left: 50%;
     transform: translateX(-50%);
     background:  var(--theme-bg);
+}
+
+.login-btn[disabled]{
+    background: var(--disabled-button-color);
+}   
+
+/* Login End */
+
+
+/* Side Nav Bar Start */
+#side-nav-bar{
+    background: var(--theme-bg);
 }
