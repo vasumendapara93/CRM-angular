@@ -1,5 +1,5 @@
-   <!-- Topbar Start -->
-   <header class="app-header flex items-center px-5 gap-4">
+<!-- Topbar Start -->
+<header class="app-header flex items-center px-5 gap-4">
 
     <!-- Brand Logo -->
     <a href="index.html" class="logo-box">
@@ -19,7 +19,9 @@
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-        <input type="search" class="form-input px-8 rounded-full  bg-gray-500/10 border-transparent focus:border-transparent" placeholder="Search...">
+        <input type="search"
+            class="form-input px-8 rounded-full  bg-gray-500/10 border-transparent focus:border-transparent"
+            placeholder="Search...">
         <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3">
             <i class="fa-solid fa-microphone"></i>
         </button>
@@ -27,25 +29,31 @@
 
     <!-- Language Dropdown Button -->
     <div class="relative">
-        <button data-fc-type="dropdown" data-fc-placement="bottom-end" type="button" class="nav-link p-2 waves-effect fc-dropdown">
+        <button data-fc-type="dropdown" data-fc-placement="bottom-end" type="button"
+            class="nav-link p-2 waves-effect fc-dropdown">
             <span class="flex items-center justify-center h-6 w-6">
                 <img src="assets/images/flags/us.jpg" alt="flags img" class="h-4 w-6">
             </span>
         </button>
-        <div class="fc-dropdown fc-dropdown-open:opacity-100 hidden opacity-0 w-40 z-50 mt-3 transition-[margin,opacity] duration-300 bg-white shadow-lg border border-gray-200 rounded-lg p-2">
-            <a href="javascript:void(0);" class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+        <div
+            class="fc-dropdown fc-dropdown-open:opacity-100 hidden opacity-0 w-40 z-50 mt-3 transition-[margin,opacity] duration-300 bg-white shadow-lg border border-gray-200 rounded-lg p-2">
+            <a href="javascript:void(0);"
+                class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 <img src="assets/images/flags/germany.jpg" alt="flags img" class="h-4">
                 <span class="align-middle">German</span>
             </a>
-            <a href="javascript:void(0);" class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+            <a href="javascript:void(0);"
+                class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 <img src="assets/images/flags/italy.jpg" alt="flags img" class="h-4">
                 <span class="align-middle">Italian</span>
             </a>
-            <a href="javascript:void(0);" class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+            <a href="javascript:void(0);"
+                class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 <img src="assets/images/flags/spain.jpg" alt="flags img" class="h-4">
                 <span class="align-middle">Spanish</span>
             </a>
-            <a href="javascript:void(0);" class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+            <a href="javascript:void(0);"
+                class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 <img src="assets/images/flags/russia.jpg" alt="flags img" class="h-4">
                 <span class="align-middle">Russian</span>
             </a>
@@ -63,7 +71,7 @@
     </div>
 
     <!-- Profile Dropdown Button -->
-    <div class="relative">
+    <div class="">
         <button (click)="toggleProfileDropdown($event)" class="nav-link flex items-center gap-2.5 waves-effect p-2">
             <img src="assets/images/users/avatar-6.jpg" alt="user-image" class="rounded-full h-8 w-8">
             <span class="md:flex items-center hidden">
@@ -71,22 +79,26 @@
                 <i class='ph ph-chevron-down'></i>
             </span>
         </button>
-        <div id="profileDropdwonList" class="absolute fc-dropdown-open:opacity-100 right-0 hidden opacity-0 w-40 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg border rounded-lg p-2">
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                Inbox
-            </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                Profile
-            </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                Settings
-            </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                Lock Account
-            </a>
-            <a (click)="logout($event)" class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                Log Out
-            </a>
+        <div (click)="toggleProfileDropdown($event)"  id="profileDropdwonList" class="h-screen w-full hidden absolute left-0 top-0 pt-16 z-50" >
+            <div
+                class="absolute right-0 mt-15 w-40 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg border rounded-lg p-2">
+                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                    Inbox
+                </a>
+                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                    Profile
+                </a>
+                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                    Settings
+                </a>
+                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                    Lock Account
+                </a>
+                <a (click)="logout($event)"
+                    class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                    Log Out
+                </a>
+            </div>
         </div>
     </div>
 </header>
