@@ -40,8 +40,8 @@ export class HeaderComponent {
   showBackdrop() {
     const backdrop = document.createElement('div');
     backdrop.id = 'backdrop';
-    backdrop.classList.remove(backdrop.classList.toString())
-    backdrop.classList.add('transition-all fixed inset-0 z-40 bg-gray-900 bg-opacity-50');
+    var classes = ['transition-all', 'fixed', 'inset-0', 'z-40', 'bg-gray-900', 'bg-opacity-50']
+    backdrop.classList.add(...classes);
     document.body.appendChild(backdrop);
 
     if (document.getElementsByTagName('html')[0]) {
