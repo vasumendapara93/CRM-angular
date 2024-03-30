@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500;600&display=swap);:root {
+@import url(https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500;600&display=swap);
+:root {
     --tw-body-font-family: "Baloo Paaji 2",cursive;
     --tw-body-bg: #fff;
     --tw-body-color: #64748b;
@@ -10,12 +11,12 @@
     --tw-sidebar-link-padding-y: 8px;
     --tw-sidebar-link-item-gap: 10px;
     --tw-sidebar-item-icon-size: 20px;
-    --tw-sidebar-item-font-size: 15px
+    --tw-sidebar-item-font-size: 15px;
 }
 
-[data-sidebar-color=light] {
+:root{
     --tw-sidebar-bg: #f1f5f9;
-    --tw-sidebar-item-color: #6b7280;
+    --tw-sidebar-item-color: #dfe1f9;
     --tw-sidebar-item-hover-color: #3b82f6;
     --tw-sidebar-item-hover-bg: rgb(59 130 246 / 10%);
     --tw-sidebar-item-active-color: #3b82f6;
@@ -24,14 +25,14 @@
 
 [data-sidebar-color=dark] {
     --tw-sidebar-bg: #11153e;
-    --tw-sidebar-item-color: #a3a3a3;
+    --tw-sidebar-item-color: #11153e;
     --tw-sidebar-item-hover-color: #fff;
     --tw-sidebar-item-hover-bg: rgb(255 255 255 / 5%);
     --tw-sidebar-item-active-color: #fff;
     --tw-sidebar-item-active-bg: rgb(63 63 70 / 50%)
 }
 
-[data-topbar-color=light] {
+:root {
     --tw-topbar-bg: #f1f5f9;
     --tw-topbar-item-color: #6b7280;
     --tw-topbar-item-hover-color: #3b82f6;
@@ -136,7 +137,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 a {
-    color: inherit;
+    /* color: inherit; */
     text-decoration: inherit
 }
 
