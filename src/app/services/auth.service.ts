@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import IUser from '../model/User.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  constructor(private router : Router){}
 
   private readonly TOKEN_STORAGE_KEY : string = 'UserData'
 
@@ -29,5 +32,10 @@ export class AuthService {
     const payload = atob(token.split('.')[1]); // decode payload of token
     const parsedPayload = JSON.parse(payload); // convert payload into an Object
     return parsedPayload.exp > Date.now() / 1000; // check if token is expired
+  }
+
+  logout(){
+    localStorage.removeItem(this.TOKEN_STORAGE_KEY)
+    this.router.navigate(['login'])
   }
 }

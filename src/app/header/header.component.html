@@ -64,27 +64,27 @@
 
     <!-- Profile Dropdown Button -->
     <div class="relative">
-        <button data-fc-type="dropdown" data-fc-placement="bottom-end" type="button" class="nav-link flex items-center gap-2.5 waves-effect p-2">
+        <button (click)="toggleProfileDropdown($event)" class="nav-link flex items-center gap-2.5 waves-effect p-2">
             <img src="assets/images/users/avatar-6.jpg" alt="user-image" class="rounded-full h-8 w-8">
             <span class="md:flex items-center hidden">
                 <span class="font-medium text-base">Jamie D.</span>
                 <i class='ph ph-chevron-down'></i>
             </span>
         </button>
-        <div class="fc-dropdown fc-dropdown-open:opacity-100 hidden opacity-0 w-40 z-50 transition-[margin,opacity] duration-300 mt-2 bg-white shadow-lg border rounded-lg p-2">
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" href="#">
+        <div id="profileDropdwonList" class="absolute fc-dropdown-open:opacity-100 right-0 hidden opacity-0 w-40 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg border rounded-lg p-2">
+            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 Inbox
             </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" href="#">
+            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 Profile
             </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" href="#">
+            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 Settings
             </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" href="#">
+            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 Lock Account
             </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" href="#">
+            <a (click)="logout($event)" class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
                 Log Out
             </a>
         </div>

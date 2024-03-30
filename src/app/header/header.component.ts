@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +7,8 @@ import { Component, ViewChild } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
+  constructor(private authService :  AuthService){}
 
   toggleFullScreen() {
     var fullScreenToggleBtnIcon = document.getElementById('fullScreenToggleBtnIcon')
@@ -65,5 +68,19 @@ export class HeaderComponent {
       document.body.style.overflow = 'null';
       document.body.style.paddingRight = 'null';
     }
+  }
+
+  toggleProfileDropdown($event : Event){
+    $event.preventDefault()
+    var profileDropdwonList = document.getElementById('profileDropdwonList')
+    var classes = ['hidden' ,'opacity-100']
+    classes.forEach((classTotoggle)=>{
+      profileDropdwonList?.classList.toggle(classTotoggle)
+    })
+  }
+
+  logout($event : Event){
+    $event.preventDefault()
+    this.authService.logout()
   }
 }
