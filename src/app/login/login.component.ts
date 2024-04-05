@@ -46,9 +46,10 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLogingIn = true;
 
-      this.apiService.Userlogin(this.email.value!, this.password.value!).subscribe(
+      this.apiService.userlogin(this.email.value!, this.password.value!).subscribe(
         (response) => {
           if (response.data) {
+            this.msg = ""
             this.authService.setToken(response.data.token, response.data.user)
             if (this.rememberMe.value) {
               localStorage.setItem(this.REMEMBER_STORAGE_KEY, this.email.value!)

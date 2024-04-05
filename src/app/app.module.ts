@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { NotFound404Component } from './not-found404/not-found404.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { LoginModalComponent } from './login-modal/login-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NotFound404Component } from './not-found404/not-found404.component';
     DashboardComponent,
     LoginComponent,
     HomeComponent,
-    NotFound404Component
+    NotFound404Component,
+    ForgotpasswordComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,

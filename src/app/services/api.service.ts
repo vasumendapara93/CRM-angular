@@ -12,9 +12,28 @@ export class APIService {
   ) { }
 
   private readonly APIorigin: string = "https://r1dq4k84-7246.inc1.devtunnels.ms"
+  private readonly loginAPI: string = this.APIorigin + '/api/user/login'
+  private readonly sendOTPAPI: string = this.APIorigin + '/api/otp/send'
+  private readonly verifyOTPAPI: string = this.APIorigin + '/api/otp/verify'
 
-  Userlogin(email: string, password: string) : Observable<any> {
-      return this.httpClient.post(this.APIorigin + '/api/user/login', { email: email, password: password }).pipe(catchError(this.handleError))
+  userlogin(email: string, password: string): Observable<any> {
+    return this.httpClient.post(this.loginAPI, { email: email, password: password }).pipe(catchError(this.handleError))
+  }
+
+  sendOTP(email: string): Observable<any> {
+    return this.httpClient.post(this.sendOTPAPI, null, {
+      params: {
+        email: email
+      }
+    }).pipe(catchError(this.handleError))
+  }
+
+  verifyOTP(OTP: string): Observable<any> {
+    return this.httpClient.post(this.verifyOTPAPI, null, {
+      params: {
+        OTP: OTP
+      }
+    }).pipe(catchError(this.handleError))
   }
 
   handleError(error: HttpErrorResponse) {
