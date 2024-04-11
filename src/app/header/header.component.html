@@ -27,39 +27,6 @@
         </button>
     </div>
 
-    <!-- Language Dropdown Button -->
-    <div class="relative">
-        <button data-fc-type="dropdown" data-fc-placement="bottom-end" type="button"
-            class="nav-link p-2 waves-effect fc-dropdown">
-            <span class="flex items-center justify-center h-6 w-6">
-                <img src="assets/images/flags/us.jpg" alt="flags img" class="h-4 w-6">
-            </span>
-        </button>
-        <div
-            class="fc-dropdown fc-dropdown-open:opacity-100 hidden opacity-0 w-40 z-50 mt-3 transition-[margin,opacity] duration-300 bg-white shadow-lg border border-gray-200 rounded-lg p-2">
-            <a href="javascript:void(0);"
-                class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                <img src="assets/images/flags/germany.jpg" alt="flags img" class="h-4">
-                <span class="align-middle">German</span>
-            </a>
-            <a href="javascript:void(0);"
-                class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                <img src="assets/images/flags/italy.jpg" alt="flags img" class="h-4">
-                <span class="align-middle">Italian</span>
-            </a>
-            <a href="javascript:void(0);"
-                class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                <img src="assets/images/flags/spain.jpg" alt="flags img" class="h-4">
-                <span class="align-middle">Spanish</span>
-            </a>
-            <a href="javascript:void(0);"
-                class="flex items-center gap-2.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                <img src="assets/images/flags/russia.jpg" alt="flags img" class="h-4">
-                <span class="align-middle">Russian</span>
-            </a>
-        </div>
-    </div>
-
     <!-- Fullscreen Toggle Button -->
     <div class="md:flex hidden">
         <button (click)="toggleFullScreen()" data-toggle="fullscreen" type="button" class="nav-link p-2 waves-effect">
@@ -73,9 +40,14 @@
     <!-- Profile Dropdown Button -->
     <div class="">
         <button (click)="toggleProfileDropdown($event)" class="nav-link flex items-center gap-2.5 waves-effect p-2">
-            <img src="assets/images/users/avatar-6.jpg" alt="user-image" class="rounded-full h-8 w-8">
+            <img *ngIf="this.user?.image; else charactorImage" [src]="this.user?.image" alt="this.user?.name" class="rounded-full h-8 w-8">
+            <ng-template #charactorImage >
+                <div class="rounded-full h-8 w-8 flex justify-center items-center" style="background: #666887;">
+                    <p class="text-white text-lg font-semibold">{{this.user?.name![0].toUpperCase()}}</p>
+                </div>
+            </ng-template>
             <span class="md:flex items-center hidden">
-                <span class="font-medium text-base">Jamie D.</span>
+                <span class="font-medium text-base">{{this.user?.name}}</span>
                 <i class='ph ph-chevron-down'></i>
             </span>
         </button>

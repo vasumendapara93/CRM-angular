@@ -10,9 +10,11 @@ export class AuthService {
   constructor(private router : Router){}
 
   private readonly TOKEN_STORAGE_KEY : string = 'UserData'
+  CurrentUser : IUser = localStorage.getItem(this.TOKEN_STORAGE_KEY) ? JSON.parse(localStorage.getItem(this.TOKEN_STORAGE_KEY)!).user : null
 
   setToken(token : string, user : IUser){
     localStorage.setItem(this.TOKEN_STORAGE_KEY, JSON.stringify({'token' : token, 'user' : user}))
+    this.CurrentUser = user
   }
 
   getToken(){

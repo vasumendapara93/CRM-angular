@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import IUser from '../model/User.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +10,15 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private authService :  AuthService){}
+
+  user : IUser | null = null
+  constructor(
+    private authService :  AuthService,
+    private router : Router
+  ){
+    this.user = authService.CurrentUser
+  }
+
 
   toggleFullScreen() {
     var fullScreenToggleBtnIcon = document.getElementById('fullScreenToggleBtnIcon')
