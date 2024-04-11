@@ -149,7 +149,7 @@ export class ForgotpasswordComponent {
       this.apiService.verifyOTP(this.email.value!,this.otp.value!.toString()).subscribe(
         (response) => {
           if (response.statusCode == 200) {
-            this.msg = "Verifyed"
+            this.msg = ""
           }
           this.isVerifing = false
         },
