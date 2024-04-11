@@ -14,6 +14,9 @@ html,body{
     width: 100%;
 }
 
+body { margin: 0;}
+
+
 a{
     cursor: pointer;
 }
@@ -78,6 +81,44 @@ input[type=number] {
     background: var(--theme-bg);
 }
 
+.collapsible-menu {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 20px 80px 20px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .collapsible-menu.active{
+    background-color: #d90a2c;
+    border-radius: 20px;
+    color: white;
+  }
+  .collapsible-menu.active p{
+    color: white;
+  }
 
-html, body { height: 100%; }
-body { margin: 0;}
+  .fa-chevron-right{
+    transition: 0.2s;
+  }
+
+  .collapsible-menu.active .fa-chevron-right {
+    transform: rotate(90deg);
+  }
+  
+  .collaped-link {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+/*   
+  .answer {
+    padding: 0 10px;
+    line-height: 1.5rem;
+    margin-top: 20px;
+  } */
+
+
