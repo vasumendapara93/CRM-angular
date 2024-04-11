@@ -61,10 +61,10 @@ export class ForgotpasswordComponent {
     var otpBtn = document.getElementById('otpBtn')
     var verifyBtn = document.getElementById('verifyBtn')
     var FormOuter = OTPField?.parentElement?.parentElement?.parentElement
-    var height = 5
-    var oldheight = FormOuter!.offsetHeight + 3
+    var height = 1
+    var oldheight = FormOuter!.offsetHeight
     const interval = setInterval(() => {
-      if (height >= 100) {
+      if (height >= 96) {
         OTPField?.classList.toggle('hidden')
         OTPField?.classList.toggle('opacity-0')
         otpBtn?.classList.toggle('hidden')
@@ -75,9 +75,10 @@ export class ForgotpasswordComponent {
         clearInterval(interval)
       } else {
         FormOuter!.style.height = (oldheight - height) + 'px'
+        console.log(FormOuter!.style.height)
       }
-      height += 3
-    }, 15)
+      height += 1
+    }, 5)
   }
 
   showOTPField() {
@@ -85,10 +86,10 @@ export class ForgotpasswordComponent {
     var otpBtn = document.getElementById('otpBtn')
     var verifyBtn = document.getElementById('verifyBtn')
     var FormOuter = OTPField?.parentElement?.parentElement?.parentElement
-    var height = 5
-    var oldheight = FormOuter!.offsetHeight - 6
+    var height = 1
+    var oldheight = FormOuter!.offsetHeight - 1
     const interval = setInterval(() => {
-      if (height >= 100) {
+      if (height >= 94) {
         OTPField?.classList.toggle('hidden')
         OTPField?.classList.toggle('opacity-0')
         otpBtn?.classList.toggle('hidden')
@@ -100,8 +101,8 @@ export class ForgotpasswordComponent {
       } else {
         FormOuter!.style.height = (oldheight + height) + 'px'
       }
-      height += 3
-    }, 15)
+      height += 1
+    }, 5)
   }
 
   changeEmail() {
