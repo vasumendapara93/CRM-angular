@@ -20,15 +20,20 @@ export class ForgotpasswordComponent {
   showCountDown = false
   timer = ""
   showChangeEmailBtn = false
-  stopTimerInterval: Function = ()=>{}
+  stopTimerInterval: Function = () => { }
+  resendOTPEnable = false
+  stopResendOTPTimeout: Function = () => { }
 
   startCountDown() {
     this.timer = ""
     var distance = 120000
-    this.showCountDown = true
     var timerInvterval = setInterval(() => {
       if (distance <= 0) {
         clearInterval(timerInvterval)
+      }
+      if (!this.showCountDown) {
+        this.showCountDown = true
+        this.resendOTPTimeout()
       }
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -38,6 +43,14 @@ export class ForgotpasswordComponent {
 
     this.stopTimerInterval = () => {
       clearInterval(timerInvterval)
+    }
+  }
+
+  resendOTPTimeout() {
+    const resentTimeOut = setTimeout(() => this.resendOTPEnable = true, 30000)
+    this.stopResendOTPTimeout = () => {
+      this.resendOTPEnable = false
+      clearTimeout(resentTimeOut)
     }
   }
 
@@ -51,7 +64,7 @@ export class ForgotpasswordComponent {
       Validators.required
     ])
 
-    forgotPasswordForm = new FormGroup({
+  forgotPasswordForm = new FormGroup({
     email: this.email,
     password: this.otp,
   })
@@ -75,7 +88,6 @@ export class ForgotpasswordComponent {
         clearInterval(interval)
       } else {
         FormOuter!.style.height = (oldheight - height) + 'px'
-        console.log(FormOuter!.style.height)
       }
       height += 1
     }, 5)
@@ -94,6 +106,7 @@ export class ForgotpasswordComponent {
         OTPField?.classList.toggle('opacity-0')
         otpBtn?.classList.toggle('hidden')
         verifyBtn?.classList.toggle('hidden')
+        console.log()
         setTimeout(() => {
           FormOuter!.style.height = 'auto'
         }, 1000);
@@ -114,6 +127,40 @@ export class ForgotpasswordComponent {
     this.showCountDown = false
     this.hideOTPField()
     this.stopTimerInterval()
+    this.stopResendOTPTimeout()
+  }
+
+  resendOTP(event: Event) {
+    event.preventDefault()
+    this.email.enable()
+    if (this.email.valid) {
+      this.isVerifing = true
+      this.resendOTPEnable = false
+      this.timer = ""
+      this.stopResendOTPTimeout()
+      this.stopTimerInterval()
+      this.apiService.sendOTP(this.email.value!).subscribe(
+        (response) => {
+          if (response.statusCode == 200) {
+            this.msg = ""
+            this.email.disable()
+            this.startCountDown()
+            this.resendOTPTimeout()
+          }
+          this.isVerifing = false
+          this.showChangeEmailBtn = true
+        },
+        (error) => {
+          console.log(error.error)
+          if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
+            this.msg = error.error.errorMessages[0]
+          } else {
+            this.msg = "Somthing Is Wrong Try Again Later"
+          }
+          this.isVerifing = false
+        }
+      )
+    }
   }
 
   getOTP(event: Event) {
@@ -147,7 +194,7 @@ export class ForgotpasswordComponent {
   async verify() {
     if (this.forgotPasswordForm.valid) {
       this.isVerifing = true
-      this.apiService.verifyOTP(this.email.value!,this.otp.value!.toString()).subscribe(
+      this.apiService.verifyOTP(this.email.value!, this.otp.value!.toString()).subscribe(
         (response) => {
           if (response.statusCode == 200) {
             this.msg = ""
@@ -164,7 +211,7 @@ export class ForgotpasswordComponent {
           this.isVerifing = false
         }
       )
-      
+
     }
   }
 }

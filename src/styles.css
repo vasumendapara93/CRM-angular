@@ -21,6 +21,10 @@ a{
     cursor: pointer;
 }
 
+.primary-text-color{
+  color: var(--theme-bg);
+}
+
 
 /* login start */
 .login-outer{
@@ -91,7 +95,7 @@ input[type=number] {
     cursor: pointer;
     z-index: 10;
   }
-  
+
   .collapsible-menu.active{
     background-color: #d90a2c;
     border-radius: 20px;
