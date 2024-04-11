@@ -15,6 +15,7 @@ export class APIService {
   private readonly loginAPI: string = this.APIorigin + '/api/user/login'
   private readonly sendOTPAPI: string = this.APIorigin + '/api/otp/send'
   private readonly verifyOTPAPI: string = this.APIorigin + '/api/otp/verify'
+  private readonly changePasswordAPI: string = this.APIorigin + '/api/user/password/change'
 
   userlogin(email: string, password: string): Observable<any> {
     return this.httpClient.post(this.loginAPI, { email: email, password: password }).pipe(catchError(this.handleError))
@@ -32,6 +33,13 @@ export class APIService {
     return this.httpClient.post(this.verifyOTPAPI, {
       email: email,
       OTP: OTP
+    }).pipe(catchError(this.handleError))
+  }
+
+  changePassword(email: string, newPassword: string): Observable<any> {
+    return this.httpClient.post(this.changePasswordAPI, {
+      email: email,
+      newPassword: newPassword
     }).pipe(catchError(this.handleError))
   }
 

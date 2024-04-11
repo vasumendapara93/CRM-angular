@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { delay, interval, timeInterval } from 'rxjs';
 import { APIService } from '../services/api.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -11,9 +12,12 @@ import { APIService } from '../services/api.service';
 export class ForgotpasswordComponent {
 
   constructor(
-    private apiService: APIService
+    private apiService: APIService,
+    private authService : AuthService,
+    private router : Router
   ) { }
 
+  showmsg = false
   isSendingOTP = false
   isVerifing = false
   msg = ""
@@ -23,6 +27,9 @@ export class ForgotpasswordComponent {
   stopTimerInterval: Function = () => { }
   resendOTPEnable = false
   stopResendOTPTimeout: Function = () => { }
+  showPassword = false
+  emailValue = ""
+  isChanging = false
 
   startCountDown() {
     this.timer = ""
@@ -63,10 +70,17 @@ export class ForgotpasswordComponent {
     [
       Validators.required
     ])
+  newPassword = new FormControl('',
+    [
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/),
+      Validators.required
+    ]
+  )
 
   forgotPasswordForm = new FormGroup({
     email: this.email,
-    password: this.otp,
+    otp: this.otp,
+    newPassword : this.newPassword
   })
 
   hideOTPField() {
@@ -95,7 +109,7 @@ export class ForgotpasswordComponent {
 
   showOTPField() {
     var OTPField = document.getElementById('OTPField')
-    var otpBtn = document.getElementById('otpBtn')
+    var otpBtn = document.getElementById('optBtn')
     var verifyBtn = document.getElementById('verifyBtn')
     var FormOuter = OTPField?.parentElement?.parentElement?.parentElement
     var height = 1
@@ -116,6 +130,48 @@ export class ForgotpasswordComponent {
       }
       height += 1
     }, 5)
+  }
+
+  showNewPasswordField(){
+    var newPasswordFied = document.getElementById('newPasswordFied')
+    var OTPField = document.getElementById('OTPField')
+    var emailField = document.getElementById('emailField')
+    var changePasswordBtn = document.getElementById('changePasswordBtn')
+    var verifyBtn = document.getElementById('verifyBtn')
+    var FormOuter = newPasswordFied?.parentElement?.parentElement
+    var height = 1
+    var oldheight = FormOuter!.offsetHeight
+    const interval = setInterval(() => {
+      if (height >= 93) {
+        newPasswordFied?.classList.toggle('hidden')
+        newPasswordFied?.classList.toggle('opacity-0')
+        OTPField?.classList.toggle('hidden')
+        OTPField?.classList.toggle('opacity-0')
+        changePasswordBtn?.classList.toggle('hidden')
+        emailField?.classList.toggle('hidden')
+        verifyBtn?.classList.toggle('hidden')
+        this.showCountDown = false
+        this.resendOTPEnable = false
+        this.timer = ""
+        this.stopResendOTPTimeout()
+        this.stopTimerInterval()
+        setTimeout(() => {
+          FormOuter!.style.height = 'auto'
+        }, 700);
+        clearInterval(interval)
+      } else {
+        FormOuter!.style.height = (oldheight - height) + 'px'
+      }
+      height += 1
+    }, 5)
+  }
+
+  showPasswordToggle(event : Event){
+    event.preventDefault()
+    var eyeIcon = document.getElementById('eye-icon')
+    eyeIcon?.classList.toggle('fa-eye')
+    eyeIcon?.classList.toggle('fa-eye-slash')
+    this.showPassword = !this.showPassword
   }
 
   changeEmail() {
@@ -143,6 +199,7 @@ export class ForgotpasswordComponent {
         (response) => {
           if (response.statusCode == 200) {
             this.msg = ""
+            this.showmsg = false
             this.email.disable()
             this.startCountDown()
             this.resendOTPTimeout()
@@ -154,8 +211,10 @@ export class ForgotpasswordComponent {
           console.log(error.error)
           if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
             this.msg = error.error.errorMessages[0]
+            this.showmsg = true
           } else {
             this.msg = "Somthing Is Wrong Try Again Later"
+            this.showmsg = true
           }
           this.isVerifing = false
         }
@@ -170,6 +229,7 @@ export class ForgotpasswordComponent {
       this.apiService.sendOTP(this.email.value!).subscribe(
         (response) => {
           if (response.statusCode == 200) {
+            this.showmsg = false
             this.msg = ""
             this.email.disable()
             this.startCountDown()
@@ -182,8 +242,10 @@ export class ForgotpasswordComponent {
           console.log(error.error)
           if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
             this.msg = error.error.errorMessages[0]
+            this.showmsg = true
           } else {
             this.msg = "Somthing Is Wrong Try Again Later"
+            this.showmsg = true
           }
           this.isSendingOTP = false
         }
@@ -191,13 +253,20 @@ export class ForgotpasswordComponent {
     }
   }
 
-  async verify() {
-    if (this.forgotPasswordForm.valid) {
+ verify(event : Event) {
+  event.preventDefault()
+  this.email.enable()
+    if (this.email.valid) {
+      this.email.disable()
       this.isVerifing = true
-      this.apiService.verifyOTP(this.email.value!, this.otp.value!.toString()).subscribe(
+      this.emailValue = this.email.value!
+      this.apiService.verifyOTP(this.emailValue, this.otp.value!.toString()).subscribe(
         (response) => {
           if (response.statusCode == 200) {
-            this.msg = ""
+            this.msg = ''
+            this.showmsg = false
+            this.email.disable()
+            this.showNewPasswordField()
           }
           this.isVerifing = false
         },
@@ -205,13 +274,67 @@ export class ForgotpasswordComponent {
           console.log(error.error)
           if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
             this.msg = error.error.errorMessages[0]
+            this.showmsg= true
           } else {
             this.msg = "Somthing Is Wrong Try Again Later"
+            this.showmsg = true
           }
           this.isVerifing = false
         }
       )
+    }
+  }
 
+  changePassword(event : Event) {
+    event.preventDefault()
+    if (this.newPassword.valid) {
+      this.isChanging = true
+      this.email.disable()
+      this.apiService.changePassword(this.emailValue, this.newPassword.value!.toString()).subscribe(
+        (response) => {
+          console.log(response)
+          if (response.statusCode == 200) {
+            this.msg = ''
+            this.showmsg = false
+            this.apiService.userlogin(this.emailValue, this.newPassword.value!).subscribe(
+              (response) => {
+                console.log(response)
+                if (response.data) {
+                  this.msg = ""
+                  this.authService.setToken(response.data.token, response.data.user)
+                  this.router.navigate([''])
+                  this.isChanging = false
+                } else {
+                  this.msg = "Somthing Is Wrong Try Again Later"
+                  this.isChanging = false
+                }
+              },
+              (error) => {
+                console.log(error.error )
+                this.isChanging = false
+                if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
+                  this.msg = error.error.errorMessages[0]
+                } else {
+                  this.msg = "Somthing Is Wrong Try Again Later"
+                  this.isChanging = false
+                }
+              }
+            )
+          }
+          
+        },
+        (error) => {
+          console.log(error.error)
+          if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
+            this.msg = error.error.errorMessages[0]
+            this.showmsg= true
+          } else {
+            this.msg = "Somthing Is Wrong Try Again Later"
+            this.showmsg = true
+          }
+          this.isChanging = false
+        }
+      )
     }
   }
 }
