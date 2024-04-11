@@ -20,8 +20,6 @@ export class ForgotpasswordComponent {
   showCountDown = false
   timer = ""
   showChangeEmailBtn = false
-
-  emailValue: string = ""
   stopTimerInterval: Function = ()=>{}
 
   startCountDown() {
@@ -121,8 +119,7 @@ export class ForgotpasswordComponent {
     event.preventDefault()
     if (this.email.valid) {
       this.isSendingOTP = true
-      this.emailValue = this.email.value!
-      this.apiService.sendOTP(this.emailValue).subscribe(
+      this.apiService.sendOTP(this.email.value!).subscribe(
         (response) => {
           if (response.statusCode == 200) {
             this.msg = ""
@@ -149,13 +146,10 @@ export class ForgotpasswordComponent {
   async verify() {
     if (this.forgotPasswordForm.valid) {
       this.isVerifing = true
-      this.apiService.verifyOTP(this.otp.value!.toString()).subscribe(
+      this.apiService.verifyOTP(this.email.value!,this.otp.value!.toString()).subscribe(
         (response) => {
           if (response.statusCode == 200) {
-            this.msg = ""
-            this.email.disable()
-            this.startCountDown()
-            this.showOTPField()
+            this.msg = "Verifyed"
           }
           this.isVerifing = false
         },

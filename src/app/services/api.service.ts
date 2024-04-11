@@ -22,17 +22,16 @@ export class APIService {
 
   sendOTP(email: string): Observable<any> {
     return this.httpClient.post(this.sendOTPAPI, null, {
-      params: {
+      params : {
         email: email
       }
     }).pipe(catchError(this.handleError))
   }
 
-  verifyOTP(OTP: string): Observable<any> {
-    return this.httpClient.post(this.verifyOTPAPI, null, {
-      params: {
-        OTP: OTP
-      }
+  verifyOTP(email: string, OTP: string): Observable<any> {
+    return this.httpClient.post(this.verifyOTPAPI, {
+      email: email,
+      OTP: OTP
     }).pipe(catchError(this.handleError))
   }
 
