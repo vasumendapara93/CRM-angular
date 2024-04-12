@@ -301,7 +301,7 @@ export class ForgotpasswordComponent {
                 console.log(response)
                 if (response.data) {
                   this.msg = ""
-                  this.authService.setToken(response.data.token, response.data.user)
+                  this.authService.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
                   this.router.navigate([''])
                   this.isChanging = false
                 } else {
