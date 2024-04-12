@@ -3,6 +3,7 @@ import { APIService } from '../services/api.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -14,16 +15,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private apiService: APIService,
     private router: Router,
-    private authService: AuthService
+    private storageService: StorageService
   ) { }
 
   ngOnInit(): void {
-    this.email.setValue(localStorage.getItem(this.REMEMBER_STORAGE_KEY))
+    this.storageService.getRememberEmail()
   }
 
   isLogingIn = false
   msg = ""
-  REMEMBER_STORAGE_KEY = "remembered_email"
 
   email = new FormControl('',
     [
@@ -50,9 +50,9 @@ export class LoginComponent implements OnInit {
         (response) => {
           if (response.data) {
             this.msg = ""
-            this.authService.setToken(response.data.token, response.data.user)
+            this.storageService.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
             if (this.rememberMe.value) {
-              localStorage.setItem(this.REMEMBER_STORAGE_KEY, this.email.value!)
+              this.storageService.setRememberEmail(this.email.value!)
             }
             this.router.navigate([''])
           } else {

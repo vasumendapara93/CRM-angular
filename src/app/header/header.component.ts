@@ -1,24 +1,43 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import IUser from '../model/User.model';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
+import { APIService } from '../services/api.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
 
   user : IUser | null = null
   constructor(
-    private authService :  AuthService,
-    private router : Router
-  ){
-    // this.user = authService.CurrentUser
-  }
+    private storageService :  StorageService,
+    private apiService : APIService,
+    private router : Router,
+    private authService : AuthService
+  ){}
 
+  ngOnInit(): void {
+    try{
+      var userId = this.storageService.getUserId()
+      if(userId == null){
+        // this.router.navigate(['login'])
+      }
+    this.apiService.getUser(userId!).then((response)=>{
+      if(response){
+        this.user = response.data
+      }else {
+        // this.router.navigate(['login'])
+      }
+     })   
+    }catch(e){
+      this.router.navigate(['login'])
+    }
+  }
 
   toggleFullScreen() {
     var fullScreenToggleBtnIcon = document.getElementById('fullScreenToggleBtnIcon')

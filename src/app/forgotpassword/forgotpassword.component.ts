@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { APIService } from '../services/api.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -13,7 +14,7 @@ export class ForgotpasswordComponent {
 
   constructor(
     private apiService: APIService,
-    private authService : AuthService,
+    private storageService : StorageService,
     private router : Router
   ) { }
 
@@ -301,7 +302,7 @@ export class ForgotpasswordComponent {
                 console.log(response)
                 if (response.data) {
                   this.msg = ""
-                  this.authService.setToken(response.data.token, response.data.user)
+                  this.storageService.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
                   this.router.navigate([''])
                   this.isChanging = false
                 } else {
