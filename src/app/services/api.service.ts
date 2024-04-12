@@ -42,7 +42,7 @@ export class APIService {
 
   sendOTP(email: string): Observable<any> {
     return this.httpClient.post(this.sendOTPAPI, null, {
-      params: {
+      params : {
         email: email
       }
     }).pipe(catchError(this.handleError))

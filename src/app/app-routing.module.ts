@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './services/auth.guard';
 import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { LeadsComponent } from './leads/leads.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -13,7 +15,18 @@ const routes: Routes = [
     data: {
       authOnly: true,
     },
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: DashboardComponent
+    },
+      {
+          path: 'leads',
+          component: LeadsComponent
+      },
+      
+    ]
   },
   {
     path: 'login',

@@ -12,7 +12,7 @@
             <li class="menu-title">Menu</li>
 
             <li class="menu-item">
-                <a href="index.html" class="menu-link waves-effect">
+                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="menu-link waves-effect">
                     <span class="menu-icon"><i class="fa-solid fa-house fa-xs"></i></span>
                     <p class="menu-text"> Dashboard </p>
                     <span class="badge bg-primary rounded ms-auto">01</span>
@@ -20,9 +20,9 @@
             </li>
 
             <li class="menu-item">
-                <a href="calendar.html" class="menu-link waves-effect">
-                    <span class="menu-icon"><i class="fa-solid fa-calendar-days fa-xs"></i></span>
-                    <p class="menu-text"> Calendar </p>
+                <a routerLink="/leads" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="menu-link waves-effect">
+                    <span class="menu-icon"><i class="fa-solid fa-user fa-xs"></i></span>
+                    <p class="menu-text"> Leads </p>
                 </a>
             </li>
 
