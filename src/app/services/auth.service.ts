@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import IUser from '../model/User.model';
 import { Router } from '@angular/router';
 import { APIService } from './api.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,41 +11,16 @@ export class AuthService {
 
   constructor(
     private router : Router,
-    private apiService : APIService
+    private apiService : APIService,
+    private storageService : StorageService
   ){}
 
-  private readonly ACCESS_TOKEN_STORAGE_KEY : string = 'AccessToken'
-  private readonly REFRESH_TOKEN_STORAGE_KEY : string = 'RefreshToken'
-  private readonly USER_ID_STORAGE_KEY : string = 'UserID'
-  // CurrentUser : IUser = localStorage.getItem(this.USER_INFO_STORAGE_KEY) ? JSON.parse(localStorage.getItem(this.USER_INFO_STORAGE_KEY)!) : null
-
-  setToken(accessToken : string, refreshToken : string,  userId : string){
-    localStorage.setItem(this.ACCESS_TOKEN_STORAGE_KEY, accessToken)
-    localStorage.setItem(this.REFRESH_TOKEN_STORAGE_KEY, refreshToken)
-    localStorage.setItem(this.USER_ID_STORAGE_KEY, userId)
-  }
-
-  getAccessToken(){
-    return localStorage.getItem(this.ACCESS_TOKEN_STORAGE_KEY)
-  }
-  
-  getUserId(){
-    return localStorage.getItem(this.USER_ID_STORAGE_KEY)
-  }
-
-  removeAllTokens(){
-    localStorage.removeItem(this.ACCESS_TOKEN_STORAGE_KEY)
-    localStorage.removeItem(this.REFRESH_TOKEN_STORAGE_KEY)
-    localStorage.removeItem(this.USER_ID_STORAGE_KEY)
-  }
-
   async isLoggedIn(){
-    const userId = localStorage.getItem(this.USER_ID_STORAGE_KEY);
-    console.log(userId)
+    const userId = this.storageService.getUserId();
     if(userId==null || userId == ""){
       return false
     }
-    const accessToken = localStorage.getItem(this.ACCESS_TOKEN_STORAGE_KEY); 
+    const accessToken = this.storageService.getAccessToken(); 
     if(accessToken==null || accessToken == ""){
       return false
     }
@@ -54,14 +30,14 @@ export class AuthService {
       return true
     }
     else{
-      const refreshToken = localStorage.getItem(this.REFRESH_TOKEN_STORAGE_KEY); 
+      const refreshToken = this.storageService.getRefreshToken(); 
       if(refreshToken==null || refreshToken == ""){
         return false
       }
       try{
         var response  = await this.apiService.refreshToken(accessToken, refreshToken)
         if (response.data) {
-          this.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
+          this.storageService.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
           return true
         } else {
           return false
@@ -74,7 +50,7 @@ export class AuthService {
   }
 
   logout(){
-    this.removeAllTokens()
+    this.storageService.removeAllTokens()
     this.router.navigate(['login'])
   }
 }

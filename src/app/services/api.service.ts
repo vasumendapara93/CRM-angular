@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, catchError, lastValueFrom, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class APIService {
   constructor(
     private httpClient: HttpClient,
     private router : Router,
-    private authService: AuthService
+    private storageService : StorageService
   ) { }
 
   private readonly APIorigin: string = "https://r1dq4k84-7246.inc1.devtunnels.ms"
@@ -24,16 +25,16 @@ export class APIService {
   private readonly GET_USER_API: string = this.APIorigin + '/api/user'
 
 
-  // async getAuthorizationHeader(){
-  //     var token =  this.authService.getAccessToken()
-  //     if(token == null){
-  //       this.router.navigate(["login"])
-  //       return new HttpHeaders()
-  //     }
-  //     return new HttpHeaders().set(
-  //       "Authorization", token!
-  //     )
-  // }
+  async getAuthorizationHeader(){
+      var token =  this.storageService.getAccessToken()
+      if(token == null){
+        // this.router.navigate(["login"])
+        return new HttpHeaders()
+      }
+      return new HttpHeaders().set(
+        "Authorization", token!
+      )
+  }
 
   userlogin(email: string, password: string): Observable<any> {
     return this.httpClient.post(this.loginAPI, { email: email, password: password }).pipe(catchError(this.handleError))
@@ -74,7 +75,7 @@ export class APIService {
         params: {
           userId: userId
         }, 
-        // headers : await this.getAuthorizationHeader()
+        headers : await this.getAuthorizationHeader()
       }).toPromise()
     }
     catch (e) {
