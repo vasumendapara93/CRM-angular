@@ -36,8 +36,9 @@ export class AuthService {
       }
       try{
         var response  = await this.apiService.refreshToken(accessToken, refreshToken)
+        console.log(response)
         if (response.data) {
-          this.storageService.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
+          await this.storageService.setRefreshedAccessToken(response.data.accessToken, response.data.refreshToken)
           return true
         } else {
           return false

@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.storageService.getRememberEmail()
+    this.email.setValue(this.storageService.getRememberEmail())
   }
 
   isLogingIn = false
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           console.log(error.error )
-          if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
+          if (error.error.errorMessages[0]|| error.error.errorMessages[0] != "") {
             this.msg = error.error.errorMessages[0]
           } else {
             this.msg = "Somthing Is Wrong Try Again Later"

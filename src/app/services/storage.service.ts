@@ -15,6 +15,11 @@ export class StorageService {
     localStorage.setItem(this.USER_ID_STORAGE_KEY, userId)
   }
 
+  setRefreshedAccessToken(accessToken : string, refreshToken : string){
+    localStorage.setItem(this.ACCESS_TOKEN_STORAGE_KEY, accessToken)
+    localStorage.setItem(this.REFRESH_TOKEN_STORAGE_KEY, refreshToken)
+  }
+
   getAccessToken(){
     return localStorage.getItem(this.ACCESS_TOKEN_STORAGE_KEY)
   }
