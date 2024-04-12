@@ -16,7 +16,7 @@ export class HeaderComponent {
     private authService :  AuthService,
     private router : Router
   ){
-    this.user = authService.CurrentUser
+    // this.user = authService.CurrentUser
   }
 
 
