@@ -1,18 +1,6 @@
 <main class="p-6">
-
-    <!-- Page Title Start -->
-    <div class="flex justify-between items-center mb-6">
-        <h4 class="text-slate-900 text-lg font-medium">Dashboard</h4>
-
-        <div class="md:flex hidden items-center gap-3 text-sm font-semibold">
-            <a href="#" class="text-sm font-medium text-slate-700">Lunoz</a>
-            <i class="fa-solid fa-chevron-right"></i>
-            <a href="#" class="text-sm font-medium text-slate-700">Menu</a>
-            <i class="fa-solid fa-chevron-right"></i>
-            <a href="#" class="text-sm font-medium text-slate-700" aria-current="page">Dashboard</a>
-        </div>
-    </div>
-    <!-- Page Title End -->
+    
+    <app-page-heading heading="Dashboard" [navigations]="['Menu', 'Dashboard']"></app-page-heading>
 
     <div class="grid xl:grid-cols-4 md:grid-cols-2 gap-6 mb-6">
         <div class="col-xl-3 col-md-6">
