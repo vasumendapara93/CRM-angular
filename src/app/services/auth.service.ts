@@ -19,7 +19,8 @@ export class AuthService {
         if (userId == null || userId == "") {
             return false
         }
-        if(!this.tokenService.isAccessTokenExpired()){
+
+        if(this.tokenService.isAccessTokenActive()){
             return true
         }
         else {

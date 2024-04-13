@@ -28,7 +28,7 @@ export class APIService {
   async getAuthorizationHeader(){
       var token =  this.storageService.getAccessToken()
       if(token == null){
-        // this.router.navigate(["login"])
+        this.router.navigate(["login"])
         return new HttpHeaders()
       }
       return new HttpHeaders().set(

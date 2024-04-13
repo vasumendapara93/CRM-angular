@@ -13,7 +13,7 @@ export class TokenService {
     private apiService: APIService
   ) { }
 
-  isAccessTokenExpired(): boolean {
+  isAccessTokenActive(): boolean {
     const accessToken = this.storageService.getAccessToken();
     if (accessToken == null || accessToken == "") {
       return false

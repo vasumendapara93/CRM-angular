@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
 
       this.apiService.userlogin(this.email.value!, this.password.value!).subscribe(
         (response) => {
+          console.log(response)
           if (response.data) {
             this.msg = ""
             this.storageService.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
