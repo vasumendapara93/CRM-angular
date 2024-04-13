@@ -17,7 +17,6 @@ import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
-import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -32,8 +31,7 @@ import { SharedModule } from './shared/shared.module';
     NotFound404Component,
     ForgotpasswordComponent,
     LoginModalComponent,
-    LeadsComponent,
-    ProfileComponent
+    LeadsComponent
   ],
   imports: [
     BrowserModule,
