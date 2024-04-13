@@ -2,7 +2,8 @@
 module.exports = {
   content: [
     "./src/**/*.{html,js}",
-],
+    
+],safelist: ['bg-gray-100'],
   theme: {
     extend: {},
     colors: {

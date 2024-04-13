@@ -7,6 +7,7 @@ import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LeadsComponent } from './leads/leads.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,10 @@ const routes: Routes = [
           path: 'leads',
           component: LeadsComponent
       },
-      
+      {
+        path: 'profile',
+        component: ProfileComponent
+      }
     ]
   },
   {
