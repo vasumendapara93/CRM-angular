@@ -17,8 +17,12 @@ import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
+<<<<<<< HEAD
 import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from './shared/shared.module';
+=======
+import { TagComponent } from './tag/tag.component';
+>>>>>>> b1c057d67b5ffa2dd1930e42befd4ec49523ab16
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { SharedModule } from './shared/shared.module';
     ForgotpasswordComponent,
     LoginModalComponent,
     LeadsComponent,
+<<<<<<< HEAD
     ProfileComponent
+=======
+    TagComponent
+>>>>>>> b1c057d67b5ffa2dd1930e42befd4ec49523ab16
   ],
   imports: [
     BrowserModule,
