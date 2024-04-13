@@ -17,11 +17,8 @@ import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
-<<<<<<< HEAD
-import { SharedModule } from './shared/shared.module';
-=======
 import { ProfileComponent } from './profile/profile.component';
->>>>>>> 64c7a7ef55f832c777c711517803b91fdf716350
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [

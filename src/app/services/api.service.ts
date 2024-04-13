@@ -32,7 +32,7 @@ export class APIService {
         return new HttpHeaders()
       }
       return new HttpHeaders().set(
-        "Authorization", token!
+        "Authorization",`Bearer ${token}`!
       )
   }
 

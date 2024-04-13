@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     try{
       var userId = this.storageService.getUserId()
       if(userId == null){
-        // this.router.navigate(['login'])
+        this.router.navigate(['login'])
       }
     this.apiService.getUser(userId!).then((response)=>{
       if(response){
