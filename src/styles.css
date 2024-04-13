@@ -57,9 +57,9 @@ a{
     background:  var(--theme-bg);
 }
 
-.login-btn[disabled]{
+/* .login-btn[disabled]{
     background: var(--disabled-button-color);
-}   
+}    */
 
 .change-icon-outer{
     height: 3rem;

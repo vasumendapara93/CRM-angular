@@ -2868,7 +2868,6 @@ html[data-sidebar-view=mobile].sidebar-open .app-menu {
 .app-header {
     position: sticky;
     top: 0;
-    border-bottom-width: 1px;
     z-index: 35;
     background: var(--tw-topbar-bg);
     height: var(--tw-topbar-height)

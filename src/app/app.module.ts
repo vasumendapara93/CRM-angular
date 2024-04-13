@@ -17,6 +17,7 @@ import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LeadsComponent } from './leads/leads.component';
     NgApexchartsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

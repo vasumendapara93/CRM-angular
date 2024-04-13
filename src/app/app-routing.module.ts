@@ -5,8 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './services/auth.guard';
 import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { LeadsComponent } from './leads/leads.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LeadsComponent } from './leads/leads.component';
 
 const routes: Routes = [
   {
@@ -37,9 +37,9 @@ const routes: Routes = [
     component: ForgotpasswordComponent
   },
   {
-    path: '**',
+    path: '',
     component: NotFound404Component
-  },
+  },
 
 ];
 
