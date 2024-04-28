@@ -25,65 +25,17 @@ export class APIService {
   private readonly GET_USER_API: string = this.APIorigin + '/api/user'
 
 
-  async getAuthorizationHeader(){
-      var token =  this.storageService.getAccessToken()
-      if(token == null){
-        this.router.navigate(["login"])
-        return new HttpHeaders()
-      }
-      return new HttpHeaders().set(
-        "Authorization",`Bearer ${token}`!
-      )
+  
+
+  get(url:string, options? : object | undefined): any{
+    return this.httpClient.get(url, options).pipe(catchError(this.handleError))
   }
 
-  userlogin(email: string, password: string): Observable<any> {
-    return this.httpClient.post(this.loginAPI, { email: email, password: password }).pipe(catchError(this.handleError))
-  }
-
-  sendOTP(email: string): Observable<any> {
-    return this.httpClient.post(this.sendOTPAPI, null, {
-      params : {
-        email: email
-      }
-    }).pipe(catchError(this.handleError))
-  }
-
-  verifyOTP(email: string, OTP: string): Observable<any> {
-    return this.httpClient.post(this.verifyOTPAPI, {
-      email: email,
-      OTP: OTP
-    }).pipe(catchError(this.handleError))
-  }
-
-  changePassword(email: string, newPassword: string): Observable<any> {
-    return this.httpClient.post(this.changePasswordAPI, {
-      email: email,
-      newPassword: newPassword
-    }).pipe(catchError(this.handleError))
-  }
-
-  async refreshToken(accessToken: string, refreshToken: string): Promise<any> {
-    return await this.httpClient.post(this.REFRESH_TOKEN_API, {
-      accessToken: accessToken,
-      refreshToken: refreshToken
-    }).toPromise()
-  }
-
-  async getUser(userId: string): Promise<any> {
-    try {
-      return await this.httpClient.get(this.GET_USER_API, {
-        params: {
-          userId: userId
-        }, 
-        headers : await this.getAuthorizationHeader()
-      }).toPromise()
-    }
-    catch (e) {
-      throwError(e);
-    }
+  post(url:string, body : any, options? : object | undefined) : any{
+    return this.httpClient.post(url, body, options).pipe(catchError(this.handleError))
   }
 
   handleError(error: HttpErrorResponse) {
-    return throwError(error);
+    return throwError(() => error);
   }
 }

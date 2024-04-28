@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import IUser from '../model/User.model';
 import { StorageService } from './storage.service';
 import { APIService } from './api.service';
+import { API } from 'src/assets/static/API';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,10 @@ export class TokenService {
       if (refreshToken == null || refreshToken == "") {
         return false
       }
-      var response = await this.apiService.refreshToken(accessToken, refreshToken)
+      var response = await this.apiService.post(API.REFRESH_TOKEN, {
+        accessToken: accessToken,
+        refreshToken: refreshToken
+      }).toPromise()
       console.log(response)
       if (response.data) {
         await this.storageService.setRefreshedAccessToken(response.data.accessToken, response.data.refreshToken)
