@@ -13,7 +13,7 @@ import { StorageService } from '../services/storage.service';
 export class ForgotpasswordComponent {
 
   constructor(
-    private apiService: APIService,
+    private authService: AuthService,
     private storageService : StorageService,
     private router : Router
   ) { }
@@ -196,7 +196,7 @@ export class ForgotpasswordComponent {
       this.timer = ""
       this.stopResendOTPTimeout()
       this.stopTimerInterval()
-      this.apiService.sendOTP(this.email.value!).subscribe(
+      this.authService.sendOTP(this.email.value!).subscribe(
         (response) => {
           if (response.statusCode == 200) {
             this.msg = ""
@@ -227,7 +227,7 @@ export class ForgotpasswordComponent {
     event.preventDefault()
     if (this.email.valid) {
       this.isSendingOTP = true
-      this.apiService.sendOTP(this.email.value!).subscribe(
+      this.authService.sendOTP(this.email.value!).subscribe(
         (response) => {
           if (response.statusCode == 200) {
             this.showmsg = false
@@ -261,7 +261,7 @@ export class ForgotpasswordComponent {
       this.email.disable()
       this.isVerifing = true
       this.emailValue = this.email.value!
-      this.apiService.verifyOTP(this.emailValue, this.otp.value!.toString()).subscribe(
+      this.authService.verifyOTP(this.emailValue, this.otp.value!.toString()).subscribe(
         (response) => {
           if (response.statusCode == 200) {
             this.msg = ''
@@ -291,13 +291,13 @@ export class ForgotpasswordComponent {
     if (this.newPassword.valid) {
       this.isChanging = true
       this.email.disable()
-      this.apiService.changePassword(this.emailValue, this.newPassword.value!.toString()).subscribe(
+      this.authService.changePassword(this.emailValue, this.newPassword.value!.toString()).subscribe(
         (response) => {
           console.log(response)
           if (response.statusCode == 200) {
             this.msg = ''
             this.showmsg = false
-            this.apiService.userlogin(this.emailValue, this.newPassword.value!).subscribe(
+            this.authService.userlogin(this.emailValue, this.newPassword.value!).subscribe(
               (response) => {
                 console.log(response)
                 if (response.data) {

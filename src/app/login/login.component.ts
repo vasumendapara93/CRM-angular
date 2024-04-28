@@ -13,7 +13,7 @@ import { StorageService } from '../services/storage.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private apiService: APIService,
+    private authService: AuthService,
     private router: Router,
     private storageService: StorageService
   ) { }
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLogingIn = true;
 
-      this.apiService.userlogin(this.email.value!, this.password.value!).subscribe(
+      this.authService.userlogin(this.email.value!, this.password.value!).subscribe(
         (response) => {
           console.log(response)
           if (response.data) {

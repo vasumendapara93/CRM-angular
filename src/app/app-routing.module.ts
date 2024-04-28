@@ -8,6 +8,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LeadsComponent } from './leads/leads.component';
+import { UserResolveService } from './services/user-resolve.service';
 
 const routes: Routes = [
   {
@@ -17,20 +18,23 @@ const routes: Routes = [
       authOnly: true,
     },
     canActivate: [AuthGuard],
+    resolve: {
+      user: UserResolveService
+    },
     children: [
       {
         path: '',
         component: DashboardComponent
-    },
+      },
       {
-          path: 'leads',
-          component: LeadsComponent
+        path: 'leads',
+        component: LeadsComponent
       },
       {
         path: 'profile',
         component: ProfileComponent
-      }
-    ]
+      },
+    ],
   },
   {
     path: 'login',
@@ -43,7 +47,7 @@ const routes: Routes = [
   {
     path: '',
     component: NotFound404Component
-  },
+  },
 
 ];
 
