@@ -2,6 +2,31 @@
 
     <app-page-heading heading="Leads" [navigations]="['Menu', 'Leads']"></app-page-heading>
 
+
+    <div class="flex justify-end gap-4 w-full mb-4">
+        <!-- Profile Dropdown Button -->
+        <div class="">
+            <button (click)="toggleCreateLeadDropdown($event)"
+                class="nav-link flex items-center gap-2.5 waves-effect px-3 py-5 rounded-lg bg-themeblue-100">
+                <i class="fa-solid fa-plus fa-xl" style="color: #11153e;"></i>
+            </button>
+            <div (click)="toggleCreateLeadDropdown($event)" id="createLeadDropdwonList"
+                class="h-screen w-full hidden absolute left-0 top-0 pt-16 z-50">
+                <div
+                    class="absolute right-0 top-48 mt-15 w- z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
+                    <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                        Create Lead
+                    </a>
+                    <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100"
+                        routerLink="/profile" routerLinkActive="bg-gray-100"
+                        [routerLinkActiveOptions]="{ exact : true }">
+                        Import CSV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="grid gap-6 mb-6">
         <div class="overflow-auto rounded-lg shadow">
             <table class="w-full text-xs text-left text-black">

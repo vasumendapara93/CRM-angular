@@ -2895,6 +2895,16 @@ html[data-sidebar-view=mobile].sidebar-open .app-menu {
     background-color: var(--tw-topbar-item-active-bg)
 }
 
+.nav-link:hover {
+    color: var(--tw-topbar-item-hover-color);
+    background-color: var(--tw-topbar-item-hover-bg)
+}
+
+.nav-link:is(.open,.show,.active,:active,:focus) {
+    color: var(--tw-topbar-item-active-color);
+    background-color: var(--tw-topbar-item-active-bg)
+}
+
 @media (min-width: 1024px) {
     .app-header .logo-box {
         display:none
