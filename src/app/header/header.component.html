@@ -38,7 +38,7 @@
     </div>
 
     <!-- Profile Dropdown Button -->
-    <div class="">
+    <div>
         <button (click)="toggleProfileDropdown($event)" class="nav-link flex items-center gap-2.5 waves-effect p-2">
             <img *ngIf="this.user.image; else charactorImage" [src]="this.user.image" alt="this.user?.name" class="rounded-full h-8 w-8">
             <ng-template #charactorImage >

@@ -111,8 +111,9 @@ export class ForgotpasswordComponent {
       } else {
         FormOuter!.style.height = (oldheight - height) + 'px'
       }
+      
       height += 1
-    }, 5)
+    }, 5) 
   }
 
   showOTPField() {
