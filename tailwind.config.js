@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./src/**/*.{html,js}",
+    "./node_modules/flowbite/**/*.js"
 ],
 safelist : [
   'bg-success',
@@ -21,6 +22,7 @@ safelist : [
     },
   },
   plugins: [  
+    require('flowbite/plugin')
   ],
 }
 
