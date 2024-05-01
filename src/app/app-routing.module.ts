@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LeadsComponent } from './leads/leads.component';
 import { UserResolveService } from './services/user-resolve.service';
+import { OrganizationsComponent } from './organizations/organizations.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'leads',
         component: LeadsComponent
+      },
+      {
+        path: 'organizations',
+        component: OrganizationsComponent
       },
       {
         path: 'profile',

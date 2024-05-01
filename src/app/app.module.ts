@@ -18,6 +18,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
 import { SharedModule } from './shared/shared.module';
+import { OrganizationsComponent } from './organizations/organizations.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SharedModule } from './shared/shared.module';
     NotFound404Component,
     ForgotpasswordComponent,
     LoginModalComponent,
-    LeadsComponent
+    LeadsComponent,
+    OrganizationsComponent
   ],
   imports: [
     BrowserModule,
