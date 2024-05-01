@@ -42,7 +42,7 @@
                         <th class="px-6 py-3">Email</th>
                     </tr>
                 </thead>
-                <tbody *ngIf="false; else loader " class="divide-y divide-themeblue-100">
+                <tbody *ngIf="OrgList != null && OrgList != []; else loader " class="divide-y divide-themeblue-100">
                     <tr *ngFor="let org of OrgList">
                         <td class="px-6 py-3">
                             <input type="checkbox"
