@@ -65,8 +65,16 @@
                         </td>
                         <td class="px-6 py-3">{{org.name}}</td>
                         <td class="px-6 py-3">{{org.contactPerson}}</td>
-                        <td class="px-6 py-3">{{org.phoneNumber}}</td>
-                        <td class="px-6 py-3">{{org.email}}</td>
+                        <td class="px-6 py-3">
+                            {{org.phoneNumber}}
+                            &nbsp;
+                            <a [href]="'tel:'+ org.phoneNumber">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </td>
+                        <td class="px-6 py-3">
+                            <a [href]="'mailto:'+ org.email">{{org.email}}</a>
+                        </td>
                     </tr>
                 </tbody>
                 <ng-template #loader>

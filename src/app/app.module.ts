@@ -17,15 +17,9 @@ import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
-<<<<<<< Updated upstream
 import { SharedModule } from './shared/shared.module';
-<<<<<<< HEAD
 import { OrganizationsComponent } from './organizations/organizations.component';
-=======
-=======
 import { ProfileModule } from './profile/profile.module';
->>>>>>> Stashed changes
->>>>>>> bfee65528a83ebda3cc402340f00db3477ce33b3
 
 @NgModule({
   declarations: [
@@ -50,11 +44,8 @@ import { ProfileModule } from './profile/profile.module';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-<<<<<<< Updated upstream
-    SharedModule
-=======
+    SharedModule,
     ProfileModule
->>>>>>> Stashed changes
   ],
   providers: [],
   bootstrap: [AppComponent]
