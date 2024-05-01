@@ -6,9 +6,13 @@ import { AuthGuard } from './services/auth.guard';
 import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+<<<<<<< Updated upstream
 import { ProfileComponent } from './profile/profile.component';
 import { LeadsComponent } from './leads/leads.component';
 import { UserResolveService } from './services/user-resolve.service';
+=======
+import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
+>>>>>>> Stashed changes
 
 const routes: Routes = [
   {
@@ -32,9 +36,15 @@ const routes: Routes = [
       },
       {
         path: 'profile',
+<<<<<<< Updated upstream
         component: ProfileComponent
       },
     ],
+=======
+        component: ProfilePageComponent
+      }
+    ]
+>>>>>>> Stashed changes
   },
   {
     path: 'login',

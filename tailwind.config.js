@@ -15,6 +15,9 @@ safelist : [
         500: '#2a349a',
         900: '#11153e',
       },
+      'custom-bg-gray':{
+        900: 'f1f5f9'
+      }
     },
   },
   plugins: [  
