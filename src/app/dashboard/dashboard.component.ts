@@ -9,6 +9,8 @@ import { ApexChart, ApexTitleSubtitle } from 'ng-apexcharts';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  pageTitle = "dashboard"
+
   title : ApexTitleSubtitle = {}
   chart : ApexChart  = {
     type : 'pie'

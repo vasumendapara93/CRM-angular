@@ -1,14 +1,27 @@
 <main class="p-6">
 
-    <app-page-heading heading="Leads" [navigations]="['Menu', 'Leads']"></app-page-heading>
+    <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
 
+    <div class="flex justify-between gap-4 w-full mb-4">
 
-    <div class="flex justify-end gap-4 w-full mb-4">
+        <!-- Topbar Search -->
+        <div class="md:flex items-center relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
+            </div>
+            <input type="search"
+                class="form-input px-8 rounded-lg border-transparent focus:border-transparent bg-themeblue-100 text-themeblue-900"
+                placeholder="Search..." [(ngModel)]="filterText" (input)="filterData($event)">
+            <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3  text-themeblue-900">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+        </div>
+
         <!-- Profile Dropdown Button -->
         <div class="">
             <button (click)="toggleCreateLeadDropdown($event)"
-                class="nav-link flex items-center gap-2.5 waves-effect px-3 py-5 rounded-lg bg-themeblue-100">
-                <i class="fa-solid fa-plus fa-xl" style="color: #11153e;"></i>
+                class="nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">
+                <i class="fa-solid fa-plus fa-lg  text-themeblue-900"></i>
             </button>
             <div (click)="toggleCreateLeadDropdown($event)" id="createLeadDropdwonList"
                 class="h-screen w-full hidden absolute left-0 top-0 pt-16 z-50">
@@ -34,16 +47,32 @@
                             <input type="checkbox"
                                 class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
                         </th>
-                        <th class="px-6 py-3">Status</th>
-                        <th class="px-6 py-3">Logo</th>
-                        <th class="px-6 py-3">Name</th>
-                        <th class="px-6 py-3">Contect Person</th>
-                        <th class="px-6 py-3">Contect Number</th>
-                        <th class="px-6 py-3">Email</th>
+                        <th class="px-6 py-3">
+                            <span>Status</span>
+                        </th>
+                        <th class="px-6 py-3">
+                            <span>Logo</span>
+                        </th>
+                        <th class="px-6 py-3 flex justify-between items-center">
+                            <span>Name</span>
+                            <i class="fa-solid fa-filter"></i>
+                        </th>
+                        <th class="px-6 py-3 flex justify-between items-center">
+                            <span>Contect Person</span>
+                            <i class="fa-solid fa-filter"></i>
+                        </th>
+                        <th class="px-6 py-3">
+                            <span>Contect Number</span>
+                            <i class="fa-solid fa-filter"></i>
+                        </th>
+                        <th class="px-6 py-3">
+                            <span>Email</span>
+                            <i class="fa-solid fa-filter"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody *ngIf="OrgList != null && OrgList != []; else loader " class="divide-y divide-themeblue-100">
-                    <tr *ngFor="let org of OrgList">
+                    <tr *ngFor="let org of filteredList">
                         <td class="px-6 py-3">
                             <input type="checkbox"
                                 class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
@@ -78,7 +107,7 @@
                     </tr>
                 </tbody>
                 <ng-template #loader>
-                        <app-dot-wave-loader colorCode="#11153e"></app-dot-wave-loader>
+                    <app-dot-wave-loader colorCode="#11153e"></app-dot-wave-loader>
                 </ng-template>
             </table>
         </div>
