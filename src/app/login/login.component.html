@@ -3,7 +3,7 @@
         <div class="mb-4">
             masteruser@gmail.com
             <input [formControl]="email" type="text" placeholder="Email"
-                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-none rounded-sm  login-text-color login-input"
+                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-none rounded-sm  login-text-color login-input border-transparent focus:border-transparent"
                 autocomplete="email" />
             <p *ngIf="email.errors?.['email'] && email.touched" class="mt-1 mb-3 text-red-600">Enter Valid Email</p>
             <p *ngIf="email.errors?.['required'] && email.touched" class="mt-1 mb-3 text-red-600">Email is required</p>
@@ -11,7 +11,7 @@
         <div class="mb-4">
             Master User
             <input [formControl]="password" type="password" placeholder="Password"
-                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-none rounded-sm login-text-color login-input"
+                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-none rounded-sm login-text-color login-input border-transparent focus:border-transparent"
                 autocomplete="current-password" />
             <p *ngIf="password.errors?.['required'] && password.touched" class="mt-1 mb-3 text-red-600">Password is
                 required</p>
@@ -27,7 +27,7 @@
         </div>
         <button [disabled]="isLogingIn" type="submit"
             class="w-4/5 text-white py-2 sm:py-3 rounded transition-colors login-btn">
-            <app-dot-wave-loader class="flex justify-center items-center my-1 mt-1.5" *ngIf="isLogingIn ; else GetStartText" />
+            <app-dot-wave-loader colorCode="#FFF" class="flex justify-center items-center my-1 mt-1.5" *ngIf="isLogingIn ; else GetStartText" />
             <ng-template #GetStartText> Get Started </ng-template>
         </button>
     </form>

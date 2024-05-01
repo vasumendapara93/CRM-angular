@@ -1,7 +1,6 @@
 .loader {
     width: 45px;
     aspect-ratio: 4;
-    --_g: no-repeat radial-gradient(circle closest-side,#FFF 90%,#FFF0);
     background: 
       var(--_g) 0%   50%,
       var(--_g) 50%  50%,

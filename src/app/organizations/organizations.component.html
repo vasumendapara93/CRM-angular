@@ -1,0 +1,115 @@
+<main class="p-6">
+
+    <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
+
+    <div class="flex justify-between gap-4 w-full mb-4">
+
+        <!-- Topbar Search -->
+        <div class="md:flex items-center relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
+            </div>
+            <input type="search"
+                class="form-input px-8 rounded-lg border-transparent focus:border-transparent bg-themeblue-100 text-themeblue-900"
+                placeholder="Search..." [(ngModel)]="filterText" (input)="filterData($event)">
+            <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3  text-themeblue-900">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+        </div>
+
+        <!-- Profile Dropdown Button -->
+        <div class="">
+            <button (click)="toggleCreateLeadDropdown($event)"
+                class="nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">
+                <i class="fa-solid fa-plus fa-lg  text-themeblue-900"></i>
+            </button>
+            <div (click)="toggleCreateLeadDropdown($event)" id="createLeadDropdwonList"
+                class="h-screen w-full hidden absolute left-0 top-0 pt-16 z-50">
+                <div
+                    class="absolute right-0 top-48 mt-15 w- z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
+                    <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                        Create Organizations
+                    </a>
+                    <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                        Import CSV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid gap-6 mb-6">
+        <div class="overflow-auto rounded-lg shadow">
+            <table class="w-full text-xs text-left text-black">
+                <thead class="uppercase bg-themeblue-100 text-gray-500">
+                    <tr>
+                        <th class="px-6 py-3">
+                            <input type="checkbox"
+                                class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
+                        </th>
+                        <th class="px-6 py-3">
+                            <span>Status</span>
+                        </th>
+                        <th class="px-6 py-3">
+                            <span>Logo</span>
+                        </th>
+                        <th class="px-6 py-3 flex justify-between items-center">
+                            <span>Name</span>
+                            <i class="fa-solid fa-filter"></i>
+                        </th>
+                        <th class="px-6 py-3 flex justify-between items-center">
+                            <span>Contect Person</span>
+                            <i class="fa-solid fa-filter"></i>
+                        </th>
+                        <th class="px-6 py-3">
+                            <span>Contect Number</span>
+                            <i class="fa-solid fa-filter"></i>
+                        </th>
+                        <th class="px-6 py-3">
+                            <span>Email</span>
+                            <i class="fa-solid fa-filter"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="OrgList != null && OrgList != []; else loader " class="divide-y divide-themeblue-100">
+                    <tr *ngFor="let org of filteredList">
+                        <td class="px-6 py-3">
+                            <input type="checkbox"
+                                class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
+                        </td>
+                        <td class="px-6 py-3">
+                            <app-tag *ngIf="org.isActive" color="success">Active</app-tag>
+                            <app-tag *ngIf="!org.isActive" color="danger">Inactive</app-tag>
+                        </td>
+                        <td class="px-6 py-3">
+                            <img *ngIf="org.image; else charactorImage" [src]="org.image" alt="this.user?.name"
+                                class="rounded-full h-8 w-8">
+                            <ng-template #charactorImage>
+                                <div class="rounded-full h-8 w-8 flex justify-center items-center"
+                                    style="background: #666887;">
+                                    <p class="text-white text-lg font-semibold">{{org.name![0].toUpperCase()}}
+                                    </p>
+                                </div>
+                            </ng-template>
+                        </td>
+                        <td class="px-6 py-3">{{org.name}}</td>
+                        <td class="px-6 py-3">{{org.contactPerson}}</td>
+                        <td class="px-6 py-3">
+                            {{org.phoneNumber}}
+                            &nbsp;
+                            <a [href]="'tel:'+ org.phoneNumber">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </td>
+                        <td class="px-6 py-3">
+                            <a [href]="'mailto:'+ org.email">{{org.email}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <ng-template #loader>
+                    <app-dot-wave-loader colorCode="#11153e"></app-dot-wave-loader>
+                </ng-template>
+            </table>
+        </div>
+    </div>
+</main>

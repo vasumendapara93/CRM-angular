@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LeadsComponent } from './leads/leads.component';
 import { UserResolveService } from './services/user-resolve.service';
 import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
+import { OrganizationsComponent } from './organizations/organizations.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
       {
         path: 'leads',
         component: LeadsComponent
+      },
+      {
+        path: 'organizations',
+        component: OrganizationsComponent
       },
       {
         path: 'profile',

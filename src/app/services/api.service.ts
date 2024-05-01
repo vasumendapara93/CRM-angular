@@ -27,11 +27,11 @@ export class APIService {
 
   
 
-  get(url:string, options? : object | undefined): any{
+  get(url:string, options? : object | undefined): Observable<any>{
     return this.httpClient.get(url, options).pipe(catchError(this.handleError))
   }
 
-  post(url:string, body : any, options? : object | undefined) : any{
+  post(url:string, body : any, options? : object | undefined) : Observable<any>{
     return this.httpClient.post(url, body, options).pipe(catchError(this.handleError))
   }
 
