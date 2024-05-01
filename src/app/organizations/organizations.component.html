@@ -34,70 +34,44 @@
                             <input type="checkbox"
                                 class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
                         </th>
-                        <th class="px-6 py-3">status</th>
-                        <th class="px-6 py-3">Lead Name</th>
-                        <th class="px-6 py-3">Lead Source</th>
-                        <th class="px-6 py-3">Lead Owner</th>
+                        <th class="px-6 py-3">Status</th>
+                        <th class="px-6 py-3">Logo</th>
+                        <th class="px-6 py-3">Name</th>
+                        <th class="px-6 py-3">Contect Person</th>
+                        <th class="px-6 py-3">Contect Number</th>
                         <th class="px-6 py-3">Email</th>
-                        <th class="px-6 py-3">Phone</th>
-                        <th class="px-6 py-3">DataEntry Clerk</th>
-                        <th class="px-6 py-3">Assigner</th>
-                        <th class="px-6 py-3">Sells Person</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-themeblue-100">
-                    <tr>
+                <tbody *ngIf="false; else loader " class="divide-y divide-themeblue-100">
+                    <tr *ngFor="let org of OrgList">
                         <td class="px-6 py-3">
                             <input type="checkbox"
                                 class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
                         </td>
                         <td class="px-6 py-3">
-                            <app-tag color="success">Active</app-tag>
-                        </td>
-                        <td class="px-6 py-3">Website</td>
-                        <td class="px-6 py-3">Twitter</td>
-                        <td class="px-6 py-3">Malcolm Lockyer</td>
-                        <td class="px-6 py-3">malcolm@gmail.com</td>
-                        <td class="px-6 py-3">9876543210</td>
-                        <td class="px-6 py-3">DEC-1</td>
-                        <td class="px-6 py-3">A-1</td>
-                        <td class="px-6 py-3">SP-1</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-3">
-                            <input type="checkbox"
-                                class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
+                            <app-tag *ngIf="org.isActive" color="success">Active</app-tag>
+                            <app-tag *ngIf="!org.isActive" color="danger">Inactive</app-tag>
                         </td>
                         <td class="px-6 py-3">
-                            <app-tag color="danger">Close</app-tag>
+                            <img *ngIf="org.image; else charactorImage" [src]="org.image" alt="this.user?.name"
+                                class="rounded-full h-8 w-8">
+                            <ng-template #charactorImage>
+                                <div class="rounded-full h-8 w-8 flex justify-center items-center"
+                                    style="background: #666887;">
+                                    <p class="text-white text-lg font-semibold">{{org.name![0].toUpperCase()}}
+                                    </p>
+                                </div>
+                            </ng-template>
                         </td>
-                        <td class="px-6 py-3">Website</td>
-                        <td class="px-6 py-3">Twitter</td>
-                        <td class="px-6 py-3">Malcolm Lockyer</td>
-                        <td class="px-6 py-3">malcolm@gmail.com</td>
-                        <td class="px-6 py-3">9876543210</td>
-                        <td class="px-6 py-3">DEC-1</td>
-                        <td class="px-6 py-3">A-1</td>
-                        <td class="px-6 py-3">SP-1</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-3">
-                            <input type="checkbox"
-                                class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
-                        </td>
-                        <td class="px-6 py-3">
-                            <app-tag color="success">Active</app-tag>
-                        </td>
-                        <td class="px-6 py-3">Website</td>
-                        <td class="px-6 py-3">Twitter</td>
-                        <td class="px-6 py-3">Malcolm Lockyer</td>
-                        <td class="px-6 py-3">malcolm@gmail.com</td>
-                        <td class="px-6 py-3">9876543210</td>
-                        <td class="px-6 py-3">DEC-1</td>
-                        <td class="px-6 py-3">A-1</td>
-                        <td class="px-6 py-3">SP-1</td>
+                        <td class="px-6 py-3">{{org.name}}</td>
+                        <td class="px-6 py-3">{{org.contactPerson}}</td>
+                        <td class="px-6 py-3">{{org.phoneNumber}}</td>
+                        <td class="px-6 py-3">{{org.email}}</td>
                     </tr>
                 </tbody>
+                <ng-template #loader>
+                        <app-dot-wave-loader colorCode="#11153e"></app-dot-wave-loader>
+                </ng-template>
             </table>
         </div>
     </div>

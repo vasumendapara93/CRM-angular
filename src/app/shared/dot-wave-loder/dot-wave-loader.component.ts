@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dot-wave-loader',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./dot-wave-loader.component.css']
 })
 export class DotWaveLoaderComponent {
-
+  @Input() colorCode = "FFF"
 }
