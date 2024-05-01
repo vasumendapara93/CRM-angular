@@ -38,7 +38,7 @@ export class OrganizationsComponent {
         console.log(response)
         if (response.data) {
           console.log(response.data)
-          // this.OrgList = response.data
+          this.OrgList = response.data
         }
       },
       (error) => {
