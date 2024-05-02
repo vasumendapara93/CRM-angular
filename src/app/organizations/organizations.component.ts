@@ -41,11 +41,9 @@ export class OrganizationsComponent {
     )
   }
 
-  openFloatingDropdown(event: MouseEvent,id :string){
+  openFloatingDropdown(event: Event,id :string){
     event.preventDefault();
-    var top = event.clientX
-    var left = event.clientY
-    this.floatingDropdown.toggeleFloatingDropdown(id, top , left)
+    this.floatingDropdown.toggeleFloatingDropdown(id)
   }
 
   async getOrgs() {

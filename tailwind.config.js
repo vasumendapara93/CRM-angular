@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./src/**/*.{html,js}",
+    "./node_modules/flowbite/**/*.js"
 ],
 safelist : [
   'bg-success',
@@ -13,6 +14,7 @@ safelist : [
       'themeblue': {
         50: '#f5f8fa',
         100: '#f1f5f9',
+        200: '#e7f2ff',
         500: '#2a349a',
         900: '#11153e',
       },
@@ -22,6 +24,7 @@ safelist : [
     },
   },
   plugins: [  
+    require('flowbite/plugin')
   ],
 }
 

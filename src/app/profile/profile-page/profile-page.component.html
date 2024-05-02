@@ -1,70 +1,28 @@
+<!-- Profile information component -->
+
+<app-profile-information></app-profile-information>
+
 
 <div class="container p-6">
-    <app-profile-modal
-        title="Email Addresses"
-        subTitle="
-            You can use the following email addresses to sign in to your account 
-            and also to reset your password if you ever forget it.">
-    </app-profile-modal>
-    <app-profile-modal
+  <!-- email component -->
+
+  <app-profile-modal
+    title="Email Addresses"
+    subTitle="
+      You can use the following email addresses to sign in to your account 
+      and also to reset your password if you ever forget it.">
+  </app-profile-modal>
+
+<!-- mobile component -->
+
+  <app-profile-modal
         title="Mobile Numbers"
         subTitle="View and manage all of the mobile numbers associated with your account.">
-    </app-profile-modal>
+  </app-profile-modal>
+
 </div>
-<!-- <div class="bg-white p-6 rounded-md shadow-md">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold">Profile</h2>
-      <button (click)="editProfile()" [disabled]="isEditing" class="bg-green-500 text-white px-4 py-2 rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed">
-        {{ isEditing ? 'Saving...' : 'Edit' }}
-      </button>
-    </div>
-  
-    <div *ngIf="!isEditing; else editForm">
-      <div class="flex items-center mb-2">
-        <img src="assets/logo.png" alt="Logo" class="w-12 h-12 mr-4">
-        <div>
-          <h3 class="text-xl font-semibold">{{ user.fullName }}</h3>
-          <p class="text-gray-500">{{ user.email }}</p>
-        </div>
-      </div>
-  
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <p class="text-gray-500">Full Name</p>
-          <p class="font-semibold">{{ user.fullName }}</p>
-        </div>
-        <div>
-          <p class="text-gray-500">Display Name</p>
-          <p class="font-semibold">{{ user.displayName }}</p>
-        </div>
-        <div>
-          <p class="text-gray-500">Gender</p>
-          <p class="font-semibold">{{ user.gender }}</p>
-        </div>
-        <div>
-          <p class="text-gray-500">Country/Region</p>
-          <p class="font-semibold flex items-center">
-            <span class="mr-2">{{ user.countryFlag }}</span>
-            {{ user.country }}
-          </p>
-        </div>
-        <div>
-          <p class="text-gray-500">State</p>
-          <p class="font-semibold">{{ user.state }}</p>
-        </div>
-        <div>
-          <p class="text-gray-500">Language</p>
-          <p class="font-semibold">{{ user.language }}</p>
-        </div>
-        <div class="col-span-2">
-          <p class="text-gray-500">Time zone</p>
-          <p class="font-semibold">{{ user.timezone }}</p>
-        </div>
-      </div>
-    </div>
-  
-    <ng-template #editForm>
-      <form (ngSubmit)="saveProfile()" >
-      </form>
-    </ng-template>
-  </div> -->
+
+
+
+
+

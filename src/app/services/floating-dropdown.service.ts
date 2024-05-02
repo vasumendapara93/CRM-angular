@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 interface IFloatingDropdown {
   Id: string
   Visible: boolean,
-  top: number,
-  left: number
 }
 
 @Injectable({
@@ -19,9 +17,7 @@ export class FloatingDropdownService {
   register(Id: string) {
     this.FDs.push({
       Id: Id,
-      Visible: false,
-      top: 0,
-      left: 0
+      Visible: false
     })
   }
 
@@ -37,15 +33,22 @@ export class FloatingDropdownService {
     return Boolean(this.FDs.find(element => element.Id === Id)?.Visible)
   }
 
+  closeAllFloatingDropdown(){
+    for(let i = 0; i < this.FDs.length; i++){
+      this.FDs[i].Visible = false
+    }
+  }
+
   toggeleFloatingDropdown(Id: string, top?: number, left?: number) {
     var FD = this.FDs.find(element => element.Id === Id)
-    if (FD) {
-      if (top && left) {
-        FD.top = top;
-        FD.left = left
+    for(let i = 0; i < this.FDs.length; i++){
+      if(this.FDs[i] == FD){
+        continue
       }
+      this.FDs[i].Visible = false
+    }
+    if (FD) {
       FD.Visible = !FD.Visible
     }
-
   }
 }
