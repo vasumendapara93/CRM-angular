@@ -2,8 +2,8 @@
 <div id="side-nav-bar" class="app-menu">
 
     <!-- Brand Logo -->
-    <a href="index.html" class="logo-box">
-        <img src="assets/images/logo-dark.png" class="logo-dark h-6" alt="Dark logo">
+    <a routerLink=""  class="logo-box">
+        <img src='assets/img/logo.png' class="logo-dark h-10 mt-2" alt="Limpid Systems">
     </a>
 
     <!--- Menu -->
@@ -19,7 +19,7 @@
                 </a>
             </li>
 
-            <li class="menu-item">
+            <li *ngIf="user.role.roleName == UserRoles.ORGANIZATION || user.role.roleName == UserRoles.DATA_ENTRY_OPRATOR " class="menu-item">
                 <a routerLink="/leads" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="menu-link waves-effect">
                     <span class="menu-icon"><i class="fa-solid fa-user fa-xs"></i></span>
                     <p class="menu-text"> Leads </p>

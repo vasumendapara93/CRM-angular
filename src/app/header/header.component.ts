@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import IUser from '../model/User.model';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { FloatingDropdownService } from '../services/floating-dropdown.service';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +12,12 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 export class HeaderComponent {
 
   user : IUser
+  ProfileDropdownId = 'profileDropdown'
+
   constructor(
-    public authService : AuthService,
-    private route: ActivatedRoute
+    private authService : AuthService,
+    private route: ActivatedRoute,
+    private floatingDropdown : FloatingDropdownService
   ){
     this.user = this.route.snapshot.data['user'];
   }
@@ -29,6 +33,11 @@ export class HeaderComponent {
     } else {
       document.exitFullscreen()
     }
+  }
+
+  openFloatingDropdown(event:Event,id :string){
+    event.preventDefault();
+    this.floatingDropdown.toggeleFloatingDropdown(id)
   }
 
   toggleSideNavBar() {
@@ -76,15 +85,6 @@ export class HeaderComponent {
       document.body.style.overflow = 'null';
       document.body.style.paddingRight = 'null';
     }
-  }
-
-  toggleProfileDropdown($event : Event){
-    $event.preventDefault()
-    var profileDropdwonList = document.getElementById('profileDropdwonList')
-    var classes = ['hidden' ,'opacity-100']
-    classes.forEach((classTotoggle)=>{
-      profileDropdwonList?.classList.toggle(classTotoggle)
-    })
   }
 
   logout($event : Event){
