@@ -1,7 +1,7 @@
-<div [ngClass]="{hidden : !floatingDropdown.isFloatingDropdownOpen(floatingDropdownId)}"
-    (click)="closeFloatingDropdown()" class="h-screen w-full absolute left-0 top-0 pt-16 z-50">
-    <div
-        [id]="'floatinfDropdown-'+ floatingDropdownId" class="absolute mt-15 w-32 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
-        <ng-content></ng-content>
+<span class="relative float-right">
+    <ng-content select="[floating-dropdown-title]"></ng-content>
+    <div [ngClass]="{hidden : !floatingDropdown.isFloatingDropdownOpen(floatingDropdownId)}"
+        class="">
+        <ng-content select="[floating-dropdown-menu]"></ng-content>
     </div>
-</div>
+</span>
