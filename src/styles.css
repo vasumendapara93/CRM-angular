@@ -9,6 +9,10 @@
     --disabled-button-color : #555888;
 }
 
+input[type="checkbox"]:focus{
+  outline:0;
+}
+
 html,body{
     height: 100%;
     width: 100%;

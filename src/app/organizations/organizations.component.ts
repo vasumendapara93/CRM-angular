@@ -15,6 +15,7 @@ export class OrganizationsComponent {
   pageTitle = 'Organizations'
   OrgList: IUser[] = []
   filteredList: IUser[] = []
+  selectedUserList: IUser[] = []
   filterText: string = ""
 
   addLeadId = "add-lead"
@@ -29,6 +30,37 @@ export class OrganizationsComponent {
     private floatingDropdown : FloatingDropdownService
   ) {
     this.getOrgs()
+  }
+
+  toggelUserSelect(event : Event, user : IUser){
+    var allChechbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
+    var checkbox = event.target as HTMLInputElement
+    if(checkbox.checked){
+      this.selectedUserList.push(user)
+    }else{
+      this.selectedUserList= this.selectedUserList.filter((userInList)=> userInList != user)
+    }
+    if(this.selectedUserList.length == this.filteredList.length){
+      allChechbox.checked = true
+      allChechbox.indeterminate = false
+    }else if(this.selectedUserList.length != 0){
+      allChechbox.indeterminate = true
+      allChechbox.checked = false
+    }else{
+      allChechbox.checked = false
+      allChechbox.indeterminate = false
+    }
+    console.log(this.selectedUserList)
+  }
+
+  toggelAllUserSelection(event : Event){
+    var checkbox = event.target as HTMLInputElement
+    if(checkbox.checked){
+      this.selectedUserList = this.filteredList
+    }
+    if(!checkbox.checked){
+      this.selectedUserList = []
+    }
   }
 
   filterData(event: Event) {

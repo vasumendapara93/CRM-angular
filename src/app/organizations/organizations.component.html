@@ -38,7 +38,7 @@
                 <thead class="uppercase bg-themeblue-100 text-gray-500">
                     <tr>
                         <th class="px-6 py-3">
-                            <input type="checkbox"
+                            <input type="checkbox" id="AllOrgCheckbox" (click)="toggelAllUserSelection($event)"
                                 class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
                         </th>
                         <th class="px-6 py-3">
@@ -130,7 +130,7 @@
                 <tbody *ngIf="OrgList != null && OrgList != []; else loader " class="divide-y divide-themeblue-100">
                     <tr *ngFor="let org of filteredList">
                         <td class="px-6 py-3">
-                            <input type="checkbox"
+                            <input type="checkbox" [checked]="selectedUserList.includes(org)" (click)="toggelUserSelect($event, org)"
                                 class="rounded mr-2 focus:ring-offset-0 focus:ring-primary-200 focus:outline-none">
                         </td>
                         <td class="px-6 py-3">
