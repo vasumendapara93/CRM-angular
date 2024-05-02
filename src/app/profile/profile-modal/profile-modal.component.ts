@@ -8,5 +8,4 @@ import { Component, Input } from '@angular/core';
 export class ProfileModalComponent {
 @Input() title: string = ""
 @Input() subTitle: string = ""
-
 }
