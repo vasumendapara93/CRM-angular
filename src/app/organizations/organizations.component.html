@@ -2,6 +2,8 @@
 
     <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
 
+
+
     <div class="flex justify-between gap-4 w-full mb-4">
 
         <!-- Topbar Search -->
@@ -17,14 +19,12 @@
             </button>
         </div>
 
-        <!-- Profile Dropdown Button -->
         <div class="">
-            <button (click)="toggleCreateLeadDropdown($event)"
+            <button (click)="openFloatingDropdown($event, addLeadId)"
                 class="nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">
                 <i class="fa-solid fa-plus fa-lg  text-themeblue-900"></i>
             </button>
-            <div (click)="toggleCreateLeadDropdown($event)" id="createLeadDropdwonList"
-                class="h-screen w-full hidden absolute left-0 top-0 pt-16 z-50">
+            <app-floating-dropdown [floatingDropdownId]="addLeadId">
                 <div
                     class="absolute right-0 top-48 mt-15 w- z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
                     <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
@@ -34,10 +34,9 @@
                         Import CSV
                     </a>
                 </div>
-            </div>
+            </app-floating-dropdown>
         </div>
     </div>
-
     <div class="grid gap-6 mb-6">
         <div class="overflow-auto rounded-lg shadow">
             <table class="w-full text-xs text-left text-black">
@@ -53,21 +52,82 @@
                         <th class="px-6 py-3">
                             <span>Logo</span>
                         </th>
-                        <th class="px-6 py-3 flex justify-between items-center">
+                        <th class="px-6 py-3 ">
                             <span>Name</span>
-                            <i class="fa-solid fa-filter"></i>
+                            <i (click)="openFloatingDropdown($event, leadNameDropDownId)"
+                                class="fa-solid fa-filter float-right"></i>
+                            <app-floating-dropdown [floatingDropdownId]="leadNameDropDownId">
+                                    <div
+                                        class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                                        <p>ASC</p>
+                                        <i class="fa-solid fa-arrow-up-a-z"></i>
+                                    </div>
+                                    <div
+                                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                                        <p>DSC</p>
+                                        <i class="fa-solid fa-arrow-down-z-a"></i>
+                                    </div>
+                            </app-floating-dropdown>
                         </th>
-                        <th class="px-6 py-3 flex justify-between items-center">
+                        <th class="px-6 py-3">
                             <span>Contect Person</span>
-                            <i class="fa-solid fa-filter"></i>
+                            <i (click)="openFloatingDropdown($event, leadContactPersonDropDownId)"
+                                class="fa-solid fa-filter float-right"></i>
+                            <app-floating-dropdown [floatingDropdownId]="leadContactPersonDropDownId">
+                                <div
+                                    class="absolute right-0 top-48 mt-15 w-32 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
+                                    <div
+                                        class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                                        <p>ASC</p>
+                                        <i class="fa-solid fa-arrow-up-a-z"></i>
+                                    </div>
+                                    <div
+                                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                                        <p>DSC</p>
+                                        <i class="fa-solid fa-arrow-down-z-a"></i>
+                                    </div>
+                                </div>
+                            </app-floating-dropdown>
                         </th>
                         <th class="px-6 py-3">
                             <span>Contect Number</span>
-                            <i class="fa-solid fa-filter"></i>
+                            <i (click)="openFloatingDropdown($event, leadContactNumberDropDownId)"
+                                class="fa-solid fa-filter float-right"></i>
+                            <app-floating-dropdown [floatingDropdownId]="leadContactNumberDropDownId">
+                                <div
+                                    class="absolute right-0 top-48 mt-15 w-32 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
+                                    <div
+                                        class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                                        <p>ASC</p>
+                                        <i class="fa-solid fa-arrow-up-a-z"></i>
+                                    </div>
+                                    <div
+                                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                                        <p>DSC</p>
+                                        <i class="fa-solid fa-arrow-down-z-a"></i>
+                                    </div>
+                                </div>
+                            </app-floating-dropdown>
                         </th>
                         <th class="px-6 py-3">
                             <span>Email</span>
-                            <i class="fa-solid fa-filter"></i>
+                            <i (click)="openFloatingDropdown($event, leadEmailDropDownId)"
+                                class="fa-solid fa-filter float-right"></i>
+                            <app-floating-dropdown [floatingDropdownId]="leadEmailDropDownId">
+                                <div
+                                    class="absolute right-0 top-48 mt-15 w-32 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
+                                    <div
+                                        class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                                        <p>ASC</p>
+                                        <i class="fa-solid fa-arrow-up-a-z"></i>
+                                    </div>
+                                    <div
+                                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                                        <p>DSC</p>
+                                        <i class="fa-solid fa-arrow-down-z-a"></i>
+                                    </div>
+                                </div>
+                            </app-floating-dropdown>
                         </th>
                     </tr>
                 </thead>

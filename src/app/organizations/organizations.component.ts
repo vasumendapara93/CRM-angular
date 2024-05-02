@@ -3,6 +3,7 @@ import { APIService } from '../services/api.service';
 import { API } from 'src/assets/static/API';
 import IUser from '../model/User.model';
 import { AuthService } from '../services/auth.service';
+import { FloatingDropdownService } from '../services/floating-dropdown.service';
 
 @Component({
   selector: 'app-organizations',
@@ -16,9 +17,16 @@ export class OrganizationsComponent {
   filteredList: IUser[] = []
   filterText: string = ""
 
+  addLeadId = "add-lead"
+  leadNameDropDownId = 'leadNameDropDownId'
+  leadContactPersonDropDownId = 'leadContactPersonDropDownId'
+  leadContactNumberDropDownId = 'leadContactNumberDropDownId'
+  leadEmailDropDownId = 'leadEmailDropDownId'
+
   constructor(
     private apiService: APIService,
-    private authService: AuthService
+    private authService: AuthService,
+    private floatingDropdown : FloatingDropdownService
   ) {
     this.getOrgs()
   }
@@ -33,13 +41,11 @@ export class OrganizationsComponent {
     )
   }
 
-  toggleCreateLeadDropdown($event: Event) {
-    $event.preventDefault()
-    var profileDropdwonList = document.getElementById('createLeadDropdwonList')
-    var classes = ['hidden', 'opacity-100']
-    classes.forEach((classTotoggle) => {
-      profileDropdwonList?.classList.toggle(classTotoggle)
-    })
+  openFloatingDropdown(event: MouseEvent,id :string){
+    event.preventDefault();
+    var top = event.clientX
+    var left = event.clientY
+    this.floatingDropdown.toggeleFloatingDropdown(id, top , left)
   }
 
   async getOrgs() {

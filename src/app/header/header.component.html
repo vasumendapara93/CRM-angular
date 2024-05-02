@@ -26,7 +26,7 @@
 
     <!-- Profile Dropdown Button -->
     <div>
-        <button (click)="toggleProfileDropdown($event)" class="nav-link flex items-center gap-2.5 waves-effect p-2">
+        <button (click)="openFloatingDropdown($event, ProfileDropdownId)" class="nav-link flex items-center gap-2.5 waves-effect p-2">
             <img *ngIf="this.user.image; else charactorImage" [src]="this.user.image" alt="this.user?.name" class="rounded-full h-8 w-8">
             <ng-template #charactorImage >
                 <div class="rounded-full h-8 w-8 flex justify-center items-center" style="background: #666887;">
@@ -38,7 +38,7 @@
                 <i class='ph ph-chevron-down'></i>
             </span>
         </button>
-        <div (click)="toggleProfileDropdown($event)" id="profileDropdwonList" class="h-screen w-full hidden absolute left-0 top-0 pt-16 z-50" >
+        <app-floating-dropdown [floatingDropdownId]="ProfileDropdownId">
             <div
                 class="absolute right-0 mt-15 w-40 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
                 <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
@@ -58,7 +58,7 @@
                     Log Out
                 </a>
             </div>
-        </div>
+        </app-floating-dropdown>
     </div>
 </header>
 <!-- Topbar End -->

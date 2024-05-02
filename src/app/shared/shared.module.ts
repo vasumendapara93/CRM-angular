@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { DotWaveLoaderComponent } from './dot-wave-loder/dot-wave-loader.component';
 import { PageHeadingComponent } from './page-heading/page-heading.component';
 import { TagComponent } from './tag/tag.component';
-
+import { FloatingDropdownComponent } from './floating-dropdown/floating-dropdown.component';
 
 
 @NgModule({
   declarations: [
     DotWaveLoaderComponent,
     PageHeadingComponent,
-    TagComponent
+    TagComponent,
+    FloatingDropdownComponent
   ],
   imports: [
     CommonModule
@@ -18,7 +19,8 @@ import { TagComponent } from './tag/tag.component';
   exports : [
     DotWaveLoaderComponent,
     PageHeadingComponent,
-    TagComponent
+    TagComponent,
+    FloatingDropdownComponent
   ]
 })
 export class SharedModule { }
