@@ -27,7 +27,7 @@
         </div>
         <button [disabled]="isLogingIn" type="submit"
             class="w-4/5 text-white py-2 sm:py-3 rounded transition-colors login-btn">
-            <app-dot-wave-loader colorCode="#FFF" class="flex justify-center items-center my-1 mt-1.5" *ngIf="isLogingIn ; else GetStartText" />
+            <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5" *ngIf="isLogingIn ; else GetStartText" />
             <ng-template #GetStartText> Get Started </ng-template>
         </button>
     </form>
