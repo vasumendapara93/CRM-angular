@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import IUser from '../model/User.model';
+import { UserRole } from 'src/assets/static/UserRole';
 
 @Component({
     selector: 'app-side-nav-menu',
@@ -7,6 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavMenuComponent implements OnInit {
     options = { autoHide: false };
+    user : IUser
+    UserRoles = UserRole
+  
+    constructor(
+      private route: ActivatedRoute
+    ){
+      this.user = this.route.snapshot.data['user'];
+    }
 
     ngOnInit(): void {
         this.initSidenav();

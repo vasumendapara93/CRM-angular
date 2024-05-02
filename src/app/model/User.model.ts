@@ -6,7 +6,10 @@ export default interface IUser{
     phoneNumber : string
     email : string
     abstractddress? : string,
-    roleId : string
+    roleId : string,
+    role:{
+        roleName:string
+    },
     isActive : boolean
     organizationId : string
     branchId : string
