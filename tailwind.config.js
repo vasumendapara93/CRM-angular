@@ -12,6 +12,7 @@ safelist : [
     extend: {},
     colors: {
       'themeblue': {
+        50: '#f5f8fa',
         100: '#f1f5f9',
         200: '#e7f2ff',
         500: '#2a349a',
