@@ -11,6 +11,24 @@
     subTitle="
       You can use the following email addresses to sign in to your account 
       and also to reset your password if you ever forget it.">
+      <div *ngIf="!emailAddress else emailAvailable">
+        <div class="flex justify-center">
+          <img src='assets/images/profileImages/empty_data.png' alt="Message bubbles" class="object-contain" style="height: 100px;margin: auto;margin-bottom: 30px;">
+        </div>
+        <div class="flex justify-center">
+          <a href="#_" class="relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
+            <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+            <span class="relative text-xl">Add Email Address</span>
+          </a>
+        </div>
+      </div>
+      <ng-template #emailAvailable>
+        <app-profile-model-footer
+          email="darshil@example.com"
+          timespan="1 year ago"
+          imageURL="{{emailRandomString}}">
+        </app-profile-model-footer>
+      </ng-template>
   </app-profile-modal>
 
 <!-- mobile component -->
@@ -18,6 +36,24 @@
   <app-profile-modal
         title="Mobile Numbers"
         subTitle="View and manage all of the mobile numbers associated with your account.">
+      <div *ngIf="!mobilenumber else mobileAvailable">
+        <div class="flex justify-center">
+          <img src='assets/images/profileImages/empty_data.png' alt="Message bubbles" class="object-contain" style="height: 100px;margin: auto;margin-bottom: 30px;">
+        </div>
+        <div class="flex justify-center">
+          <a href="#_" class="relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
+            <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+            <span class="relative text-xl">Add Mobile Number</span>
+          </a>
+        </div>
+      </div>
+      <ng-template #mobileAvailable>
+        <app-profile-model-footer
+          email="9313993621"
+          timespan="1 year ago"
+          imageURL="{{mobileRandomString}}">
+        </app-profile-model-footer>
+      </ng-template>
   </app-profile-modal>
 
 </div>
