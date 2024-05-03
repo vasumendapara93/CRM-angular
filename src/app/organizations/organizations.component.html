@@ -45,16 +45,16 @@
                             <tr class="bg-themeblue-100">
                                 <th class="px-6 py-3">
                                     <input type="checkbox" id="AllOrgCheckbox" (click)="toggelAllUserSelection($event)"
-                                    class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
+                                    class="float-left form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span>Status</span>
+                                    <span class="float-left">Status</span>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span>Logo</span>
+                                    <span  class="float-left">Logo</span>
                                 </th>
                                 <th class="px-6 py-3 ">
-                                    <span>Name</span>
+                                    <span  class="float-left">Name</span>
                                     <app-floating-dropdown [floatingDropdownId]="leadNameDropDownId">
                                         <i floating-dropdown-title
                                             (click)="openFloatingDropdown($event, leadNameDropDownId)"
@@ -76,7 +76,7 @@
                                     </app-floating-dropdown>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span>Contect Person</span>
+                                    <span  class="float-left">Contect Person</span>
                                     <app-floating-dropdown [floatingDropdownId]="leadContactPersonDropDownId">
                                         <i floating-dropdown-title
                                             (click)="openFloatingDropdown($event, leadContactPersonDropDownId)"
@@ -98,7 +98,7 @@
                                     </app-floating-dropdown>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span>Contect Number</span>
+                                    <span  class="float-left">Contect Number</span>
                                     <app-floating-dropdown [floatingDropdownId]="leadContactNumberDropDownId">
                                         <i floating-dropdown-title
                                             (click)="openFloatingDropdown($event, leadContactNumberDropDownId)"
@@ -120,7 +120,7 @@
                                     </app-floating-dropdown>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span>Email</span>
+                                    <span class="float-left">Email</span>
                                     <app-floating-dropdown [floatingDropdownId]="leadEmailDropDownId">
                                         <i floating-dropdown-title
                                             (click)="openFloatingDropdown($event, leadEmailDropDownId)"
@@ -145,11 +145,11 @@
                         </thead>
                         <tbody *ngIf="OrgList != null && OrgList != []; else loader "
                             class="divide-y divide-themeblue-100">
-                            <tr *ngFor="let org of filteredList">
+                            <tr *ngFor="let org of filteredList" class="hover:bg-themeblue-200">
                                 <td class="px-6 py-3">
                                     <input type="checkbox" [checked]="selectedUserList.includes(org)"
                                         (click)="toggelUserSelect($event, org)"
-                                        class="form-checkbox rounded ml-2 h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
+                                        class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </td>
                                 <td class="px-6 py-3">
                                     <app-tag *ngIf="org.isActive" color="success">Active</app-tag>

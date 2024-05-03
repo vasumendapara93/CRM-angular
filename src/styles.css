@@ -4,69 +4,72 @@
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
-:root{
-    --theme-bg : #11153e;
-    --disabled-button-color : #555888;
+:root {
+  --theme-bg: #11153e;
+  --disabled-button-color: #555888;
 }
 
-input[type="checkbox"]:focus{
-  outline:0;
+input[type="checkbox"]:focus {
+  outline: 0;
 }
 
-html,body{
-    height: 100%;
-    width: 100%;
+html,
+body {
+  height: 100%;
+  width: 100%;
 }
 
-body { margin: 0;}
-
-
-a{
-    cursor: pointer;
+body {
+  margin: 0;
 }
 
-.primary-text-color{
+
+a {
+  cursor: pointer;
+}
+
+.primary-text-color {
   color: var(--theme-bg);
 }
 
 
 /* login start */
-.login-outer{
-    height: 100%;
-    background: #f8f9fd;
+.login-outer {
+  height: 100%;
+  background: #f8f9fd;
 }
 
-.login-text-color{
-    color: var(--theme-bg);
+.login-text-color {
+  color: var(--theme-bg);
 }
 
-.login-input{
-    
-    background: #f2f2f2;
+.login-input {
+
+  background: #f2f2f2;
 }
 
-.login-bg-color{
-    background:  var(--theme-bg);
+.login-bg-color {
+  background: var(--theme-bg);
 }
 
 .login-checkbox {
-    color:  var(--theme-bg) !important;
+  color: var(--theme-bg) !important;
 }
 
-.login-btn{
-    position: absolute;
-    bottom: -6%;
-    left: 50%;
-    transform: translateX(-50%);
-    background:  var(--theme-bg);
+.login-btn {
+  position: absolute;
+  bottom: -6%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--theme-bg);
 }
 
 /* .login-btn[disabled]{
     background: var(--disabled-button-color);
 }    */
 
-.change-icon-outer{
-    height: 3rem;
+.change-icon-outer {
+  height: 3rem;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -85,43 +88,45 @@ input[type=number] {
 
 
 /* Side Nav Bar Start */
-#side-nav-bar{
-    background: var(--theme-bg);
+#side-nav-bar {
+  background: var(--theme-bg);
 }
 
 .collapsible-menu {
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding: 20px 80px 20px 20px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    z-index: 10;
-  }
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 20px 80px 20px 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+}
 
-  .collapsible-menu.active{
-    background-color: #d90a2c;
-    border-radius: 20px;
-    color: white;
-  }
-  .collapsible-menu.active p{
-    color: white;
-  }
+.collapsible-menu.active {
+  background-color: #d90a2c;
+  border-radius: 20px;
+  color: white;
+}
 
-  .fa-chevron-right{
-    transition: 0.2s;
-  }
+.collapsible-menu.active p {
+  color: white;
+}
 
-  .collapsible-menu.active .fa-chevron-right {
-    transform: rotate(90deg);
-  }
-  
-  .collaped-link {
-    max-height: 0;
-    overflow: hidden;
-    transition: 0.3s;
-  }
+.fa-chevron-right {
+  transition: 0.2s;
+}
+
+.collapsible-menu.active .fa-chevron-right {
+  transform: rotate(90deg);
+}
+
+.collaped-link {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
 /*   
   .answer {
     padding: 0 10px;
@@ -130,3 +135,6 @@ input[type=number] {
   } */
 
 
+.filter-gray-500 {
+  filter: brightness(0) saturate(100%) invert(47%) sepia(9%) saturate(927%) hue-rotate(176deg) brightness(94%) contrast(96%);
+}
