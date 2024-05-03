@@ -1,6 +1,6 @@
-.notificationanimation{
+.notification-animation{
     animation-name: noti;
-    animation-duration: 0.5s;
+    animation-duration: 0.3s;
 }
 
 @keyframes noti{
@@ -13,7 +13,7 @@
     }
 }
 
-.cnotificationanimation{
+.close-notification-animation{
     
     animation-name: cnoti;
     animation-duration: 0.5s;

@@ -4,6 +4,7 @@ import { DotWaveLoaderComponent } from './dot-wave-loder/dot-wave-loader.compone
 import { PageHeadingComponent } from './page-heading/page-heading.component';
 import { TagComponent } from './tag/tag.component';
 import { FloatingDropdownComponent } from './floating-dropdown/floating-dropdown.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FloatingDropdownComponent } from './floating-dropdown/floating-dropdown
     DotWaveLoaderComponent,
     PageHeadingComponent,
     TagComponent,
-    FloatingDropdownComponent
+    FloatingDropdownComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule
@@ -20,7 +22,8 @@ import { FloatingDropdownComponent } from './floating-dropdown/floating-dropdown
     DotWaveLoaderComponent,
     PageHeadingComponent,
     TagComponent,
-    FloatingDropdownComponent
+    FloatingDropdownComponent,
+    NotificationComponent
   ]
 })
 export class SharedModule { }

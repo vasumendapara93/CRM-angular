@@ -17,7 +17,6 @@ import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
-import { NotificationComponent } from './notification/notification.component';
 import { SharedModule } from './shared/shared.module';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { ProfileModule } from './profile/profile.module';
@@ -35,7 +34,6 @@ import { ProfileModule } from './profile/profile.module';
     ForgotpasswordComponent,
     LoginModalComponent,
     LeadsComponent,
-    NotificationComponent,
     OrganizationsComponent
   ],
   imports: [
