@@ -14,6 +14,30 @@
         </span>
     </button>
 
+    <!-- Topbar Search -->
+    <div class="md:flex hidden items-center relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <input type="search"
+            class="form-input px-8 rounded-full  bg-gray-500/10 border-transparent focus:border-transparent"
+            placeholder="Search...">
+        <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3">
+            <i class="fa-solid fa-microphone"></i>
+        </button>
+    </div>  
+
+        <!-- Notification Toggle Button -->
+        <div class="md:flex">
+            <button  (click)="onToggleNotification()" id="Notification-toggle"  type="button" class="nav-link p-2 waves-effect">
+                <span class="flex items-center justify-center h-6 w-6">
+                    <i class="fa-regular fa-bell fa-lg"></i>
+                </span>
+            </button>
+        </div>
+
+    
+
     <!-- Fullscreen Toggle Button -->
     <div class="md:flex hidden">
         <button (click)="toggleFullScreen()" data-toggle="fullscreen" type="button" class="nav-link p-2 waves-effect">
@@ -25,6 +49,29 @@
     </div>
 
     <!-- Profile Dropdown Button -->
+    <div class="">
+        <button (click)="toggleProfileDropdown($event)" class="nav-link flex items-center gap-2.5 waves-effect p-2">
+            <img *ngIf="this.user?.image; else charactorImage" [src]="this.user?.image" alt="this.user?.name" class="rounded-full h-8 w-8">
+            <ng-template #charactorImage >
+                <div class="rounded-full h-8 w-8 flex justify-center items-center" style="background: #666887;">
+                    <p class="text-white text-lg font-semibold">{{this.user?.name![0].toUpperCase()}}</p>
+                </div>
+            </ng-template>
+            <span class="md:flex items-center hidden">
+                <span class="font-medium text-base">{{this.user?.name}}</span>
+                <i class='ph ph-chevron-down'></i>
+            </span>
+        </button>
+        <div (click)="toggleProfileDropdown($event)" id="profileDropdwonList" class="h-screen w-full hidden absolute left-0 top-0 pt-16 z-50" >
+            <div
+                class="absolute right-0 mt-15 w-40 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg border rounded-lg p-2 mr-5">
+                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" routerLink="#" routerLinkActive="header-link-active" [routerLinkActiveOptions]="{ exact : true }">
+                    Inbox
+                </a>
+                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" routerLink="/profile" routerLinkActive="header-link-active" [routerLinkActiveOptions]="{ exact : true }">
+                    Profile
+                </a>
+                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" routerLink="#" routerLinkActive="header-link-active" [routerLinkActiveOptions]="{ exact : true }">
     <div>
         <app-floating-dropdown [floatingDropdownId]="ProfileDropdownId">
             <button floating-dropdown-title (click)="openFloatingDropdown($event, ProfileDropdownId)"
@@ -61,6 +108,7 @@
                     Lock Account
                 </a>
                 <a (click)="logout($event)"
+                    class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100" routerLink="#" routerLinkActive="header-link-active" [routerLinkActiveOptions]="{ exact : true }">
                     class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:bg-themeblue-200">
                     Log Out
                 </a>
@@ -87,4 +135,5 @@
         </app-floating-dropdown>
     </div> -->
 </header>
+
 <!-- Topbar End -->

@@ -135,6 +135,12 @@ input[type=number] {
   } */
 
 
+/*header*/
+.header-link-active{
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity))
+};
+
 .filter-gray-500 {
   filter: brightness(0) saturate(100%) invert(47%) sepia(9%) saturate(927%) hue-rotate(176deg) brightness(94%) contrast(96%);
 }
