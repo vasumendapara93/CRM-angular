@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./leads.component.css']
 })
 export class LeadsComponent {
+  pageTitle = "Lead"
 
+  toggleCreateLeadDropdown($event : Event){
+    $event.preventDefault()
+    var profileDropdwonList = document.getElementById('createLeadDropdwonList')
+    var classes = ['hidden' ,'opacity-100']
+    classes.forEach((classTotoggle)=>{
+      profileDropdwonList?.classList.toggle(classTotoggle)
+    })
+  }
 }

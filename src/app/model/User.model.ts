@@ -5,11 +5,14 @@ export default interface IUser{
     contactPerson? : string
     phoneNumber : string
     email : string
-    abstractddress? : string
-    RoleId : string
-    IsActive : boolean
+    abstractddress? : string,
+    roleId : string,
+    role:{
+        roleName:string
+    },
+    isActive : boolean
     organizationId : string
-    BranchId : string
-    SubscriptionStartDate : string
-    SubscriptionEndDate : string
+    branchId : string
+    subscriptionStartDate : string
+    subscriptionEndDate : string
 }

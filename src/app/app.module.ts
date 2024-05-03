@@ -19,6 +19,9 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotificationComponent } from './notification/notification.component';
+import { SharedModule } from './shared/shared.module';
+import { OrganizationsComponent } from './organizations/organizations.component';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { NotificationComponent } from './notification/notification.component';
     LoginModalComponent,
     LeadsComponent,
     ProfileComponent,
-    NotificationComponent
+    NotificationComponent,
+    OrganizationsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,9 @@ import { NotificationComponent } from './notification/notification.component';
     NgApexchartsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
+    ProfileModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { NotFound404Component } from './not-found404/not-found404.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { LeadsComponent } from './leads/leads.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
+// import { ProfileComponent } from './profile/profile.component';
+import { LeadsComponent } from './leads/leads.component';
+import { UserResolveService } from './services/user-resolve.service';
+import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
+import { OrganizationsComponent } from './organizations/organizations.component';
+import { AuthorizationGuard } from './guards/authorization.guard';
 
 const routes: Routes = [
   {
@@ -17,18 +21,26 @@ const routes: Routes = [
       authOnly: true,
     },
     canActivate: [AuthGuard],
+    resolve: {
+      user: UserResolveService
+    },
     children: [
       {
         path: '',
         component: DashboardComponent
-    },
+      },
       {
-          path: 'leads',
-          component: LeadsComponent
+        path: 'leads',
+        component: LeadsComponent,
+        canActivate: [AuthorizationGuard],
+      },
+      {
+        path: 'organizations',
+        component: OrganizationsComponent
       },
       {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfilePageComponent
       }
     ]
   },
@@ -41,7 +53,7 @@ const routes: Routes = [
     component: ForgotpasswordComponent
   },
   {
-    path: '**',
+    path: '',
     component: NotFound404Component
   },
 

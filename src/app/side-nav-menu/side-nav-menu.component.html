@@ -2,8 +2,8 @@
 <div id="side-nav-bar" class="app-menu">
 
     <!-- Brand Logo -->
-    <a href="index.html" class="logo-box">
-        <img src="assets/images/logo-dark.png" class="logo-dark h-6" alt="Dark logo">
+    <a routerLink=""  class="logo-box">
+        <img src='assets/img/logo.png' class="logo-dark h-10 mt-2" alt="Limpid Systems">
     </a>
 
     <!--- Menu -->
@@ -19,10 +19,17 @@
                 </a>
             </li>
 
-            <li class="menu-item">
+            <li *ngIf="user.role.roleName == UserRoles.ORGANIZATION || user.role.roleName == UserRoles.DATA_ENTRY_OPRATOR " class="menu-item">
                 <a routerLink="/leads" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="menu-link waves-effect">
                     <span class="menu-icon"><i class="fa-solid fa-user fa-xs"></i></span>
                     <p class="menu-text"> Leads </p>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a routerLink="/organizations" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="menu-link waves-effect">
+                    <span class="menu-icon"><i class="fa-solid fa-building fa-xs"></i></span>
+                    <p class="menu-text"> Organizations </p>
                 </a>
             </li>
 
@@ -33,7 +40,7 @@
 
                     <span class="menu-icon"><i class="ph-duotone ph-file"></i></span>
                     <p class="menu-text"> Extra Pages </p>
-                    <i class="fa-solid fa-chevron-right fa-xs ms-auto"></i>
+                    <i class="fa-solid fa-chevron-right fa-xs ms-auto mr-2" style="font-size: 10px;"></i>
                 </a>
 
                 <ul class="sub-menu collaped-link collaped-link">
@@ -62,7 +69,7 @@
                 <a href="javascript:void(0)" (click)="openCollapseMenu($event)" [ngClass]="{'active': isActive}" data-fc-type="collapse" class="menu-link waves-effect collapsible-menu">
                     <span class="menu-icon"><i class="ph-duotone ph-sign-in"></i></span>
                     <p class="menu-text"> Auth Pages </p>
-                    <i class="fa-solid fa-chevron-right fa-xs ms-auto"></i>
+                    <i class="fa-solid fa-chevron-right fa-xs ms-auto mr-2" style="font-size: 10px;"></i>
                 </a>
 
                 <ul class="sub-menu collaped-link">
@@ -97,7 +104,7 @@
                 <a href="javascript:void(0)" (click)="openCollapseMenu($event)" [ngClass]="{'active': isActive}" data-fc-type="collapse" class="menu-link waves-effect collapsible-menu">
                     <span class="menu-icon"><i class="ph-duotone ph-bug"></i></span>
                     <p class="menu-text"> Error Pages </p>
-                   <i class="fa-solid fa-chevron-right fa-xs ms-auto"></i>
+                  <i class="fa-solid fa-chevron-right fa-xs ms-auto mr-2" style="font-size: 10px;"></i>
                 </a>
 
                 <ul class="sub-menu collaped-link">
@@ -120,7 +127,7 @@
                 <a href="javascript:void(0)" (click)="openCollapseMenu($event)" [ngClass]="{'active': isActive}" data-fc-type="collapse" class="menu-link waves-effect collapsible-menu">
                     <span class="menu-icon"><i class="ph-duotone ph-layout"></i></span>
                     <p class="menu-text"> Layout </p>
-                   <i class="fa-solid fa-chevron-right fa-xs ms-auto"></i>
+                  <i class="fa-solid fa-chevron-right fa-xs ms-auto mr-2" style="font-size: 10px;"></i>
                 </a>
 
                 <ul class="sub-menu collaped-link">
@@ -145,7 +152,7 @@
                 <a href="javascript:void(0)" (click)="openCollapseMenu($event)" [ngClass]="{'active': isActive}" data-fc-type="collapse" class="menu-link waves-effect collapsible-menu">
                     <span class="menu-icon"><i class="ph-duotone ph-cookie"></i></span>
                     <p class="menu-text"> Components </p>
-                   <i class="fa-solid fa-chevron-right fa-xs ms-auto"></i>
+                  <i class="fa-solid fa-chevron-right fa-xs ms-auto mr-2" style="font-size: 10px;"></i>
                 </a>
 
                 <ul class="sub-menu collaped-link">
@@ -247,7 +254,7 @@
                 <a href="javascript:void(0)" (click)="openCollapseMenu($event)" [ngClass]="{'active': isActive}" data-fc-type="collapse" class="menu-link waves-effect collapsible-menu">
                     <span class="menu-icon"><i class="ph-duotone ph-pen-nib"></i></span>
                     <p class="menu-text"> Forms </p>
-                   <i class="fa-solid fa-chevron-right fa-xs ms-auto"></i>
+                  <i class="fa-solid fa-chevron-right fa-xs ms-auto mr-2" style="font-size: 10px;"></i>
                 </a>
 
                 <ul class="sub-menu collaped-link">
@@ -288,7 +295,7 @@
                 <a href="javascript:void(0)" (click)="openCollapseMenu($event)" [ngClass]="{'active': isActive}" data-fc-type="collapse" class="menu-link waves-effect collapsible-menu">
                     <span class="menu-icon"><i class="ph-duotone ph-map-pin"></i></span>
                     <p class="menu-text"> Maps </p>
-                   <i class="fa-solid fa-chevron-right fa-xs ms-auto"></i>
+                  <i class="fa-solid fa-chevron-right fa-xs ms-auto mr-2" style="font-size: 10px;"></i>
                 </a>
 
                 <ul class="sub-menu collaped-link">
@@ -327,7 +334,7 @@
                         <i class="ph-duotone ph-share-fat"></i>
                     </span>
                     <p class="menu-text"> Level </p>
-                   <i class="fa-solid fa-chevron-right fa-xs ms-auto"></i>
+                  <i class="fa-solid fa-chevron-right fa-xs ms-auto mr-2" style="font-size: 10px;"></i>
                 </a>
 
                 <ul class="sub-menu collaped-link">

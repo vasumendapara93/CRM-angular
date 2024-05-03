@@ -1,1 +1,72 @@
-<p>leads works!</p>
+<main class="p-6">
+
+    <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
+
+
+    <div class="flex justify-end gap-4 w-full mb-4">
+        <!-- Profile Dropdown Button -->
+        <div class="">
+            <button (click)="toggleCreateLeadDropdown($event)"
+                class="nav-link flex items-center gap-2.5 waves-effect px-3 py-5 rounded-lg bg-themeblue-100">
+                <i class="fa-solid fa-plus fa-xl" style="color: #11153e;"></i>
+            </button>
+            <div (click)="toggleCreateLeadDropdown($event)" id="createLeadDropdwonList"
+                class="h-screen w-full hidden absolute left-0 top-0 pt-16 z-50">
+                <div
+                    class="absolute right-0 top-48 mt-15 w- z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5">
+                    <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                        Create Lead
+                    </a>
+                    <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
+                        Import CSV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid p-4">
+        <div class="overflow-auto w-full rounded-lg">
+            <div class="min-w-full inline-block align-middle">
+                <div class="border rounded-lg overflow-hidden shadow">
+                    <table class="overflow-auto min-w-full whitespace-nowrap text-base divide-y divide-gray-200">
+                        <thead class="text-grey-500">
+                            <tr class="bg-themeblue-100">
+                                <th scope="col" class="px-6 py-3">
+                                    <input type="checkbox"
+                                        class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox">
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-start">Status</th>
+                                <th scope="col" class="px-6 py-3 text-start">Lead Name</th>
+                                <th scope="col" class="px-6 py-3 text-start">Lead Source</th>
+                                <th scope="col" class="px-6 py-3 text-start">Lead Owner</th>
+                                <th scope="col" class="px-6 py-3 text-start">Email</th>
+                                <th scope="col" class="px-6 py-3 text-start">Phone</th>
+                                <th scope="col" class="px-6 py-3 text-start">DataEntry Clerk</th>
+                                <th scope="col" class="px-6 py-3 text-start">Assigner</th>
+                                <th scope="col" class="px-6 py-3 text-start">Sells Person</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-themeblue-200">
+                                <td class="px-6 py-4"><input type="checkbox"
+                                        class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox"></td>
+                                <td class="px-6 py-4"><app-tag color="success">Active</app-tag></td>
+                                <td class="px-6 py-4">Website</td>
+                                <td class="px-6 py-4">Twitter</td>
+                                <td class="px-6 py-4">Malcolm Lockyer</td>
+                                <td class="px-6 py-4">malcolm@gmail.com</td>
+                                <td class="px-6 py-4">9876543210</td>
+                                <td class="px-6 py-4">clark one</td>
+                                <td class="px-6 py-4">First assinger</td>
+                                <td class="px-6 py-4">First sales person</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>

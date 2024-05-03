@@ -2868,7 +2868,6 @@ html[data-sidebar-view=mobile].sidebar-open .app-menu {
 .app-header {
     position: sticky;
     top: 0;
-    border-bottom-width: 1px;
     z-index: 35;
     background: var(--tw-topbar-bg);
     height: var(--tw-topbar-height)
@@ -2892,6 +2891,16 @@ html[data-sidebar-view=mobile].sidebar-open .app-menu {
 }
 
 .app-header .nav-link:is(.open,.show,.active,:active,:focus) {
+    color: var(--tw-topbar-item-active-color);
+    background-color: var(--tw-topbar-item-active-bg)
+}
+
+.nav-link:hover {
+    color: var(--tw-topbar-item-hover-color);
+    background-color: var(--tw-topbar-item-hover-bg)
+}
+
+.nav-link:is(.open,.show,.active,:active,:focus) {
     color: var(--tw-topbar-item-active-color);
     background-color: var(--tw-topbar-item-active-bg)
 }

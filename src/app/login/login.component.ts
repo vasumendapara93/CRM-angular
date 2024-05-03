@@ -13,7 +13,7 @@ import { StorageService } from '../services/storage.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private apiService: APIService,
+    private authService: AuthService,
     private router: Router,
     private storageService: StorageService
   ) { }
@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLogingIn = true;
 
-      this.apiService.userlogin(this.email.value!, this.password.value!).subscribe(
+      this.authService.userlogin(this.email.value!, this.password.value!).subscribe(
         (response) => {
+          console.log(response)
           if (response.data) {
             this.msg = ""
             this.storageService.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
@@ -62,7 +63,7 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           console.log(error.error )
-          if (error.error.errorMessages[0]|| error.error.errorMessages[0] != "") {
+          if (error.error.errorMessages[0] || error.error.errorMessages[0] != "") {
             this.msg = error.error.errorMessages[0]
           } else {
             this.msg = "Somthing Is Wrong Try Again Later"

@@ -1,59 +1,58 @@
-  import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
-  import { AuthService } from '../services/auth.service';
-  import IUser from '../model/User.model';
-  import { Route, Router } from '@angular/router';
-  import { APIService } from '../services/api.service';
-  import { StorageService } from '../services/storage.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import IUser from '../model/User.model';
+import { Route, Router } from '@angular/router';
+import { APIService } from '../services/api.service';
+import { StorageService } from '../services/storage.service';
 
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
+})
+export class HeaderComponent implements OnInit {
 
+  user : IUser
+  ProfileDropdownId = 'profileDropdown'
 
-  @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css'],
+  user : IUser | null = null
+  constructor(
+    private storageService :  StorageService,
+    private apiService : APIService,
+    private router : Router,
+    private authService : AuthService
+  ){}
 
-  })
-  export class HeaderComponent implements OnInit {
-
-
-    user : IUser | null = null
-    constructor(
-      private storageService :  StorageService,
-      private apiService : APIService,
-      private router : Router,
-      private authService : AuthService,
-    ){}
-
-    ngOnInit(): void {
-      try{
-        var userId = this.storageService.getUserId()
-        if(userId == null){
-          // this.router.navigate(['login'])
-        }
-      this.apiService.getUser(userId!).then((response)=>{
-        if(response){
-          this.user = response.data
-        }else {
-          // this.router.navigate(['login'])
-        }
-      })   
-      }catch(e){
-        this.router.navigate(['login'])
+  ngOnInit(): void {
+    try{
+      var userId = this.storageService.getUserId()
+      if(userId == null){
+        // this.router.navigate(['login'])
       }
-    }
-
-    toggleFullScreen() {
-      var fullScreenToggleBtnIcon = document.getElementById('fullScreenToggleBtnIcon')
-      fullScreenToggleBtnIcon?.classList.toggle('fa-compress')
-      fullScreenToggleBtnIcon?.classList.toggle('fa-expand')
-      if (!document.fullscreenElement) {
-        if (document.documentElement.requestFullscreen) {
-          document.documentElement.requestFullscreen();
-        }
-      } else {
-        document.exitFullscreen()
+    this.apiService.getUser(userId!).then((response)=>{
+      if(response){
+        this.user = response.data
+      }else {
+        // this.router.navigate(['login'])
       }
+     })   
+    }catch(e){
+      this.router.navigate(['login'])
     }
+  }
+
+  toggleFullScreen() {
+    var fullScreenToggleBtnIcon = document.getElementById('fullScreenToggleBtnIcon')
+    fullScreenToggleBtnIcon?.classList.toggle('fa-compress')
+    fullScreenToggleBtnIcon?.classList.toggle('fa-expand')
+    if (!document.fullscreenElement) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+    } else {
+      document.exitFullscreen()
+    }
+  }
 
 //notification
 @Output() toggleNotification = new EventEmitter<void>();
@@ -102,23 +101,23 @@ onToggleNotification() {
       })
     }
 
-    hideBackdrop() {
-      var backdrop = document.getElementById('backdrop');
-      if (backdrop) {
-        document.body.removeChild(backdrop);
-        document.body.style.overflow = 'null';
-        document.body.style.paddingRight = 'null';
-      }
+  hideBackdrop() {
+    var backdrop = document.getElementById('backdrop');
+    if (backdrop) {
+      document.body.removeChild(backdrop);
+      document.body.style.overflow = 'null';
+      document.body.style.paddingRight = 'null';
     }
+  }
 
-    toggleProfileDropdown($event : Event){
-      $event.preventDefault()
-      var profileDropdwonList = document.getElementById('profileDropdwonList')
-      var classes = ['hidden' ,'opacity-100']
-      classes.forEach((classTotoggle)=>{
-        profileDropdwonList?.classList.toggle(classTotoggle)
-      })
-    }
+  toggleProfileDropdown($event : Event){
+    $event.preventDefault()
+    var profileDropdwonList = document.getElementById('profileDropdwonList')
+    var classes = ['hidden' ,'opacity-100']
+    classes.forEach((classTotoggle)=>{
+      profileDropdwonList?.classList.toggle(classTotoggle)
+    })
+  }
 
     logout($event : Event){
       $event.preventDefault()

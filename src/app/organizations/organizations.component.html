@@ -1,0 +1,190 @@
+<main class="p-6">
+
+    <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
+
+    <div class="flex justify-between gap-4 w-full mb-4">
+
+        <!-- Topbar Search -->
+        <div class="md:flex items-center relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
+            </div>
+            <input type="search"
+                class="form-input px-8 rounded-lg border-transparent focus:border-transparent bg-themeblue-100 text-themeblue-900"
+                placeholder="Search..." [(ngModel)]="filterText" (input)="filterData($event)">
+            <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3  text-themeblue-900">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+        </div>
+
+        <app-floating-dropdown [floatingDropdownId]="addLeadId">
+            <button floating-dropdown-title (click)="openFloatingDropdown($event, addLeadId)"
+                class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">
+                <i class="floating-dropdown-btn fa-solid fa-plus fa-lg  text-themeblue-900"></i>
+            </button>
+            <div floating-dropdown-menu
+                class="absolute top-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5"
+                style="right: -1.2rem;">
+                <a
+                    class="w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
+                    Create Organizations
+                </a>
+                <a
+                    class="w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
+                    Import CSV
+                </a>
+            </div>
+        </app-floating-dropdown>
+    </div>
+    <div class="grid p-4">
+        <div class="overflow-auto w-full rounded-lg">
+            <div class="min-w-full inline-block align-middle">
+                <div class="border rounded-lg overflow-hidden shadow">
+                    <table class="overflow-auto min-w-full whitespace-nowrap text-base divide-y divide-gray-200">
+                        <thead class="text-grey-500">
+                            <tr class="bg-themeblue-100">
+                                <th class="px-6 py-3">
+                                    <input type="checkbox" id="AllOrgCheckbox" (click)="toggelAllUserSelection($event)"
+                                    class="float-left form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
+                                </th>
+                                <th class="px-6 py-3">
+                                    <span class="float-left">Status</span>
+                                </th>
+                                <th class="px-6 py-3">
+                                    <span  class="float-left">Logo</span>
+                                </th>
+                                <th class="px-6 py-3 ">
+                                    <span  class="float-left">Name</span>
+                                    <app-floating-dropdown [floatingDropdownId]="leadNameDropDownId">
+                                        <i floating-dropdown-title
+                                            (click)="openFloatingDropdown($event, leadNameDropDownId)"
+                                            class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
+                                        <div floating-dropdown-menu
+                                            class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
+                                            style="right: -1.2rem;">
+                                            <div
+                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                <p>ASC</p>
+                                                <i class="fa-solid fa-arrow-up-a-z"></i>
+                                            </div>
+                                            <div
+                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                <p>DSC</p>
+                                                <i class="fa-solid fa-arrow-down-z-a"></i>
+                                            </div>
+                                        </div>
+                                    </app-floating-dropdown>
+                                </th>
+                                <th class="px-6 py-3">
+                                    <span  class="float-left">Contect Person</span>
+                                    <app-floating-dropdown [floatingDropdownId]="leadContactPersonDropDownId">
+                                        <i floating-dropdown-title
+                                            (click)="openFloatingDropdown($event, leadContactPersonDropDownId)"
+                                            class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
+                                        <div floating-dropdown-menu
+                                            class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
+                                            style="right: -1.2rem;">
+                                            <div
+                                                class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                <p>ASC</p>
+                                                <i class="fa-solid fa-arrow-up-a-z"></i>
+                                            </div>
+                                            <div
+                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                <p>DSC</p>
+                                                <i class="fa-solid fa-arrow-down-z-a"></i>
+                                            </div>
+                                        </div>
+                                    </app-floating-dropdown>
+                                </th>
+                                <th class="px-6 py-3">
+                                    <span  class="float-left">Contect Number</span>
+                                    <app-floating-dropdown [floatingDropdownId]="leadContactNumberDropDownId">
+                                        <i floating-dropdown-title
+                                            (click)="openFloatingDropdown($event, leadContactNumberDropDownId)"
+                                            class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
+                                        <div floating-dropdown-menu
+                                            class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
+                                            style="right: -1.2rem;">
+                                            <div
+                                                class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                <p>ASC</p>
+                                                <i class="fa-solid fa-arrow-up-a-z"></i>
+                                            </div>
+                                            <div
+                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                <p>DSC</p>
+                                                <i class="fa-solid fa-arrow-down-z-a"></i>
+                                            </div>
+                                        </div>
+                                    </app-floating-dropdown>
+                                </th>
+                                <th class="px-6 py-3">
+                                    <span class="float-left">Email</span>
+                                    <app-floating-dropdown [floatingDropdownId]="leadEmailDropDownId">
+                                        <i floating-dropdown-title
+                                            (click)="openFloatingDropdown($event, leadEmailDropDownId)"
+                                            class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
+                                        <div floating-dropdown-menu
+                                            class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
+                                            style="right: -1.2rem;">
+                                            <div
+                                                class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                <p>ASC</p>
+                                                <i class="fa-solid fa-arrow-up-a-z"></i>
+                                            </div>
+                                            <div
+                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                <p>DSC</p>
+                                                <i class="fa-solid fa-arrow-down-z-a"></i>
+                                            </div>
+                                        </div>
+                                    </app-floating-dropdown>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="OrgList != null && OrgList != []; else loader "
+                            class="divide-y divide-themeblue-100">
+                            <tr *ngFor="let org of filteredList" class="hover:bg-themeblue-200">
+                                <td class="px-6 py-3">
+                                    <input type="checkbox" [checked]="selectedUserList.includes(org)"
+                                        (click)="toggelUserSelect($event, org)"
+                                        class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
+                                </td>
+                                <td class="px-6 py-3">
+                                    <app-tag *ngIf="org.isActive" color="success">Active</app-tag>
+                                    <app-tag *ngIf="!org.isActive" color="danger">Inactive</app-tag>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <img *ngIf="org.image; else charactorImage" [src]="org.image" alt="this.user?.name"
+                                        class="rounded-full h-8 w-8">
+                                    <ng-template #charactorImage>
+                                        <div class="rounded-full h-8 w-8 flex justify-center items-center"
+                                            style="background: #666887;">
+                                            <p class="text-white text-lg font-semibold">{{org.name![0].toUpperCase()}}
+                                            </p>
+                                        </div>
+                                    </ng-template>
+                                </td>
+                                <td class="px-6 py-3">{{org.name}}</td>
+                                <td class="px-6 py-3">{{org.contactPerson}}</td>
+                                <td class="px-6 py-3">
+                                    {{org.phoneNumber}}
+                                    &nbsp;
+                                    <a [href]="'tel:'+ org.phoneNumber">
+                                        <i class="fa-solid fa-phone text-gray-500"></i>
+                                    </a>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <a [href]="'mailto:'+ org.email">{{org.email}}</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <ng-template #loader>
+                            <app-dot-wave-loader colorCode="#11153e"></app-dot-wave-loader>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

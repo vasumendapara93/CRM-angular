@@ -1,57 +1,110 @@
 import { Injectable } from '@angular/core';
-import IUser from '../model/User.model';
 import { Router } from '@angular/router';
-import { APIService } from './api.service';
 import { StorageService } from './storage.service';
+import { TokenService } from './token.service';
+import { APIService } from './api.service';
+import { API } from 'src/assets/static/API';
+import { Observable, throwError } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+import IUser from '../model/User.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(
-    private router : Router,
-    private apiService : APIService,
-    private storageService : StorageService
-  ){}
+    constructor(
+        private router: Router,
+        private storageService: StorageService,
+        private tokenService: TokenService,
+        private apiServices: APIService
+    ) { }
 
-  async isLoggedIn(){
-    const userId = this.storageService.getUserId();
-    if(userId==null || userId == ""){
-      return false
+    user : IUser | undefined
+
+    userlogin(email: string, password: string): Observable<any> {
+        return this.apiServices.post(API.LOGIN, { email: email, password: password })
     }
-    const accessToken = this.storageService.getAccessToken(); 
-    if(accessToken==null || accessToken == ""){
-      return false
+
+    sendOTP(email: string): Observable<any> {
+        return this.apiServices.post(API.SEND_OTP, null, {
+            params: {
+                email: email
+            }
+        })
     }
-    const payload = atob(accessToken.split('.')[1]); // decode payload of token
-    const parsedPayload = JSON.parse(payload); // convert payload into an Object
-    if(parsedPayload.exp > Date.now() / 1000) {// check if token is expired
-      return true
+
+    verifyOTP(email: string, OTP: string): Observable<any> {
+        return this.apiServices.post(API.VERIFY_OTP, {
+            email: email,
+            OTP: OTP
+        })
     }
-    else{
-      const refreshToken = this.storageService.getRefreshToken(); 
-      if(refreshToken==null || refreshToken == ""){
-        return false
-      }
-      try{
-        var response  = await this.apiService.refreshToken(accessToken, refreshToken)
-        console.log(response)
-        if (response.data) {
-          await this.storageService.setRefreshedAccessToken(response.data.accessToken, response.data.refreshToken)
-          return true
-        } else {
-          return false
+
+    changePassword(email: string, newPassword: string): Observable<any> {
+        return this.apiServices.post(API.CHANGE_PASSWORD, {
+            email: email,
+            newPassword: newPassword
+        })
+    }
+
+    async refreshToken(accessToken: string, refreshToken: string): Promise<any> {
+        return await this.apiServices.post(API.REFRESH_TOKEN, {
+            accessToken: accessToken,
+            refreshToken: refreshToken
+        }).toPromise()
+    }
+
+
+    async getAuthorizationHeader() {
+        if (await this.isLoggedIn()) {
+            var token = this.storageService.getAccessToken()
+            if (token != null) {
+                return new HttpHeaders().set(
+                    "Authorization", `Bearer ${token}`!
+                )
+            }
         }
-      }catch(e){
-        console.log(e)
-        return false
-      }
+        this.router.navigate(["login"])
+        return new HttpHeaders()
     }
-  }
 
-  logout(){
-    this.storageService.removeAllTokens()
-    this.router.navigate(['login'])
-  }
+    async getUser(userId: string): Promise<any> {
+        try {
+            var response =  await this.apiServices.get(API.GET_USER, {
+                params: {
+                    userId: userId
+                },
+                headers: await this.getAuthorizationHeader()
+            }).toPromise()
+            if(response.data){
+                return response.data
+            }else{
+                console.log("somthing wrong")
+            }
+        }
+        catch (e) {
+           console.log(e)
+           this.router.navigate(['login'])
+        }
+    }
+
+    async isLoggedIn() {
+        const userId = this.storageService.getUserId();
+        if (userId == null || userId == "") {
+            return false
+        }
+
+        if (this.tokenService.isAccessTokenActive()) {
+            return true
+        }
+        else {
+            return await this.tokenService.refreshToken()
+        }
+    }
+
+    logout() {
+        this.storageService.removeAllTokens()
+        this.router.navigate(['login'])
+    }
 }

@@ -1,0 +1,11 @@
+<!-- Page Title Start -->
+<div class="flex justify-between items-center mb-6">
+    <h4 class="text-slate-900 text-lg font-medium">{{heading}}</h4>
+    <div class="md:flex hidden items-center gap-3 text-sm font-semibold">
+        <div *ngFor="let navigation of navigations">
+            <i *ngIf="navigations[0] != navigation" class="fa-solid fa-chevron-right fa-xs mr-3"></i>
+            <a class="text-sm font-medium text-slate-700" aria-current="page">{{navigation}}</a>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->

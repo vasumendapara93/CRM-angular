@@ -2,21 +2,31 @@
 module.exports = {
   content: [
     "./src/**/*.{html,js}",
-    
-],safelist: ['bg-gray-100'],
+    "./node_modules/flowbite/**/*.js"
+],
+safelist : [
+  'bg-success',
+   'bg-danger'
+  ],
   theme: {
     extend: {},
     colors: {
       'themeblue': {
+        50: '#f5f8fa',
+        100: '#f1f5f9',
+        200: '#e7f2ff',
         500: '#2a349a',
         900: '#11153e',
       },
       'backdrop':{
-        900 : '#0000003a'
+        900 : '#0000003a',
+      'custom-bg-gray':{
+        900: 'f1f5f9'
       }
     },
   },
   plugins: [  
+    require('flowbite/plugin')
   ],
 }
-
+}

@@ -13,14 +13,13 @@ import { StorageService } from '../services/storage.service';
 export class ForgotpasswordComponent {
 
   constructor(
-    private apiService: APIService,
+    private authService: AuthService,
     private storageService : StorageService,
     private router : Router
   ) { }
 
   showmsg = false
-  isSendingOTP = false
-  isVerifing = false
+  isSubmitting = false
   msg = ""
   showCountDown = false
   timer = ""
@@ -30,7 +29,7 @@ export class ForgotpasswordComponent {
   stopResendOTPTimeout: Function = () => { }
   showPassword = false
   emailValue = ""
-  isChanging = false
+  btn = "Get OTP"
 
   startCountDown() {
     this.timer = ""
@@ -84,10 +83,20 @@ export class ForgotpasswordComponent {
     newPassword : this.newPassword
   })
 
+  submit($event : Event){
+    if(this.btn == "Get OTP"){
+      this.getOTP($event)
+    }else if(this.btn == "Verify"){
+      this.verify($event)
+    }else if(this.btn == "Change"){
+      this.changePassword($event)
+    }else{
+      console.error("No method")
+    }
+  }
+
   hideOTPField() {
     var OTPField = document.getElementById('OTPField')
-    var otpBtn = document.getElementById('otpBtn')
-    var verifyBtn = document.getElementById('verifyBtn')
     var FormOuter = OTPField?.parentElement?.parentElement?.parentElement
     var height = 1
     var oldheight = FormOuter!.offsetHeight
@@ -95,8 +104,6 @@ export class ForgotpasswordComponent {
       if (height >= 96) {
         OTPField?.classList.toggle('hidden')
         OTPField?.classList.toggle('opacity-0')
-        otpBtn?.classList.toggle('hidden')
-        verifyBtn?.classList.toggle('hidden')
         setTimeout(() => {
           FormOuter!.style.height = 'auto'
         }, 700);
@@ -104,31 +111,30 @@ export class ForgotpasswordComponent {
       } else {
         FormOuter!.style.height = (oldheight - height) + 'px'
       }
+      
       height += 1
-    }, 5)
+    }, 5) 
   }
 
   showOTPField() {
     var OTPField = document.getElementById('OTPField')
-    var otpBtn = document.getElementById('optBtn')
-    var verifyBtn = document.getElementById('verifyBtn')
     var FormOuter = OTPField?.parentElement?.parentElement?.parentElement
     var height = 1
     var oldheight = FormOuter!.offsetHeight - 1
-    const interval = setInterval(() => {
+    const intervalId = setInterval(() => {
       if (height >= 94) {
+        
         OTPField?.classList.toggle('hidden')
         OTPField?.classList.toggle('opacity-0')
-        otpBtn?.classList.toggle('hidden')
-        verifyBtn?.classList.toggle('hidden')
-        console.log()
+     
         setTimeout(() => {
           FormOuter!.style.height = 'auto'
         }, 1000);
-        clearInterval(interval)
-      } else {
-        FormOuter!.style.height = (oldheight + height) + 'px'
-      }
+        clearInterval(intervalId)
+      } 
+        else {
+          FormOuter!.style.height = (oldheight +   height) + 'px'
+        }
       height += 1
     }, 5)
   }
@@ -191,12 +197,12 @@ export class ForgotpasswordComponent {
     event.preventDefault()
     this.email.enable()
     if (this.email.valid) {
-      this.isVerifing = true
+      this.isSubmitting = true
       this.resendOTPEnable = false
       this.timer = ""
       this.stopResendOTPTimeout()
       this.stopTimerInterval()
-      this.apiService.sendOTP(this.email.value!).subscribe(
+      this.authService.sendOTP(this.email.value!).subscribe(
         (response) => {
           if (response.statusCode == 200) {
             this.msg = ""
@@ -205,7 +211,7 @@ export class ForgotpasswordComponent {
             this.startCountDown()
             this.resendOTPTimeout()
           }
-          this.isVerifing = false
+          this.isSubmitting = false
           this.showChangeEmailBtn = true
         },
         (error) => {
@@ -217,7 +223,7 @@ export class ForgotpasswordComponent {
             this.msg = "Somthing Is Wrong Try Again Later"
             this.showmsg = true
           }
-          this.isVerifing = false
+          this.isSubmitting = false
         }
       )
     }
@@ -226,8 +232,8 @@ export class ForgotpasswordComponent {
   getOTP(event: Event) {
     event.preventDefault()
     if (this.email.valid) {
-      this.isSendingOTP = true
-      this.apiService.sendOTP(this.email.value!).subscribe(
+      this.isSubmitting = true
+      this.authService.sendOTP(this.email.value!).subscribe(
         (response) => {
           if (response.statusCode == 200) {
             this.showmsg = false
@@ -236,7 +242,8 @@ export class ForgotpasswordComponent {
             this.startCountDown()
             this.showOTPField()
           }
-          this.isSendingOTP = false
+          this.btn = "Verify"
+          this.isSubmitting= false
           this.showChangeEmailBtn = true
         },
         (error) => {
@@ -248,7 +255,7 @@ export class ForgotpasswordComponent {
             this.msg = "Somthing Is Wrong Try Again Later"
             this.showmsg = true
           }
-          this.isSendingOTP = false
+          this.isSubmitting = false
         }
       )
     }
@@ -259,9 +266,9 @@ export class ForgotpasswordComponent {
   this.email.enable()
     if (this.email.valid) {
       this.email.disable()
-      this.isVerifing = true
+      this.isSubmitting = true
       this.emailValue = this.email.value!
-      this.apiService.verifyOTP(this.emailValue, this.otp.value!.toString()).subscribe(
+      this.authService.verifyOTP(this.emailValue, this.otp.value!.toString()).subscribe(
         (response) => {
           if (response.statusCode == 200) {
             this.msg = ''
@@ -269,7 +276,8 @@ export class ForgotpasswordComponent {
             this.email.disable()
             this.showNewPasswordField()
           }
-          this.isVerifing = false
+          this.btn = "Change"
+          this.isSubmitting = false
         },
         (error) => {
           console.log(error.error)
@@ -280,7 +288,7 @@ export class ForgotpasswordComponent {
             this.msg = "Somthing Is Wrong Try Again Later"
             this.showmsg = true
           }
-          this.isVerifing = false
+          this.isSubmitting = false
         }
       )
     }
@@ -289,35 +297,35 @@ export class ForgotpasswordComponent {
   changePassword(event : Event) {
     event.preventDefault()
     if (this.newPassword.valid) {
-      this.isChanging = true
+      this.isSubmitting = true
       this.email.disable()
-      this.apiService.changePassword(this.emailValue, this.newPassword.value!.toString()).subscribe(
+      this.authService.changePassword(this.emailValue, this.newPassword.value!.toString()).subscribe(
         (response) => {
           console.log(response)
           if (response.statusCode == 200) {
             this.msg = ''
             this.showmsg = false
-            this.apiService.userlogin(this.emailValue, this.newPassword.value!).subscribe(
+            this.authService.userlogin(this.emailValue, this.newPassword.value!).subscribe(
               (response) => {
                 console.log(response)
                 if (response.data) {
                   this.msg = ""
                   this.storageService.setToken(response.data.tokenDTO.accessToken, response.data.tokenDTO.refreshToken, response.data.userId)
                   this.router.navigate([''])
-                  this.isChanging = false
+                  this.isSubmitting = false
                 } else {
                   this.msg = "Somthing Is Wrong Try Again Later"
-                  this.isChanging = false
+                  this.isSubmitting = false
                 }
               },
               (error) => {
                 console.log(error.error )
-                this.isChanging = false
+                this.isSubmitting = false
                 if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
                   this.msg = error.error.errorMessages[0]
                 } else {
                   this.msg = "Somthing Is Wrong Try Again Later"
-                  this.isChanging = false
+                  this.isSubmitting = false
                 }
               }
             )
@@ -333,7 +341,7 @@ export class ForgotpasswordComponent {
             this.msg = "Somthing Is Wrong Try Again Later"
             this.showmsg = true
           }
-          this.isChanging = false
+          this.isSubmitting = false
         }
       )
     }
