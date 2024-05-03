@@ -19,7 +19,7 @@ export class NotificationComponent {
       this.isNotificationClosed = true; // Set to true after the animation finishes
       this.closeNotification.emit();
       console.log(this.isNotificationClosed);
-    }, 500);
+    }, 450);
   }
 
   
