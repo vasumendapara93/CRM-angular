@@ -1,0 +1,30 @@
+.notificationanimation{
+    animation-name: noti;
+    animation-duration: 0.5s;
+}
+
+@keyframes noti{
+    from{
+        transform: translateX(100%);
+    }
+
+    to{
+        transform: translateX(0%);
+    }
+}
+
+.cnotificationanimation{
+    
+    animation-name: cnoti;
+    animation-duration: 0.5s;
+
+}
+@keyframes cnoti{
+    from{
+        transform: translateX(0%);
+    }
+
+    to{
+        transform: translateX(100%);
+    }
+}

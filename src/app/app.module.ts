@@ -18,6 +18,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LeadsComponent } from './leads/leads.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ProfileComponent } from './profile/profile.component';
     ForgotpasswordComponent,
     LoginModalComponent,
     LeadsComponent,
-    ProfileComponent
+    ProfileComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

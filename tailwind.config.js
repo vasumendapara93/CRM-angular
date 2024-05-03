@@ -11,6 +11,9 @@ module.exports = {
         500: '#2a349a',
         900: '#11153e',
       },
+      'backdrop':{
+        900 : '#0000003a'
+      }
     },
   },
   plugins: [  
