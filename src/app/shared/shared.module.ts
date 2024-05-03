@@ -5,6 +5,7 @@ import { PageHeadingComponent } from './page-heading/page-heading.component';
 import { TagComponent } from './tag/tag.component';
 import { FloatingDropdownComponent } from './floating-dropdown/floating-dropdown.component';
 import { NotificationComponent } from './notification/notification.component';
+import { FloatingModalComponent } from './floating-modal/floating-modal.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { NotificationComponent } from './notification/notification.component';
     PageHeadingComponent,
     TagComponent,
     FloatingDropdownComponent,
-    NotificationComponent
+    NotificationComponent,
+    FloatingModalComponent
   ],
   imports: [
     CommonModule
@@ -23,7 +25,8 @@ import { NotificationComponent } from './notification/notification.component';
     PageHeadingComponent,
     TagComponent,
     FloatingDropdownComponent,
-    NotificationComponent
+    NotificationComponent,
+    FloatingModalComponent
   ]
 })
 export class SharedModule { }

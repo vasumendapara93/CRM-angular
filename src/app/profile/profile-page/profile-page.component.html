@@ -2,6 +2,7 @@
 
 <app-profile-information></app-profile-information>
 
+<app-floating-modal [floatingModalId]="addNumberFloatingModalId"></app-floating-modal>
 
 <div class="container p-6">
   <!-- email component -->
@@ -47,6 +48,11 @@
           </a>
         </div>
       </div>
+
+
+      <button (click)="openPhoneNumberForm($event)">open Floating Modal</button>
+
+
       <ng-template #mobileAvailable>
         <app-profile-model-footer
           email="9313993621"
