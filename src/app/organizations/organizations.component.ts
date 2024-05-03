@@ -65,12 +65,19 @@ export class OrganizationsComponent {
 
   filterData(event: Event) {
     event.preventDefault();
-    this.filteredList = this.OrgList.filter((org) =>
-      org.name.includes(this.filterText) ||
-      org.phoneNumber.includes(this.filterText) ||
-      org.contactPerson!.includes(this.filterText) ||
-      org.email.includes(this.filterText)
-    )
+    var regex = new RegExp(this.filterText, "i");
+    this.filteredList = []
+    this.OrgList.forEach(org => {
+      if(regex.test(org.name)){
+        this.filteredList.push(org)
+      }else if(regex.test(org.phoneNumber)){
+        this.filteredList.push(org)
+      }else if(regex.test(org.contactPerson!)){
+        this.filteredList.push(org)
+      }else if(regex.test(org.email)){
+        this.filteredList.push(org)
+      }
+    });
   }
 
   openFloatingDropdown(event: Event,id :string){
