@@ -1,3 +1,7 @@
+<app-floating-modal [floatingModalId]="addOrgFloatingModalId">
+
+</app-floating-modal>
+
 <main class="p-6">
 
     <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
@@ -25,14 +29,14 @@
             <div floating-dropdown-menu
                 class="absolute top-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5"
                 style="right: -1.2rem;">
-                <a
-                    class="w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
+                <div (click)="openAddOrgForm($event)"
+                    class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
                     Create Organizations
-                </a>
-                <a
-                    class="w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
+                </div>
+                <div
+                    class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
                     Import CSV
-                </a>
+                </div>
             </div>
         </app-floating-dropdown>
     </div>
@@ -45,16 +49,16 @@
                             <tr class="bg-themeblue-100">
                                 <th class="px-6 py-3">
                                     <input type="checkbox" id="AllOrgCheckbox" (click)="toggelAllUserSelection($event)"
-                                    class="float-left form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
+                                        class="float-left form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </th>
                                 <th class="px-6 py-3">
                                     <span class="float-left">Status</span>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span  class="float-left">Logo</span>
+                                    <span class="float-left">Logo</span>
                                 </th>
                                 <th class="px-6 py-3 ">
-                                    <span  class="float-left">Name</span>
+                                    <span class="float-left">Name</span>
                                     <app-floating-dropdown [floatingDropdownId]="leadNameDropDownId">
                                         <i floating-dropdown-title
                                             (click)="openFloatingDropdown($event, leadNameDropDownId)"
@@ -76,7 +80,7 @@
                                     </app-floating-dropdown>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span  class="float-left">Contect Person</span>
+                                    <span class="float-left">Contect Person</span>
                                     <app-floating-dropdown [floatingDropdownId]="leadContactPersonDropDownId">
                                         <i floating-dropdown-title
                                             (click)="openFloatingDropdown($event, leadContactPersonDropDownId)"
@@ -98,7 +102,7 @@
                                     </app-floating-dropdown>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span  class="float-left">Contect Number</span>
+                                    <span class="float-left">Contect Number</span>
                                     <app-floating-dropdown [floatingDropdownId]="leadContactNumberDropDownId">
                                         <i floating-dropdown-title
                                             (click)="openFloatingDropdown($event, leadContactNumberDropDownId)"
@@ -188,3 +192,5 @@
             </div>
         </div>
     </div>
+
+</main>

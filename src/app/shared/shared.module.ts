@@ -6,6 +6,9 @@ import { TagComponent } from './tag/tag.component';
 import { FloatingDropdownComponent } from './floating-dropdown/floating-dropdown.component';
 import { NotificationComponent } from './notification/notification.component';
 import { FloatingModalComponent } from './floating-modal/floating-modal.component';
+import { InputComponent } from './input/input.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
 
 
 @NgModule({
@@ -15,18 +18,26 @@ import { FloatingModalComponent } from './floating-modal/floating-modal.componen
     TagComponent,
     FloatingDropdownComponent,
     NotificationComponent,
-    FloatingModalComponent
+    FloatingModalComponent,
+    InputComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxMaskDirective
   ],
-  exports : [
+  exports: [
     DotWaveLoaderComponent,
     PageHeadingComponent,
     TagComponent,
     FloatingDropdownComponent,
     NotificationComponent,
-    FloatingModalComponent
+    FloatingModalComponent,
+    InputComponent
+  ],
+  providers:[
+    provideEnvironmentNgxMask(),
   ]
 })
 export class SharedModule { }

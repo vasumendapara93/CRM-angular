@@ -4,6 +4,7 @@ import { API } from 'src/assets/static/API';
 import IUser from '../model/User.model';
 import { AuthService } from '../services/auth.service';
 import { FloatingDropdownService } from '../services/floating-dropdown.service';
+import { FloatingModalService } from '../services/floating-modal.service';
 
 @Component({
   selector: 'app-organizations',
@@ -23,14 +24,24 @@ export class OrganizationsComponent {
   leadContactPersonDropDownId = 'leadContactPersonDropDownId'
   leadContactNumberDropDownId = 'leadContactNumberDropDownId'
   leadEmailDropDownId = 'leadEmailDropDownId'
+  addOrgFloatingModalId = "addOrgFloatingModalId"
 
   constructor(
     private apiService: APIService,
     private authService: AuthService,
-    private floatingDropdown : FloatingDropdownService
+    private floatingDropdown : FloatingDropdownService,
+    private floatingModal : FloatingModalService
   ) {
     this.getOrgs()
   }
+
+
+  openAddOrgForm(event : Event){
+    event.preventDefault()
+    this.floatingModal.openFloatingModal(this.addOrgFloatingModalId)
+    console.log(this.floatingModal.isFloatingModalOpen(this.addOrgFloatingModalId))
+  }
+
 
   toggelUserSelect(event : Event, user : IUser){
     var allChechbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
