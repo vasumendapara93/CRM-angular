@@ -1,4 +1,4 @@
-<app-floating-modal [floatingModalId]="addOrgFloatingModalId">
+<app-floating-modal [floatingModalId]="addOrgFloatingModalId" title="Add Organizations">
 
 </app-floating-modal>
 
@@ -149,7 +149,7 @@
                         </thead>
                         <tbody *ngIf="OrgList != null && OrgList != []; else loader "
                             class="divide-y divide-themeblue-100">
-                            <tr *ngFor="let org of filteredList" class="hover:bg-themeblue-200">
+                            <tr *ngFor="let org of filteredList" class="group hover:bg-themeblue-200">
                                 <td class="px-6 py-3">
                                     <input type="checkbox" [checked]="selectedUserList.includes(org)"
                                         (click)="toggelUserSelect($event, org)"
@@ -170,17 +170,17 @@
                                         </div>
                                     </ng-template>
                                 </td>
-                                <td class="px-6 py-3">{{org.name}}</td>
+                                <td class="px-6 py-3 group-hover:text-themeblue-400">{{org.name}}</td>
                                 <td class="px-6 py-3">{{org.contactPerson}}</td>
                                 <td class="px-6 py-3">
                                     {{org.phoneNumber}}
                                     &nbsp;
                                     <a [href]="'tel:'+ org.phoneNumber">
-                                        <i class="fa-solid fa-phone text-gray-500"></i>
+                                        <i class="fa-solid fa-phone text-gray-500 group-hover:text-themeblue-400"></i>
                                     </a>
                                 </td>
                                 <td class="px-6 py-3">
-                                    <a [href]="'mailto:'+ org.email">{{org.email}}</a>
+                                    <a class="group-hover:text-themeblue-400" [href]="'mailto:'+ org.email">{{org.email}}</a>
                                 </td>
                             </tr>
                         </tbody>
