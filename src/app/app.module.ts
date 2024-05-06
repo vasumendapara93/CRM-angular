@@ -20,7 +20,11 @@ import { LeadsComponent } from './leads/leads.component';
 import { SharedModule } from './shared/shared.module';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { ProfileModule } from './profile/profile.module';
+<<<<<<< HEAD
 import { EmployeesComponent } from './employees/employees.component';
+=======
+import { BranchComponent } from './branch/branch.component';
+>>>>>>> a95bc47c947ec1d01b9c7a4b84661a5fd36160d3
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { EmployeesComponent } from './employees/employees.component';
     LoginModalComponent,
     LeadsComponent,
     OrganizationsComponent,
+<<<<<<< HEAD
     EmployeesComponent
+=======
+    BranchComponent
+>>>>>>> a95bc47c947ec1d01b9c7a4b84661a5fd36160d3
   ],
   imports: [
     BrowserModule,
