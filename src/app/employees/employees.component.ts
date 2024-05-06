@@ -22,10 +22,14 @@ export class EmployeesComponent {
   user : IUser
 
   addLeadId = "add-lead"
-  leadNameDropDownId = 'leadNameDropDownId'
-  leadContactPersonDropDownId = 'leadContactPersonDropDownId'
-  leadContactNumberDropDownId = 'leadContactNumberDropDownId'
-  leadEmailDropDownId = 'leadEmailDropDownId'
+  NameDropDownId = 'NameDropDownId'
+  ContactNumberDropDownId = 'ContactNumberDropDownId'
+  EmailDropDownId = 'EmailDropDownId'
+  roleDropDownId = 'roleDropDownId'
+  branchDropDownId = 'branchDropDownId'
+  joiningDateDropDownId = 'joiningDateDropDownId'
+  addressDropDownId = 'addressDropDownId'
+
   addOrgFloatingModalId = "addOrgFloatingModalId"
 
   constructor(
@@ -102,10 +106,7 @@ export class EmployeesComponent {
 
   async getUsers() {
     console.log(this.user)
-    this.apiService.get(API.GET_ORGANIZATIONS, {
-      params: {
-        id: this.user.id
-      },
+    this.apiService.get(API.GET_EMPLOYEES + '/' + this.user.id, {
       headers: await this.authService.getAuthorizationHeader()
     }
     ).subscribe(
