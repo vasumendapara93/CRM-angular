@@ -20,6 +20,7 @@ import { LeadsComponent } from './leads/leads.component';
 import { SharedModule } from './shared/shared.module';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { ProfileModule } from './profile/profile.module';
+import { BranchComponent } from './branch/branch.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ProfileModule } from './profile/profile.module';
     ForgotpasswordComponent,
     LoginModalComponent,
     LeadsComponent,
-    OrganizationsComponent
+    OrganizationsComponent,
+    BranchComponent
   ],
   imports: [
     BrowserModule,
