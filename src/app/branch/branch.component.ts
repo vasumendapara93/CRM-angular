@@ -26,7 +26,9 @@ export class BranchComponent {
   branchNameDropDownId = 'branchNameDropDownId'
   branchCodeDropDownId = 'branchzCodeDropDownId'
   branchCreateDateDropDownId = 'branchCreateDateDropDownId'
+
   addBranchFloatingModalId = 'addBranchFloatingModalId'
+  addBranchCSVFloatingModalId = "addBranchCSVFloatingModalId"
 
   constructor(
     private apiService: APIService,
@@ -44,6 +46,12 @@ export class BranchComponent {
     event.preventDefault()
     this.floatingModal.openFloatingModal(this.addBranchFloatingModalId)
     console.log(this.floatingModal.isFloatingModalOpen(this.addBranchFloatingModalId))
+  }
+
+  openAddBranchCSVForm(event: Event) {
+    event.preventDefault()
+    this.floatingModal.openFloatingModal(this.addBranchCSVFloatingModalId)
+    console.log(this.floatingModal.isFloatingModalOpen(this.addBranchCSVFloatingModalId))
   }
 
 
