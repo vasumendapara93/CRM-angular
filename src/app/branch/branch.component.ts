@@ -23,11 +23,10 @@ export class BranchComponent {
   user : IUser
 
   addLeadId = "add-lead"
-  leadNameDropDownId = 'leadNameDropDownId'
-  leadContactPersonDropDownId = 'leadContactPersonDropDownId'
-  leadContactNumberDropDownId = 'leadContactNumberDropDownId'
-  leadEmailDropDownId = 'leadEmailDropDownId'
-  addOrgFloatingModalId = "addOrgFloatingModalId"
+  branchNameDropDownId = 'branchNameDropDownId'
+  branchCodeDropDownId = 'branchzCodeDropDownId'
+  branchCreateDateDropDownId = 'branchCreateDateDropDownId'
+  addBranchFloatingModalId = 'addBranchFloatingModalId'
 
   constructor(
     private apiService: APIService,
@@ -41,10 +40,10 @@ export class BranchComponent {
   }
 
 
-  openAddOrgForm(event: Event) {
+  openAddBranchForm(event: Event) {
     event.preventDefault()
-    this.floatingModal.openFloatingModal(this.addOrgFloatingModalId)
-    console.log(this.floatingModal.isFloatingModalOpen(this.addOrgFloatingModalId))
+    this.floatingModal.openFloatingModal(this.addBranchFloatingModalId)
+    console.log(this.floatingModal.isFloatingModalOpen(this.addBranchFloatingModalId))
   }
 
 

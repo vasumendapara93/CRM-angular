@@ -1,12 +1,12 @@
-<app-floating-modal [floatingModalId]="addOrgFloatingModalId" title="Add Organization">
+<app-floating-modal [floatingModalId]="addBranchFloatingModalId" title="Add Branch">
     <div class="w-80 flex flex-col gap-4">
-        <app-input class="" name="Organization Name" type="text" autocomplete="Name" placeholder="Name"></app-input>
-        <app-input name="Email" type="text" autocomplete="email" placeholder="Email"></app-input>
+        <app-input class="" name="Branch Name" type="text" autocomplete="Name" placeholder="Name"></app-input>
+        <app-input name="Email" type="text" autocomplete="email" placeholder="Branch Code"></app-input>
         <button [disabled]="false" type="submit"
             class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
             <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
                 *ngIf="false ; else GetStartText" />
-            <ng-template #GetStartText> Create Organization </ng-template>
+            <ng-template #GetStartText> Create Branch </ng-template>
         </button>
     </div>
 </app-floating-modal>
@@ -38,9 +38,9 @@
             <div floating-dropdown-menu
                 class="absolute top-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5"
                 style="right: -1.2rem;">
-                <div (click)="openAddOrgForm($event)"
+                <div (click)="openAddBranchForm($event)"
                     class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
-                    Create Organizations
+                    Create Branches
                 </div>
                 <div
                     class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
@@ -61,17 +61,11 @@
                                     <input type="checkbox" id="AllOrgCheckbox" (click)="toggelAllUserSelection($event)"
                                         class="float-left form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </th>
-                                <th class="px-6 py-3">
-                                    <span class="float-left">Status</span>
-                                </th>
-                                <th class="px-6 py-3">
-                                    <span class="float-left">Logo</span>
-                                </th>
                                 <th class="px-6 py-3 ">
                                     <span class="float-left">Name</span>
-                                    <app-floating-dropdown [floatingDropdownId]="leadNameDropDownId">
+                                    <app-floating-dropdown [floatingDropdownId]="branchNameDropDownId">
                                         <i floating-dropdown-title
-                                            (click)="openFloatingDropdown($event, leadNameDropDownId)"
+                                            (click)="openFloatingDropdown($event, branchNameDropDownId)"
                                             class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
                                         <div floating-dropdown-menu
                                             class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
@@ -90,10 +84,10 @@
                                     </app-floating-dropdown>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span class="float-left">Contect Person</span>
-                                    <app-floating-dropdown [floatingDropdownId]="leadContactPersonDropDownId">
+                                    <span class="float-left">Branch Code</span>
+                                    <app-floating-dropdown [floatingDropdownId]="branchCodeDropDownId">
                                         <i floating-dropdown-title
-                                            (click)="openFloatingDropdown($event, leadContactPersonDropDownId)"
+                                            (click)="openFloatingDropdown($event, branchCodeDropDownId)"
                                             class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
                                         <div floating-dropdown-menu
                                             class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
@@ -112,32 +106,10 @@
                                     </app-floating-dropdown>
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span class="float-left">Contect Number</span>
-                                    <app-floating-dropdown [floatingDropdownId]="leadContactNumberDropDownId">
+                                    <span class="float-left">Create Date</span>
+                                    <app-floating-dropdown [floatingDropdownId]="branchCreateDateDropDownId">
                                         <i floating-dropdown-title
-                                            (click)="openFloatingDropdown($event, leadContactNumberDropDownId)"
-                                            class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
-                                        <div floating-dropdown-menu
-                                            class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
-                                            style="right: -1.2rem;">
-                                            <div
-                                                class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                                                <p>ASC</p>
-                                                <i class="fa-solid fa-arrow-up-a-z"></i>
-                                            </div>
-                                            <div
-                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                                                <p>DSC</p>
-                                                <i class="fa-solid fa-arrow-down-z-a"></i>
-                                            </div>
-                                        </div>
-                                    </app-floating-dropdown>
-                                </th>
-                                <th class="px-6 py-3">
-                                    <span class="float-left">Email</span>
-                                    <app-floating-dropdown [floatingDropdownId]="leadEmailDropDownId">
-                                        <i floating-dropdown-title
-                                            (click)="openFloatingDropdown($event, leadEmailDropDownId)"
+                                            (click)="openFloatingDropdown($event, branchCreateDateDropDownId)"
                                             class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
                                         <div floating-dropdown-menu
                                             class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
@@ -172,35 +144,12 @@
                                         (click)="toggelUserSelect($event, branch)"
                                         class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </td>
+                                <td class="px-6 py-3">{{branch.branchName}}</td>
                                 <td class="px-6 py-3">
-                                    <!-- <app-tag *ngIf="user.isActive" color="success">Active</app-tag>
-                                    <app-tag *ngIf="!user.isActive" color="danger">Inactive</app-tag> -->
+                                    {{branch.branchCode}}
                                 </td>
                                 <td class="px-6 py-3">
-                                    <!-- <img *ngIf="user.image; else charactorImage" [src]="user.image" alt="this.user?.name"
-                                        class="rounded-full h-8 w-8">
-                                    <ng-template #charactorImage>
-                                        <div class="rounded-full h-8 w-8 flex justify-center items-center"
-                                            style="background: #666887;">
-                                            <p class="text-white text-lg font-semibold">{{user.name![0].toUpperCase()}}
-                                            </p>
-                                        </div>
-                                    </ng-template> -->
-                                </td>
-                                <td class="px-6 py-3 group-hover:text-themeblue-400">{{branch.branchName}}</td>
-                                <td class="px-6 py-3">
-                                    <!-- {{user.contactPerson}} -->
-                                </td>
-                                <td class="px-6 py-3">
-                                    <!-- {{user.phoneNumber}}
-                                    &nbsp;
-                                    <a [href]="'tel:'+ user.phoneNumber">
-                                        <i class="fa-solid fa-phone text-gray-500 group-hover:text-themeblue-400"></i>
-                                    </a> -->
-                                </td>
-                                <td class="px-6 py-3">
-                                    <!-- <a class="group-hover:text-themeblue-400"
-                                        [href]="'mailto:'+ user.email">{{user.email}}</a> -->
+                                    {{branch.createDate | date:'MMM dd, yyyy'}}
                                 </td>
                             </tr>
                         </tbody>
