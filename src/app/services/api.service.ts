@@ -11,21 +11,8 @@ import { StorageService } from './storage.service';
 export class APIService {
 
   constructor(
-    private httpClient: HttpClient,
-    private router : Router,
-    private storageService : StorageService
+    private httpClient: HttpClient
   ) { }
-
-  private readonly APIorigin: string = "https://r1dq4k84-7246.inc1.devtunnels.ms"
-  private readonly loginAPI: string = this.APIorigin + '/api/user/login'
-  private readonly sendOTPAPI: string = this.APIorigin + '/api/otp/send'
-  private readonly verifyOTPAPI: string = this.APIorigin + '/api/otp/verify'
-  private readonly changePasswordAPI: string = this.APIorigin + '/api/user/password/change'
-  private readonly REFRESH_TOKEN_API: string = this.APIorigin + '/api/token/refresh'
-  private readonly GET_USER_API: string = this.APIorigin + '/api/user'
-
-
-  
 
   get(url:string, options? : object | undefined): Observable<any>{
     return this.httpClient.get(url, options).pipe(catchError(this.handleError))

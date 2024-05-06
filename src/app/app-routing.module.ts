@@ -12,6 +12,7 @@ import { UserResolveService } from './services/user-resolve.service';
 import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { AuthorizationGuard } from './guards/authorization.guard';
+import { EmployeesComponent } from './employees/employees.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,14 @@ const routes: Routes = [
       },
       {
         path: 'organizations',
-        component: OrganizationsComponent
+        component: OrganizationsComponent,
+      },
+      {
+        path: 'employees',
+        component: EmployeesComponent,
+        resolve: {
+          user: UserResolveService
+        },
       },
       {
         path: 'profile',

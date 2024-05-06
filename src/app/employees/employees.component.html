@@ -157,9 +157,9 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="OrgList != null && OrgList != []; else loader "
+                        <tbody *ngIf="userList != null && userList != []; else loader "
                             class="divide-y divide-themeblue-100">
-                            <tr *ngFor="let org of filteredList" class="group hover:bg-themeblue-200">
+                            <tr *ngFor="let user of filteredList" class="group hover:bg-themeblue-200">
                                 <td class="pl-4 py-3">
                                     <div class="invisible group-hover:visible h-6 w-6 rounded-full bg-white flex justify-center items-center">
                                         <i
@@ -168,37 +168,37 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-3">
-                                    <input type="checkbox" [checked]="selectedUserList.includes(org)"
-                                        (click)="toggelUserSelect($event, org)"
+                                    <input type="checkbox" [checked]="selectedUserList.includes(user)"
+                                        (click)="toggelUserSelect($event, user)"
                                         class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </td>
                                 <td class="px-6 py-3">
-                                    <app-tag *ngIf="org.isActive" color="success">Active</app-tag>
-                                    <app-tag *ngIf="!org.isActive" color="danger">Inactive</app-tag>
+                                    <app-tag *ngIf="user.isActive" color="success">Active</app-tag>
+                                    <app-tag *ngIf="!user.isActive" color="danger">Inactive</app-tag>
                                 </td>
                                 <td class="px-6 py-3">
-                                    <img *ngIf="org.image; else charactorImage" [src]="org.image" alt="this.user?.name"
+                                    <img *ngIf="user.image; else charactorImage" [src]="user.image" alt="this.user?.name"
                                         class="rounded-full h-8 w-8">
                                     <ng-template #charactorImage>
                                         <div class="rounded-full h-8 w-8 flex justify-center items-center"
                                             style="background: #666887;">
-                                            <p class="text-white text-lg font-semibold">{{org.name![0].toUpperCase()}}
+                                            <p class="text-white text-lg font-semibold">{{user.name![0].toUpperCase()}}
                                             </p>
                                         </div>
                                     </ng-template>
                                 </td>
-                                <td class="px-6 py-3 group-hover:text-themeblue-400">{{org.name}}</td>
-                                <td class="px-6 py-3">{{org.contactPerson}}</td>
+                                <td class="px-6 py-3 group-hover:text-themeblue-400">{{user.name}}</td>
+                                <td class="px-6 py-3">{{user.contactPerson}}</td>
                                 <td class="px-6 py-3">
-                                    {{org.phoneNumber}}
+                                    {{user.phoneNumber}}
                                     &nbsp;
-                                    <a [href]="'tel:'+ org.phoneNumber">
+                                    <a [href]="'tel:'+ user.phoneNumber">
                                         <i class="fa-solid fa-phone text-gray-500 group-hover:text-themeblue-400"></i>
                                     </a>
                                 </td>
                                 <td class="px-6 py-3">
                                     <a class="group-hover:text-themeblue-400"
-                                        [href]="'mailto:'+ org.email">{{org.email}}</a>
+                                        [href]="'mailto:'+ user.email">{{user.email}}</a>
                                 </td>
                             </tr>
                         </tbody>
