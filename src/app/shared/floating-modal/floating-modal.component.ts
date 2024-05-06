@@ -8,6 +8,7 @@ import { FloatingModalService } from 'src/app/services/floating-modal.service';
 })
 export class FloatingModalComponent {
   @Input() floatingModalId  = "";
+  @Input() title  = "";
 
   constructor( public floatingMoadal : FloatingModalService, public el : ElementRef){}
   
