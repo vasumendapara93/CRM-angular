@@ -17,6 +17,7 @@ export class ProfilePageComponent implements OnInit{
   ){}
 
   addNumberFloatingModalId = "addNumberFloatingModalId"
+  addEmailFloatingModalId = "addEmailFloatingModalId"
 
   openPhoneNumberForm(event : Event){
     event.preventDefault()
@@ -24,8 +25,14 @@ export class ProfilePageComponent implements OnInit{
     console.log(this.floatingModal.isFloatingModalOpen(this.addNumberFloatingModalId))
   }
 
-  mobilenumber : string ="1"
-  emailAddress : string ="1"
+  openEmailForm(event : Event){
+    event.preventDefault()
+    this.floatingModal.openFloatingModal(this.addEmailFloatingModalId)
+    console.log(this.floatingModal.isFloatingModalOpen(this.addEmailFloatingModalId))
+  }
+
+  mobilenumber : string =""
+  emailAddress : string =""
 
   mobileImageURLs: string[] = [
     'assets/images/profileImages/p1.svg',
