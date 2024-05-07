@@ -9,6 +9,7 @@ import { FloatingModalComponent } from './floating-modal/floating-modal.componen
 import { InputComponent } from './input/input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
+import { MsgComponent } from './msg/msg.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
     FloatingDropdownComponent,
     NotificationComponent,
     FloatingModalComponent,
-    InputComponent
+    InputComponent,
+    MsgComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
     FloatingDropdownComponent,
     NotificationComponent,
     FloatingModalComponent,
-    InputComponent
+    InputComponent,
+    MsgComponent
   ],
   providers:[
     provideEnvironmentNgxMask(),

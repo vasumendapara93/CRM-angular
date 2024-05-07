@@ -6,7 +6,8 @@ module.exports = {
 ],
 safelist : [
   'bg-success',
-   'bg-danger'
+   'bg-danger',
+   'bg-warn'
   ],
   theme: {
     extend: {},
