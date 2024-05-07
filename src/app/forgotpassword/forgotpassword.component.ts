@@ -4,6 +4,7 @@ import { APIService } from '../services/api.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
+import { MsgService } from '../services/msg.service';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -15,7 +16,8 @@ export class ForgotpasswordComponent {
   constructor(
     private authService: AuthService,
     private storageService : StorageService,
-    private router : Router
+    private router : Router,
+    public msgService : MsgService
   ) { }
 
   showmsg = false
@@ -30,6 +32,8 @@ export class ForgotpasswordComponent {
   showPassword = false
   emailValue = ""
   btn = "Get OTP"
+
+  msgBoxId = "forgotPasswordMsgBox"
 
   startCountDown() {
     this.timer = ""
@@ -191,6 +195,7 @@ export class ForgotpasswordComponent {
     this.hideOTPField()
     this.stopTimerInterval()
     this.stopResendOTPTimeout()
+    this.btn = "Get OTP"
   }
 
   resendOTP(event: Event) {
@@ -245,6 +250,10 @@ export class ForgotpasswordComponent {
           this.btn = "Verify"
           this.isSubmitting= false
           this.showChangeEmailBtn = true
+
+          this.msgService.setColor(this.msgBoxId, 'success')
+          this.msgService.setMsg(this.msgBoxId, 'OTP is sent to your email')
+          this.msgService.openMsgBox(this.msgBoxId)
         },
         (error) => {
           console.log(error.error)
