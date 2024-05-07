@@ -1,5 +1,5 @@
 <app-login-modal title="Have an account?">
-    <form ngForm [formGroup]="loginForm" (ngSubmit)="login()">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="mb-4">
             masteruser@gmail.com
             <app-input name="Email" [control]="email" type="text" placeholder="Email" autocomplete="email" />

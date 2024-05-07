@@ -9,4 +9,5 @@ export class API {
     static GET_ORGANIZATIONS : string = this.ORIGIN + '/api/user/organization'
     static GET_EMPLOYEES : string = this.ORIGIN + '/api/user/employee'
     static GET_BRANCHES : string = this.ORIGIN + '/api/branch'
+    static CREATE_BRANCHE : string = this.ORIGIN + '/api/branch'
 }
