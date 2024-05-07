@@ -3,7 +3,7 @@
 
     <!-- Brand Logo -->
     <a routerLink="" class="logo-box">
-        <img src="assets/img/logo.png" class="h-6" alt="Limpid Systems">
+        <img src="assets/img/logo-dark.png" class="h-20 mb-1" alt="Limpid Systems">
     </a>
 
     <!-- Sidenav Menu Toggle Button -->
@@ -14,6 +14,18 @@
         </span>
     </button>
 
+    <!-- Notification Toggle Button -->
+    <div class="md:flex">
+        <button (click)="onToggleNotification()" id="Notification-toggle" type="button"
+            class="nav-link p-2 waves-effect">
+            <span class="flex items-center justify-center h-6 w-6">
+                <i class="fa-regular fa-bell fa-lg"></i>
+            </span>
+        </button>
+    </div>
+
+
+
     <!-- Fullscreen Toggle Button -->
     <div class="md:flex hidden">
         <button (click)="toggleFullScreen()" data-toggle="fullscreen" type="button" class="nav-link p-2 waves-effect">
@@ -23,6 +35,7 @@
             </span>
         </button>
     </div>
+
 
     <!-- Profile Dropdown Button -->
     <div>
@@ -51,7 +64,7 @@
                     Inbox
                 </a>
                 <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:bg-themeblue-200"
-                    routerLink="/profile" routerLinkActive="bg-gray-100" [routerLinkActiveOptions]="{ exact : true }">
+                    routerLink="/profile" routerLinkActive="bg-themeblue-200 text-themeblue-400" [routerLinkActiveOptions]="{ exact : true }">
                     Profile
                 </a>
                 <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:bg-themeblue-200">
@@ -66,25 +79,6 @@
                 </a>
             </div>
         </app-floating-dropdown>
-    </div>
+    </div>
 
-    <!-- <div>
-        <app-floating-dropdown [floatingDropdownId]="addLeadId">
-            <button floating-dropdown-title (click)="openFloatingDropdown($event, addLeadId)"
-                class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">
-                <i class="floating-dropdown-btn fa-solid fa-plus fa-lg  text-themeblue-900"></i>
-            </button>
-            <div floating-dropdown-menu
-                class="absolute top-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5"
-                style="right: -1.2rem;">
-                <a class="w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                    Create Organizations
-                </a>
-                <a class="w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100">
-                    Import CSV
-                </a>
-            </div>
-        </app-floating-dropdown>
-    </div> -->
 </header>
-<!-- Topbar End -->

@@ -7,4 +7,24 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  showNotification: boolean = false;
+  
+//notification
+// togglenotification:boolean = false
+// toggleNotification(){
+//   this.togglenotification = true;
+// }
+// onNotificationClose() {
+//   this.togglenotification = false;
+// }
+
+// 
+
+toggleNotification() {
+  this.showNotification = !this.showNotification;
+}
+
+closeNotification() {
+  this.showNotification = false;
+}
 }

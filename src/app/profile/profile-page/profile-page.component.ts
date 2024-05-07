@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
+import { FloatingModalService } from 'src/app/services/floating-modal.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -10,8 +11,21 @@ export class ProfilePageComponent implements OnInit{
   ngOnInit(): void {
     initFlowbite();
   }
-  mobilenumber : string =""
-  emailAddress : string =""
+
+  constructor(
+    private floatingModal : FloatingModalService
+  ){}
+
+  addNumberFloatingModalId = "addNumberFloatingModalId"
+
+  openPhoneNumberForm(event : Event){
+    event.preventDefault()
+    this.floatingModal.openFloatingModal(this.addNumberFloatingModalId)
+    console.log(this.floatingModal.isFloatingModalOpen(this.addNumberFloatingModalId))
+  }
+
+  mobilenumber : string ="1"
+  emailAddress : string ="1"
 
   mobileImageURLs: string[] = [
     'assets/images/profileImages/p1.svg',

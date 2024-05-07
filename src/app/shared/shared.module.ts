@@ -4,6 +4,11 @@ import { DotWaveLoaderComponent } from './dot-wave-loder/dot-wave-loader.compone
 import { PageHeadingComponent } from './page-heading/page-heading.component';
 import { TagComponent } from './tag/tag.component';
 import { FloatingDropdownComponent } from './floating-dropdown/floating-dropdown.component';
+import { NotificationComponent } from './notification/notification.component';
+import { FloatingModalComponent } from './floating-modal/floating-modal.component';
+import { InputComponent } from './input/input.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
 
 
 @NgModule({
@@ -11,16 +16,28 @@ import { FloatingDropdownComponent } from './floating-dropdown/floating-dropdown
     DotWaveLoaderComponent,
     PageHeadingComponent,
     TagComponent,
-    FloatingDropdownComponent
+    FloatingDropdownComponent,
+    NotificationComponent,
+    FloatingModalComponent,
+    InputComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxMaskDirective
   ],
-  exports : [
+  exports: [
     DotWaveLoaderComponent,
     PageHeadingComponent,
     TagComponent,
-    FloatingDropdownComponent
+    FloatingDropdownComponent,
+    NotificationComponent,
+    FloatingModalComponent,
+    InputComponent
+  ],
+  providers:[
+    provideEnvironmentNgxMask(),
   ]
 })
 export class SharedModule { }

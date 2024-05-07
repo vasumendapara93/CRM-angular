@@ -1,0 +1,44 @@
+<input [formControl]="control" type={{type}} class="w-full px-3 py-2 sm:px-4 sm:py-3 border-none rounded-sm  login-text-color login-input border-transparent focus:border-transparent"
+    placeholder={{placeholder}} [mask]="format" [autocomplete]="autocomplete"/>
+
+<ng-container *ngIf="control.touched && control.dirty">
+    <p ngClass="mt-1 mb-3 text-sm text-red-600" *ngIf="control.errors?.['required']"
+     class="text-red-400">
+     {{name}} is required
+    </p>
+
+    <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['minlength']"
+    class="text-red-400">
+    input length is {{control.errors?.['minlength'].actualLength}},
+    it should be minimum {{control.errors?.['minlength'].requiredLength}}
+   </p>
+
+   <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['email']"
+    class="text-red-400">
+   Enter valid email
+   </p>
+
+   <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['min']"
+    class="text-red-400">
+        Value is to low
+   </p>
+
+   <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['max']"
+    class="text-red-400">
+        Value is to high
+   </p>
+
+   <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['pattern']"
+    class="text-red-400">
+        Password must be minimum 8 characters long and
+        must contain 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character
+   </p>
+   <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['noMatch']"
+   class="text-red-400">
+       Confirm password not matching
+  </p>
+  <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['emailTaken']"
+   class="text-red-400">
+       Email already teken, Please try another email
+  </p>
+</ng-container> 

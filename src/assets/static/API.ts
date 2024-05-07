@@ -7,4 +7,6 @@ export class API {
     static REFRESH_TOKEN: string = this.ORIGIN + '/api/token/refresh'
     static GET_USER: string = this.ORIGIN + '/api/user'
     static GET_ORGANIZATIONS : string = this.ORIGIN + '/api/user/organization'
+    static GET_EMPLOYEES : string = this.ORIGIN + '/api/user/employee'
+    static GET_BRANCHES : string = this.ORIGIN + '/api/branch'
 }

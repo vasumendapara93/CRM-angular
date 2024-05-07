@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import IUser from '../model/User.model';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FloatingDropdownService } from '../services/floating-dropdown.service';
 
 @Component({
@@ -10,15 +10,16 @@ import { FloatingDropdownService } from '../services/floating-dropdown.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  //notification
+  @Output() toggleNotification = new EventEmitter<void>();
 
-  user : IUser
+  user: IUser
   ProfileDropdownId = 'profileDropdown'
-
   constructor(
-    private authService : AuthService,
+    private authService: AuthService,
     private route: ActivatedRoute,
-    private floatingDropdown : FloatingDropdownService
-  ){
+    private floatingDropdown: FloatingDropdownService
+  ) {
     this.user = this.route.snapshot.data['user'];
   }
 
@@ -35,11 +36,14 @@ export class HeaderComponent {
     }
   }
 
-  openFloatingDropdown(event:Event,id :string){
+  openFloatingDropdown(event: Event, id: string) {
     event.preventDefault();
     this.floatingDropdown.toggeleFloatingDropdown(id)
   }
 
+  onToggleNotification() {
+    this.toggleNotification.emit();
+  }
   toggleSideNavBar() {
     // Menu Toggle Button ( Placed in Topbar)
     var html = document.getElementsByTagName("html")[0];
@@ -87,7 +91,16 @@ export class HeaderComponent {
     }
   }
 
-  logout($event : Event){
+  toggleProfileDropdown($event: Event) {
+    $event.preventDefault()
+    var profileDropdwonList = document.getElementById('profileDropdwonList')
+    var classes = ['hidden', 'opacity-100']
+    classes.forEach((classTotoggle) => {
+      profileDropdwonList?.classList.toggle(classTotoggle)
+    })
+  }
+
+  logout($event: Event) {
     $event.preventDefault()
     this.authService.logout()
   }
