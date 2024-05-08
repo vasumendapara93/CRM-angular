@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { MsgService } from '../services/msg.service';
+import { Color } from 'src/assets/static/Color';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -15,9 +16,9 @@ export class ForgotpasswordComponent {
 
   constructor(
     private authService: AuthService,
-    private storageService : StorageService,
-    private router : Router,
-    public msgService : MsgService
+    private storageService: StorageService,
+    private router: Router,
+    public msgService: MsgService
   ) { }
 
   showmsg = false
@@ -84,17 +85,17 @@ export class ForgotpasswordComponent {
   forgotPasswordForm = new FormGroup({
     email: this.email,
     otp: this.otp,
-    newPassword : this.newPassword
+    newPassword: this.newPassword
   })
 
-  submit($event : Event){
-    if(this.btn == "Get OTP"){
+  submit($event: Event) {
+    if (this.btn == "Get OTP") {
       this.getOTP($event)
-    }else if(this.btn == "Verify"){
+    } else if (this.btn == "Verify") {
       this.verify($event)
-    }else if(this.btn == "Change"){
+    } else if (this.btn == "Change") {
       this.changePassword($event)
-    }else{
+    } else {
       console.error("No method")
     }
   }
@@ -115,9 +116,9 @@ export class ForgotpasswordComponent {
       } else {
         FormOuter!.style.height = (oldheight - height) + 'px'
       }
-      
+
       height += 1
-    }, 5) 
+    }, 5)
   }
 
   showOTPField() {
@@ -127,23 +128,23 @@ export class ForgotpasswordComponent {
     var oldheight = FormOuter!.offsetHeight - 1
     const intervalId = setInterval(() => {
       if (height >= 94) {
-        
+
         OTPField?.classList.toggle('hidden')
         OTPField?.classList.toggle('opacity-0')
-     
+
         setTimeout(() => {
           FormOuter!.style.height = 'auto'
         }, 1000);
         clearInterval(intervalId)
-      } 
-        else {
-          FormOuter!.style.height = (oldheight +   height) + 'px'
-        }
+      }
+      else {
+        FormOuter!.style.height = (oldheight + height) + 'px'
+      }
       height += 1
     }, 5)
   }
 
-  showNewPasswordField(){
+  showNewPasswordField() {
     var newPasswordFied = document.getElementById('newPasswordFied')
     var OTPField = document.getElementById('OTPField')
     var emailField = document.getElementById('emailField')
@@ -177,7 +178,7 @@ export class ForgotpasswordComponent {
     }, 5)
   }
 
-  showPasswordToggle(event : Event){
+  showPasswordToggle(event: Event) {
     event.preventDefault()
     var eyeIcon = document.getElementById('eye-icon')
     eyeIcon?.classList.toggle('fa-eye')
@@ -248,10 +249,10 @@ export class ForgotpasswordComponent {
             this.showOTPField()
           }
           this.btn = "Verify"
-          this.isSubmitting= false
+          this.isSubmitting = false
           this.showChangeEmailBtn = true
 
-          this.msgService.setColor(this.msgBoxId, 'success')
+          this.msgService.setColor(this.msgBoxId, Color.success)
           this.msgService.setMsg(this.msgBoxId, 'OTP is sent to your email')
           this.msgService.openMsgBox(this.msgBoxId)
         },
@@ -261,6 +262,9 @@ export class ForgotpasswordComponent {
             this.msg = error.error.errorMessages[0]
             this.showmsg = true
           } else {
+            this.msgService.setColor(this.msgBoxId, Color.danger)
+            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+            this.msgService.openMsgBox(this.msgBoxId)
             this.msg = "Somthing Is Wrong Try Again Later"
             this.showmsg = true
           }
@@ -270,9 +274,9 @@ export class ForgotpasswordComponent {
     }
   }
 
- verify(event : Event) {
-  event.preventDefault()
-  this.email.enable()
+  verify(event: Event) {
+    event.preventDefault()
+    this.email.enable()
     if (this.email.valid) {
       this.email.disable()
       this.isSubmitting = true
@@ -292,7 +296,7 @@ export class ForgotpasswordComponent {
           console.log(error.error)
           if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
             this.msg = error.error.errorMessages[0]
-            this.showmsg= true
+            this.showmsg = true
           } else {
             this.msg = "Somthing Is Wrong Try Again Later"
             this.showmsg = true
@@ -303,7 +307,7 @@ export class ForgotpasswordComponent {
     }
   }
 
-  changePassword(event : Event) {
+  changePassword(event: Event) {
     event.preventDefault()
     if (this.newPassword.valid) {
       this.isSubmitting = true
@@ -328,7 +332,7 @@ export class ForgotpasswordComponent {
                 }
               },
               (error) => {
-                console.log(error.error )
+                console.log(error.error)
                 this.isSubmitting = false
                 if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
                   this.msg = error.error.errorMessages[0]
@@ -339,13 +343,13 @@ export class ForgotpasswordComponent {
               }
             )
           }
-          
+
         },
         (error) => {
           console.log(error.error)
           if (error.error.errorMessages[0] != null || error.error.errorMessages[0] != "") {
             this.msg = error.error.errorMessages[0]
-            this.showmsg= true
+            this.showmsg = true
           } else {
             this.msg = "Somthing Is Wrong Try Again Later"
             this.showmsg = true
