@@ -2,11 +2,17 @@
     <div class="w-full sm:w-80 flex flex-col gap-4">
         <app-input class="" name="Organization Name" type="text" autocomplete="Name" placeholder="Name"></app-input>
         <app-input name="Email" type="text" autocomplete="email" placeholder="Email"></app-input>
+        <select id="countries" class="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-sm  login-text-color login-input focus:border-transparent border-r-8 border-gray-100">
+            <option selected disabled>Role</option>
+            <option [value]="UserRole.DATA_ENTRY_OPRATOR">{{UserRole.DATA_ENTRY_OPRATOR}}</option>
+            <option [value]="UserRole.ASSIGNER">{{UserRole.ASSIGNER}}</option>
+            <option [value]="UserRole.SALES_PERSON">{{UserRole.DATA_ENTRY_OPRATOR}}</option>
+          </select>
         <button [disabled]="false" type="submit"
             class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
             <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
                 *ngIf="false ; else GetStartText" />
-            <ng-template #GetStartText> Create Organization </ng-template>
+            <ng-template #GetStartText> Add Employee </ng-template>
         </button>
     </div>
 </app-floating-modal>
@@ -40,7 +46,7 @@
                 style="right: -1.2rem;">
                 <div (click)="openAddOrgForm($event)"
                     class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
-                    Create Organizations
+                    Add Employee
                 </div>
                 <div
                     class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">

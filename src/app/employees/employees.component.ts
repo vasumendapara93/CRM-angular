@@ -6,6 +6,7 @@ import { FloatingDropdownService } from '../services/floating-dropdown.service';
 import { FloatingModalService } from '../services/floating-modal.service';
 import { API } from 'src/assets/static/API';
 import { ActivatedRoute } from '@angular/router';
+import { UserRole } from 'src/assets/static/UserRole';
 
 @Component({
   selector: 'app-employees',
@@ -20,6 +21,7 @@ export class EmployeesComponent {
   selectedUserList: IUser[] = []
   filterText: string = ""
   user : IUser
+  UserRole = UserRole
 
   addLeadId = "add-lead"
   NameDropDownId = 'NameDropDownId'
