@@ -1,4 +1,4 @@
-<div class="w-80 flex flex-col mt-3 mb-2" *ngIf="!(this.file && isFileAccepted); else fileDetail">
+<div class="sm:w-80 w-full flex flex-col mt-3 mb-2" *ngIf="!(this.file && isFileAccepted); else fileDetail">
 <!-- <div class="w-80 flex flex-col gap-6 mt-3 mb-2" *ngIf="false; else fileDetail"> -->
     <div  appEventBlocker 
     (drop)="getFile($event)" 
@@ -17,8 +17,8 @@
 
 
 <ng-template #fileDetail>
-    <div class="flex gap-6 mt-5 items-center">
-        <div class="rounded-full h-14 w-14 bg-success flex justify-center items-center">
+    <div class="flex mt-5 w-full sm:w-80 items-center">
+        <div class="rounded-full h-14 w-14 bg-success flex justify-center items-center mr-5 flex-none">
             <i class="fa-regular fa-file fa-2xl text-white"></i>
         </div>
         <div class="flex flex-col justify-center items-start">
