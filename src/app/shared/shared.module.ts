@@ -10,6 +10,7 @@ import { InputComponent } from './input/input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
 import { MsgComponent } from './msg/msg.component';
+import { EventBlockerDirective } from '../services/directives/event-blocker.directive';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MsgComponent } from './msg/msg.component';
     NotificationComponent,
     FloatingModalComponent,
     InputComponent,
-    MsgComponent
+    MsgComponent,
+    EventBlockerDirective
   ],
   imports: [
     CommonModule,
