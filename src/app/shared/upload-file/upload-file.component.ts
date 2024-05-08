@@ -8,7 +8,7 @@ import * as XLSX from "xlsx";
 })
 export class UploadFileComponent {
   isDragover: boolean = false
-  allowedFileTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'csv']
+  allowedFileTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv']
   file: File | null = null
   sheetNames : string[] = []
   isFileAccepted = false
