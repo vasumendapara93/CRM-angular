@@ -1,0 +1,32 @@
+<div class="w-80 flex flex-col mt-3 mb-2" *ngIf="!(this.file && isFileAccepted); else fileDetail">
+<!-- <div class="w-80 flex flex-col gap-6 mt-3 mb-2" *ngIf="false; else fileDetail"> -->
+    <div  appEventBlocker 
+    (drop)="getFile($event)" 
+    [ngClass]="{'bg-themeblue-200' : isDragover}" (dragend)="isDragover = false" (dragover)="isDragover = true"
+        (dragenter)="isDragover = true" (dragleave)="isDragover =false" (mouseleave)="isDragover = false"
+        class="border-2 border-dashed border-gray-500 w-full h-40 rounded-lg flex justify-center items-center flex-col">
+        <p *ngIf="!isReadingFile" class="text-gray-500 text-base">Drop Here</p>
+        <p *ngIf="!isReadingFile" class="text-gray-500 text-sm">- OR -</p>
+        <button *ngIf="!isReadingFile" (click)="openFileInput($event)" class="text-white py-1.5 w-36 rounded bg-themeblue-900  mt-2"> Browse
+        </button>
+        <input type="file" id="fileInput" class="hidden" (input)="getFile($event)">
+        <app-dot-wave-loader *ngIf="isReadingFile" colorCode="#11153e"></app-dot-wave-loader>
+    </div>
+    <p *ngIf="showFileTypeError" class="text-danger ">*Only .csv, .xlsx and .xls files are accepted</p>
+</div>
+
+
+<ng-template #fileDetail>
+    <div class="flex gap-6 mt-5 items-center">
+        <div class="rounded-full h-14 w-14 bg-success flex justify-center items-center">
+            <i class="fa-regular fa-file fa-2xl text-white"></i>
+        </div>
+        <div class="flex flex-col justify-center items-start">
+            <p class="text-base">Your file has been uploaded successfully</p>
+            <p class="text-base font-semibold">{{file?.name}}</p>
+        </div>
+            <i (click)="cancelFile()"
+            class="fa-solid fa-xmark  inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-full hover:text-themeblur-200 focus:outline-none focus:ring-offset-2 focus:ring-offset-white nav-link "></i>
+    </div>
+        <button  class="text-white py-1.5 w-36 rounded bg-themeblue-900 w-full mt-5"> Next</button>
+</ng-template>

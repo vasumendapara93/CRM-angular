@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
 import { MsgComponent } from './msg/msg.component';
 import { EventBlockerDirective } from '../services/directives/event-blocker.directive';
+import { UploadFileComponent } from './upload-file/upload-file.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { EventBlockerDirective } from '../services/directives/event-blocker.dire
     FloatingModalComponent,
     InputComponent,
     MsgComponent,
-    EventBlockerDirective
+    EventBlockerDirective,
+    UploadFileComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { EventBlockerDirective } from '../services/directives/event-blocker.dire
     NotificationComponent,
     FloatingModalComponent,
     InputComponent,
-    MsgComponent
+    MsgComponent,
+    UploadFileComponent
   ],
   providers:[
     provideEnvironmentNgxMask(),

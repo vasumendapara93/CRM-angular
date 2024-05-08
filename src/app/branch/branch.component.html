@@ -14,14 +14,7 @@
 </app-floating-modal>
 
 <app-floating-modal [floatingModalId]="addBranchCSVFloatingModalId" title="Add Branch CSV">
-    <div class="w-80 flex flex-col gap-4 mt-3 mb-2">
-        <div class="border-2 border-dashed border-gray-500 w-full h-40 rounded-lg flex justify-center items-center flex-col">
-            <p class="text-gray-500 text-base" >Drop Here</p>
-            <button  type="submit"
-            class="text-white py-1.5 w-36 rounded bg-themeblue-900  mt-2"> Browse
-        </button>
-        </div>
-    </div>
+   <app-upload-file></app-upload-file>
 </app-floating-modal>
 
 <main class="p-6">
