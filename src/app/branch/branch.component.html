@@ -1,3 +1,5 @@
+<app-msg [MsgBoxId]="msgBoxId"></app-msg>
+
 <app-floating-modal [floatingModalId]="addBranchFloatingModalId" title="Add Branch">
     <form [formGroup]="newBranchFrom" (ngSubmit)="createNewBranch()" class="w-80 flex flex-col gap-4">
         <app-input [control]="branchName" name="Branch Name" type="text" autocomplete="Name" placeholder="Branch Name"></app-input>

@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 import IUser from '../model/User.model';
 import { API } from 'src/assets/static/API';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MsgService } from '../services/msg.service';
+import { Color } from 'src/assets/static/Color';
 
 @Component({
   selector: 'app-branch',
@@ -31,6 +33,8 @@ export class BranchComponent {
   addBranchFloatingModalId = 'addBranchFloatingModalId'
   addBranchCSVFloatingModalId = "addBranchCSVFloatingModalId"
 
+  msgBoxId = 'branchMsgBoxId'
+
   isCreatingNewBranch = false
 
   constructor(
@@ -38,7 +42,8 @@ export class BranchComponent {
     private authService: AuthService,
     private floatingDropdown: FloatingDropdownService,
     private floatingModal: FloatingModalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private msgService : MsgService
   ) {
     this.user = this.route.snapshot.data['user'];
     this.getbranches()
@@ -75,6 +80,9 @@ export class BranchComponent {
           (response) => {
             console.log(response)
             if (response.isSuccess) {
+              this.msgService.setColor(this.msgBoxId, Color.success)
+              this.msgService.setMsg(this.msgBoxId, 'Branch Created Successfully')
+              this.msgService.openMsgBox(this.msgBoxId)
               this.getbranches()
               this.floatingModal.closeFloatingModal(this.addBranchFloatingModalId)
               this.newBranchFrom.reset()
@@ -83,6 +91,10 @@ export class BranchComponent {
           },
           (error) => {
             console.log(error)
+            
+            this.msgService.setColor(this.msgBoxId, Color.danger)
+            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+            this.msgService.openMsgBox(this.msgBoxId)
           }
         )
       } catch (e) {
