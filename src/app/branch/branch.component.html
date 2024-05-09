@@ -2,7 +2,8 @@
 
 <app-floating-modal [floatingModalId]="addBranchFloatingModalId" title="Add Branch">
     <form [formGroup]="newBranchFrom" (ngSubmit)="createNewBranch()" class="w-full sm:w-80 flex flex-col gap-4">
-        <app-input [control]="branchName" name="Branch Name" type="text" autocomplete="Name" placeholder="Branch Name"></app-input>
+        <app-input [control]="branchName" name="Branch Name" type="text" autocomplete="Name"
+            placeholder="Branch Name"></app-input>
         <app-input [control]="branchCode" name="Branch Code" type="text" placeholder="Branch Code"></app-input>
         <button [disabled]="isCreatingNewBranch" type="submit"
             class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
@@ -14,7 +15,7 @@
 </app-floating-modal>
 
 <app-floating-modal [floatingModalId]="addBranchCSVFloatingModalId" title="Add Branch CSV">
-   <app-upload-file></app-upload-file>
+    <app-upload-file></app-upload-file>
 </app-floating-modal>
 
 <main class="p-6">
@@ -59,8 +60,8 @@
         <div class="overflow-x-auto w-full rounded-lg">
             <div class="min-w-full inline-block align-middle rounded-lg">
                 <div class="overflow-auto border rounded-lg shadow h-max max-h-[60vh]">
-                    <table class="min-w-full whitespace-nowrap text-base divide-y divide-gray-200">
-                        <thead class="text-grey-500">
+                    <table class="min-w-full text-base divide-y divide-gray-200">
+                        <thead class="text-grey-500 whitespace-nowrap ">
                             <tr class="bg-themeblue-100 sticky top-0">
                                 <th></th>
                                 <th class="px-6 py-3">
@@ -68,70 +69,77 @@
                                         class="float-left form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </th>
                                 <th class="px-6 py-3 ">
-                                    <span class="float-left">Name</span>
-                                    <app-floating-dropdown [floatingDropdownId]="branchNameDropDownId">
-                                        <i floating-dropdown-title
-                                            (click)="openFloatingDropdown($event, branchNameDropDownId)"
-                                            class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
-                                        <div floating-dropdown-menu
-                                            class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
-                                            style="right: -1.2rem;">
-                                            <div
-                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                                                <p>ASC</p>
-                                                <i class="fa-solid fa-arrow-up-a-z"></i>
+                                    <div class="flex gap-4 justify-between items-center">
+                                        <span class="float-left">Name</span>
+                                        <app-floating-dropdown [floatingDropdownId]="branchNameDropDownId">
+                                            <i floating-dropdown-title
+                                                (click)="openFloatingDropdown($event, branchNameDropDownId)"
+                                                class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
+                                            <div floating-dropdown-menu
+                                                class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
+                                                style="right: -1.2rem;">
+                                                <div
+                                                    class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                    <p>ASC</p>
+                                                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                                                </div>
+                                                <div
+                                                    class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                    <p>DSC</p>
+                                                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                                                </div>
                                             </div>
-                                            <div
-                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                                                <p>DSC</p>
-                                                <i class="fa-solid fa-arrow-down-z-a"></i>
+                                        </app-floating-dropdown>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-3 ">
+                                    <div class="flex gap-4 justify-between items-center">
+                                        <span class="float-left">Branch Code</span>
+                                        <app-floating-dropdown [floatingDropdownId]="branchCodeDropDownId">
+                                            <i floating-dropdown-title
+                                                (click)="openFloatingDropdown($event, branchCodeDropDownId)"
+                                                class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
+                                            <div floating-dropdown-menu
+                                                class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
+                                                style="right: -1.2rem;">
+                                                <div
+                                                    class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                    <p>ASC</p>
+                                                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                                                </div>
+                                                <div
+                                                    class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                    <p>DSC</p>
+                                                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </app-floating-dropdown>
+                                        </app-floating-dropdown>
+                                    </div>
+
                                 </th>
                                 <th class="px-6 py-3">
-                                    <span class="float-left">Branch Code</span>
-                                    <app-floating-dropdown [floatingDropdownId]="branchCodeDropDownId">
-                                        <i floating-dropdown-title
-                                            (click)="openFloatingDropdown($event, branchCodeDropDownId)"
-                                            class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
-                                        <div floating-dropdown-menu
-                                            class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
-                                            style="right: -1.2rem;">
-                                            <div
-                                                class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                                                <p>ASC</p>
-                                                <i class="fa-solid fa-arrow-up-a-z"></i>
+                                    <div class="flex gap-4 justify-between items-center">
+                                        <span class="float-left">Create Date</span>
+                                        <app-floating-dropdown [floatingDropdownId]="branchCreateDateDropDownId">
+                                            <i floating-dropdown-title
+                                                (click)="openFloatingDropdown($event, branchCreateDateDropDownId)"
+                                                class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
+                                            <div floating-dropdown-menu
+                                                class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
+                                                style="right: -1.2rem;">
+                                                <div
+                                                    class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                    <p>ASC</p>
+                                                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                                                </div>
+                                                <div
+                                                    class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                                                    <p>DSC</p>
+                                                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                                                </div>
                                             </div>
-                                            <div
-                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                                                <p>DSC</p>
-                                                <i class="fa-solid fa-arrow-down-z-a"></i>
-                                            </div>
-                                        </div>
-                                    </app-floating-dropdown>
-                                </th>
-                                <th class="px-6 py-3">
-                                    <span class="float-left">Create Date</span>
-                                    <app-floating-dropdown [floatingDropdownId]="branchCreateDateDropDownId">
-                                        <i floating-dropdown-title
-                                            (click)="openFloatingDropdown($event, branchCreateDateDropDownId)"
-                                            class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
-                                        <div floating-dropdown-menu
-                                            class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32 "
-                                            style="right: -1.2rem;">
-                                            <div
-                                                class="flex justify-between items-center  py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                                                <p>ASC</p>
-                                                <i class="fa-solid fa-arrow-up-a-z"></i>
-                                            </div>
-                                            <div
-                                                class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                                                <p>DSC</p>
-                                                <i class="fa-solid fa-arrow-down-z-a"></i>
-                                            </div>
-                                        </div>
-                                    </app-floating-dropdown>
+                                        </app-floating-dropdown>
+                                    </div>
                                 </th>
                             </tr>
                         </thead>
@@ -139,9 +147,9 @@
                             class="divide-y divide-themeblue-100">
                             <tr *ngFor="let branch of filteredList" class="group hover:bg-themeblue-200">
                                 <td class="pl-4 py-3">
-                                    <div class="invisible group-hover:visible h-6 w-6 rounded-full bg-white flex justify-center items-center">
-                                        <i
-                                            class="fa-solid fa-ellipsis text-themeblue-900 fa-sm">
+                                    <div
+                                        class="invisible group-hover:visible h-6 w-6 rounded-full bg-white flex justify-center items-center">
+                                        <i class="fa-solid fa-ellipsis text-themeblue-900 fa-sm">
                                         </i>
                                     </div>
                                 </td>
