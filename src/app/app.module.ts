@@ -22,6 +22,7 @@ import { OrganizationsComponent } from './organizations/organizations.component'
 import { ProfileModule } from './profile/profile.module';
 import { EmployeesComponent } from './employees/employees.component';
 import { BranchComponent } from './branch/branch.component';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { BranchComponent } from './branch/branch.component';
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    ProfileModule
+    ProfileModule,
+    LoadingBarHttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
