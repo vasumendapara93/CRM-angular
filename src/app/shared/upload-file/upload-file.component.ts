@@ -17,7 +17,7 @@ export class UploadFileComponent {
 
   msgBoxId = 'uploadFileMsgBoxID'
   isDragover: boolean = false
-  allowedFileTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv']
+  allowedFileTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv','application/vnd.ms-excel']
   file: File | null = null
   sheetNames: string[] = []
   isFileAccepted = false
