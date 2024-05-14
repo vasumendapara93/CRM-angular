@@ -91,7 +91,7 @@ export class BranchComponent {
           },
           (error) => {
             console.log(error)
-            
+
             this.msgService.setColor(this.msgBoxId, Color.danger)
             this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
             this.msgService.openMsgBox(this.msgBoxId)
@@ -160,7 +160,7 @@ export class BranchComponent {
         this.filteredList.push(branch)
       }
     });
-  }
+  } 
 
   openFloatingDropdown(event: Event, id: string) {
     event.preventDefault();
