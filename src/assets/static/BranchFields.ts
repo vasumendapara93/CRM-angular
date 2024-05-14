@@ -2,10 +2,12 @@
 export class BranchFields {
   static BranchName = {
     displayName : 'Branch Name',
-    fieldName: 'BranchName'
+    fieldName: 'BranchName',
+    isRequired : true
   }
   static BranchCode = {
     displayName : 'Branch Code',
-    fieldName: 'BranchCode'
+    fieldName: 'BranchCode',
+    isRequired : false
   }
 }

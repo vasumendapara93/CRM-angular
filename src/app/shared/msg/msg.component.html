@@ -1,5 +1,5 @@
 <div *ngIf="msgService.isMsgBoxOpen(MsgBoxId)" class="bg-black opacity-75 fixed translate-x-2/4 top-10 right-2/4 rounded open-sliding-msg-animation" [ngClass]="{'close-sliding-msg-animation': isCloseing}"
-    style="z-index: 52;">
+    style="z-index: 55;">
     <div class="flex justify-end items-start p-4 text-white gap-8 cursor-pointer">
         <p class="text-base">{{this.msgService.getMsg(this.MsgBoxId)}}</p>
         <i (click)="closeMsgBox()" class="fa-solid fa-xmark text-white"></i>

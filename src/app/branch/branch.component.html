@@ -1,4 +1,5 @@
 <app-msg [MsgBoxId]="msgBoxId"></app-msg>
+<app-msg [MsgBoxId]="uploadBoxId"></app-msg>
 
 <app-floating-modal [floatingModalId]="addBranchFloatingModalId" title="Add Branch">
     <form [formGroup]="newBranchFrom" (ngSubmit)="createNewBranch()" class="w-80 flex flex-col gap-4">
@@ -14,7 +15,7 @@
 </app-floating-modal>
 
 <app-floating-modal [floatingModalId]="addBranchCSVFloatingModalId" title="Add Branch CSV">
-   <app-upload-file></app-upload-file>
+   <app-upload-file #uploadFileComponent [mappingFieldsInput]="mappingFields.BranchFields" (onFinalListGenerated)="createBranchRange($event)"></app-upload-file>
 </app-floating-modal>
 
 <main class="p-6">

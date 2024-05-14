@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { APIService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
 import { FloatingDropdownService } from '../services/floating-dropdown.service';
@@ -10,6 +10,8 @@ import { API } from 'src/assets/static/API';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MsgService } from '../services/msg.service';
 import { Color } from 'src/assets/static/Color';
+import { MappingFields } from 'src/assets/static/MappingFields';
+import { UploadFileComponent } from '../shared/upload-file/upload-file.component';
 
 @Component({
   selector: 'app-branch',
@@ -18,12 +20,15 @@ import { Color } from 'src/assets/static/Color';
 })
 export class BranchComponent {
 
+  @ViewChild('uploadFileComponent') uploadFileComponent!: UploadFileComponent;
+
   pageTitle = 'Branches'
   branchList: IBranch[] = []
   filteredList: IBranch[] = []
   selectedUserList: IBranch[] = []
   filterText: string = ""
   user: IUser
+  mappingFields = MappingFields
 
   addLeadId = "add-lead"
   branchNameDropDownId = 'branchNameDropDownId'
@@ -34,6 +39,7 @@ export class BranchComponent {
   addBranchCSVFloatingModalId = "addBranchCSVFloatingModalId"
 
   msgBoxId = 'branchMsgBoxId'
+  uploadBoxId = 'uploadFileMsgBoxID'
 
   isCreatingNewBranch = false
 
@@ -43,7 +49,7 @@ export class BranchComponent {
     private floatingDropdown: FloatingDropdownService,
     private floatingModal: FloatingModalService,
     private route: ActivatedRoute,
-    private msgService : MsgService
+    private msgService: MsgService
   ) {
     this.user = this.route.snapshot.data['user'];
     this.getbranches()
@@ -83,8 +89,8 @@ export class BranchComponent {
               this.msgService.setColor(this.msgBoxId, Color.success)
               this.msgService.setMsg(this.msgBoxId, 'Branch Created Successfully')
               this.msgService.openMsgBox(this.msgBoxId)
-              this.getbranches()
               this.floatingModal.closeFloatingModal(this.addBranchFloatingModalId)
+              this.getbranches()
               this.newBranchFrom.reset()
             }
             this.isCreatingNewBranch = false
@@ -160,11 +166,42 @@ export class BranchComponent {
         this.filteredList.push(branch)
       }
     });
-  } 
+  }
 
   openFloatingDropdown(event: Event, id: string) {
     event.preventDefault();
     this.floatingDropdown.toggeleFloatingDropdown(id)
+  }
+
+  async createBranchRange(emitedList: { [key: string]: any }[]) {
+    var newBarnchList: IBranch[] = []
+    emitedList.forEach(item => {
+      item['organizationId'] = this.user.id
+      newBarnchList.push(item as IBranch)
+    })
+    console.log(newBarnchList)
+    this.apiService.post(API.CREATE_BRANCHE_RANGE, newBarnchList, {
+      headers: await this.authService.getAuthorizationHeader()
+    }
+    ).subscribe(
+      (response) => {
+        console.log(response)
+        if (response) {
+          this.msgService.setColor(this.msgBoxId, Color.success)
+          this.msgService.setMsg(this.msgBoxId, 'Branches Created Successfully')
+          this.msgService.openMsgBox(this.msgBoxId)
+          this.getbranches()
+          this.floatingModal.closeFloatingModal(this.addBranchCSVFloatingModalId)
+          this.uploadFileComponent.file = null
+          this.uploadFileComponent.isExtracting = false
+          this.uploadFileComponent.isFileAccepted = false
+          this.uploadFileComponent.isReadingFile = false
+        }
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
   }
 
   async getbranches() {
