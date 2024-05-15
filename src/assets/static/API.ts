@@ -11,4 +11,6 @@ export class API {
     static GET_BRANCHES : string = this.ORIGIN + '/api/branch'
     static CREATE_BRANCHE : string = this.ORIGIN + '/api/branch'
     static CREATE_BRANCHE_RANGE : string = this.ORIGIN + '/api/branch/range'
+    static REMOVE_BRANCHE_RANGE : string = this.ORIGIN + '/api/branch/range'
+    static REMOVE_BRANCHE : string = this.ORIGIN + '/api/branch'
 }

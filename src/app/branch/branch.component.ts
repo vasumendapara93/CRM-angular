@@ -89,7 +89,7 @@ export class BranchComponent {
 
 
   toggelUserSelect(event: Event, branch: IBranch) {
-    var allChechbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
+    var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
     var checkbox = event.target as HTMLInputElement
     if (checkbox.checked) {
       this.selectedUserList.push(branch)
@@ -97,14 +97,14 @@ export class BranchComponent {
       this.selectedUserList = this.selectedUserList.filter((userInList) => userInList != branch)
     }
     if (this.selectedUserList.length == this.filteredList.length) {
-      allChechbox.checked = true
-      allChechbox.indeterminate = false
+      allCheckbox.checked = true
+      allCheckbox.indeterminate = false
     } else if (this.selectedUserList.length != 0) {
-      allChechbox.indeterminate = true
-      allChechbox.checked = false
+      allCheckbox.indeterminate = true
+      allCheckbox.checked = false
     } else {
-      allChechbox.checked = false
-      allChechbox.indeterminate = false
+      allCheckbox.checked = false
+      allCheckbox.indeterminate = false
     }
     console.log(this.selectedUserList)
   }
@@ -135,6 +135,51 @@ export class BranchComponent {
   openFloatingDropdown(event: Event, id: string) {
     event.preventDefault();
     this.floatingDropdown.toggeleFloatingDropdown(id)
+  }
+
+  deleteSeletedRecords() {
+    this.alertService.setAlert({
+      title: 'Are you sure you want to delete the selected record?',
+      msg: 'Note: Any associated Activities, Visits, Drafts will also be Deleted',
+      okBtnColor: Color.danger,
+      okBtnText: BtnText.delete,
+      cancelBtnText: BtnText.cancel
+    })
+    this.alertService.onActionClicked.pipe(first()).subscribe(async value => {
+      if (value) {
+        var ids = this.selectedUserList.map(user => user.id)
+        if(ids.includes(this.user.branchId)){
+          var defaultBranch = this.branchList.find(b => b.id == this.user.branchId)
+          this.msgService.setColor(this.msgBoxId, Color.danger)
+          this.msgService.setMsg(this.msgBoxId, `${defaultBranch?.branchName} can't be deleted as it is default branch`)
+          this.msgService.openMsgBox(this.msgBoxId)
+          return
+        }
+        console.log(ids)
+        this.apiService.delete(API.REMOVE_BRANCHE_RANGE, {
+          headers: await this.authService.getAuthorizationHeader(),
+          body :ids
+        }
+        ).subscribe(
+          (response) => {
+            if (response) {
+              console.log(response)
+              this.selectedUserList = []
+              this.msgService.setColor(this.msgBoxId, Color.success)
+              this.msgService.setMsg(this.msgBoxId, `Branches deleted successfully`)
+              this.msgService.openMsgBox(this.msgBoxId)
+              var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
+              allCheckbox.checked = false
+              allCheckbox.indeterminate = false
+              this.getbranches()
+            }
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+      }
+    })
   }
 
   async createNewBranch() {
@@ -174,21 +219,6 @@ export class BranchComponent {
         console.log(e)
       }
     }
-  }
-
-  deleteSeletedRecords() {
-    this.alertService.setAlert({
-      title: 'Are you sure you want to delete the selected record?',
-      msg: 'Note: Any associated Activities, Visits, Drafts will also be Deleted',
-      okBtnColor: Color.danger,
-      okBtnText: BtnText.delete,
-      cancelBtnText : BtnText.cancel
-    })
-    this.alertService.onActionClicked.pipe(first()).subscribe(value =>{
-      if(value){
-        
-      }
-    })
   }
 
   async createBranchRange(emitedList: { [key: string]: any }[]) {

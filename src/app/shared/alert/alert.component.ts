@@ -33,7 +33,7 @@ export class AlertComponent implements OnInit {
   }
 
   onOk(event : Event): void {
-    event.preventDefault()
+    event.preventDefault()  
     // Emit the Ok clicked event
     this.alertService.emitOkClicked();
     this.onCloseAlertBox()
