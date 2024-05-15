@@ -72,7 +72,7 @@ export class BranchComponent implements OnInit{
     this.route.queryParams.subscribe((params: Params) => {
       this.pageNo = params['pageNo'] ?? 1
       this.recordPerPage = params['recordPerPage'] ?? 10
-      this.reloadPageNoOptions()
+      this.getbranches()
     })
 
   }
@@ -303,7 +303,11 @@ export class BranchComponent implements OnInit{
 
   async getbranches() {
     this.apiService.get(API.GET_BRANCHES + '/' + this.user.id, {
-      headers: await this.authService.getAuthorizationHeader()
+      headers: await this.authService.getAuthorizationHeader(),
+      params: {
+        pageSize: this.recordPerPage,
+        pageNo: this.pageNo,
+      },
     }
     ).subscribe(
       (response) => {
