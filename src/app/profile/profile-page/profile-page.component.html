@@ -6,30 +6,7 @@
   <div class="w-80 flex flex-col">
     <label class="block text-sm font-medium text-gray-900 dark:text-white"> Phone Number:</label>
     <div class="relative">
-      <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none" style="background: #f9fafb;">
-        <i class="fa-solid fa-phone"></i>
-      </div>
-      <app-input class="ml-5" name="mobilenumber" type="tel" autocomplete="mobilenumber" placeholder="Mobile Number"></app-input>
-      <p></p>
-    </div>
-    <button [disabled]="false" type="submit"
-        class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-6">
-        <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
-            *ngIf="false ; else GetStartText" />
-        <ng-template #GetStartText> Add </ng-template>
-    </button>
-</div>
-</app-floating-modal>
-
-<app-floating-modal [floatingModalId]="addEmailFloatingModalId" title="Add Email Address">
-  <div class="w-80 flex flex-col">
-    <label class="block text-sm font-medium text-gray-900 dark:text-white">Enter your email address:</label>
-    <div class="relative">
-      <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none" style="background: #f9fafb;">
-        <i class="fa-solid fa-envelope"></i>
-      </div>
-      <app-input class="ml-5" name="email" type="email" autocomplete="email" placeholder="Email Address"></app-input>
-      <p></p>
+      <app-input [control]="Mobilenumber" name="Mobilenumber" type="tel" autocomplete="mobilenumber" placeholder="Mobile Number"></app-input>
     </div>
     <button [disabled]="false" type="submit"
         class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-6">
@@ -48,24 +25,13 @@
     subTitle="
       You can use the following email addresses to sign in to your account 
       and also to reset your password if you ever forget it.">
-      <div *ngIf="!emailAddress else emailAvailable">
-        <div class="flex justify-center">
-          <img src='assets/images/profileImages/empty_data.png' alt="Message bubbles" class="object-contain" style="height: 100px;margin: auto;margin-bottom: 30px;">
+        <div>
+          <app-profile-model-footer
+            email="darshil@example.com"
+            timespan="1 year ago"
+            imageURL="{{emailRandomString}}">
+          </app-profile-model-footer>
         </div>
-        <div class="flex justify-center">
-          <a class="relative rounded px-2 py-1.5 overflow-hidden group bg-green-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
-            <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-            <span class="relative text-xl"><button (click)="openEmailForm($event)">Add Email Address</button></span>
-          </a>
-        </div>
-      </div>
-      <ng-template #emailAvailable>
-        <app-profile-model-footer
-          email="darshil@example.com"
-          timespan="1 year ago"
-          imageURL="{{emailRandomString}}">
-        </app-profile-model-footer>
-      </ng-template>
   </app-profile-modal>
 
 <!-- mobile component -->
@@ -74,13 +40,13 @@
         title="Mobile Numbers"
         subTitle="View and manage all of the mobile numbers associated with your account.">
       <div *ngIf="!mobilenumber else mobileAvailable">
-        <div class="flex justify-center">
+        <!-- <div class="flex justify-center">
           <img src='assets/images/profileImages/empty_data.png' alt="Message bubbles" class="object-contain" style="height: 100px;margin: auto;margin-bottom: 30px;">
-        </div>
+        </div> -->
         <div class="flex justify-center">
-          <a class="relative rounded px-2 py-1.5 overflow-hidden group bg-green-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
+          <a class="relative rounded-lg px-5 py-1.5 overflow-hidden group bg-themeblue-900 relative hover:bg-gradient-to-r hover:from-bg-themeblue-900 hover:to-bg-themeblue-800 text-white hover:ring-2  hover:bg-themeblue-900 transition-all ease-out duration-300">
             <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-            <span class="relative text-xl"><button (click)="openPhoneNumberForm($event)">Add Mobile Number</button></span>
+            <span class="relative text-l"><button (click)="openPhoneNumberForm($event)">Add Mobile Number</button></span>
           </a>
         </div>
       </div>

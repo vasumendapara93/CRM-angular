@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
 import { FloatingModalService } from 'src/app/services/floating-modal.service';
-
+import { Validators,FormControl } from '@angular/forms';
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -16,19 +16,20 @@ export class ProfilePageComponent implements OnInit{
     private floatingModal : FloatingModalService
   ){}
 
+  
+  Mobilenumber = new FormControl('',
+    [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10)
+    ])
+    
   addNumberFloatingModalId = "addNumberFloatingModalId"
-  addEmailFloatingModalId = "addEmailFloatingModalId"
 
   openPhoneNumberForm(event : Event){
     event.preventDefault()
     this.floatingModal.openFloatingModal(this.addNumberFloatingModalId)
     console.log(this.floatingModal.isFloatingModalOpen(this.addNumberFloatingModalId))
-  }
-
-  openEmailForm(event : Event){
-    event.preventDefault()
-    this.floatingModal.openFloatingModal(this.addEmailFloatingModalId)
-    console.log(this.floatingModal.isFloatingModalOpen(this.addEmailFloatingModalId))
   }
 
   mobilenumber : string =""
@@ -49,6 +50,8 @@ export class ProfilePageComponent implements OnInit{
   ];
   emailRandomIndex: number = Math.floor(Math.random() * this.emailImageURLs.length);
   emailRandomString: string = this.emailImageURLs[this.emailRandomIndex];
+
+
 
 }
 
