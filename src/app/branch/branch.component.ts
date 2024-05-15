@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { APIService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
 import { FloatingDropdownService } from '../services/floating-dropdown.service';
 import { FloatingModalService } from '../services/floating-modal.service';
 import IBranch from '../model/Branch.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import IUser from '../model/User.model';
 import { API } from 'src/assets/static/API';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,7 +21,7 @@ import { first } from 'rxjs';
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.css']
 })
-export class BranchComponent {
+export class BranchComponent implements OnInit{
 
   @ViewChild('uploadFileComponent') uploadFileComponent!: UploadFileComponent;
 
@@ -31,6 +31,11 @@ export class BranchComponent {
   selectedUserList: IBranch[] = []
   filterText: string = ""
   totalRecords = 0
+  recordPerPage = 10
+  pageNoShowLimit = 3
+  pageNo = 1
+  recordPerPageOptions = [10,20,50,100]
+  pageNoOptions : number[] = []
   user: IUser
   mappingFields = MappingFields
 
@@ -39,6 +44,7 @@ export class BranchComponent {
   branchCodeDropDownId = 'branchzCodeDropDownId'
   branchCreateDateDropDownId = 'branchCreateDateDropDownId'
   branchActionDropdownId = 'branchActionDropdownId'
+  branchRecordPerPageId = 'branchRecordPerPageId'
 
   addBranchFloatingModalId = 'addBranchFloatingModalId'
   addBranchCSVFloatingModalId = "addBranchCSVFloatingModalId"
@@ -55,10 +61,20 @@ export class BranchComponent {
     private floatingModal: FloatingModalService,
     private route: ActivatedRoute,
     private msgService: MsgService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {
     this.user = this.route.snapshot.data['user'];
     this.getbranches()
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params: Params) => {
+      this.pageNo = params['pageNo'] ?? 1
+      this.recordPerPage = params['recordPerPage'] ?? 10
+      this.reloadPageNoOptions()
+    })
+
   }
 
   branchName = new FormControl('',
@@ -74,6 +90,31 @@ export class BranchComponent {
     branchName: this.branchName,
     branchCode: this.branchCode
   })
+
+  changeRecordPerPage(recordPerPage: number){
+    this.router.navigate([],
+    {
+      queryParams: {
+        recordPerPage: recordPerPage,
+        pageNo: 1
+      }
+    })
+  }
+  changePageNo(pageNo: number){
+    this.router.navigate([],
+    {
+      queryParams: {
+        recordPerPage: this.recordPerPage,
+        pageNo: pageNo
+      }
+    })
+  }
+
+  reloadPageNoOptions(){
+    var pageNoOptionCount = Math.ceil(this.totalRecords / this.recordPerPage)
+    this.pageNoOptions = Array(pageNoOptionCount).fill(0).map((x,i)=>i+1);
+    console.log(this.pageNoOptions)
+  }
 
   openAddBranchForm(event: Event) {
     event.preventDefault()
@@ -270,6 +311,7 @@ export class BranchComponent {
         if (response.data) {
           console.log(response.data)
           this.totalRecords = response.data.totalRecords
+          this.reloadPageNoOptions()
           this.branchList = response.data.records
           this.filteredList = this.branchList
         }
