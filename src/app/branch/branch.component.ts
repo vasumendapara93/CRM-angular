@@ -30,6 +30,7 @@ export class BranchComponent {
   filteredList: IBranch[] = []
   selectedUserList: IBranch[] = []
   filterText: string = ""
+  totalRecords = 0
   user: IUser
   mappingFields = MappingFields
 
@@ -87,6 +88,13 @@ export class BranchComponent {
     console.log(this.floatingModal.isFloatingModalOpen(this.addBranchCSVFloatingModalId))
   }
 
+  clearSelectedUser(event:Event){
+    event.preventDefault()
+    this.selectedUserList = []
+    var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
+    allCheckbox.checked = false
+      allCheckbox.indeterminate = false
+  }
 
   toggelUserSelect(event: Event, branch: IBranch) {
     var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
@@ -261,7 +269,8 @@ export class BranchComponent {
         console.log(response)
         if (response.data) {
           console.log(response.data)
-          this.branchList = response.data
+          this.totalRecords = response.data.totalRecords
+          this.branchList = response.data.records
           this.filteredList = this.branchList
         }
       },

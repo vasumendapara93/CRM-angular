@@ -26,22 +26,25 @@
 
     <div class="flex justify-between gap-4 w-full mb-4">
 
-        <!-- Topbar Search -->
-        <div class="md:flex items-center relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
+        <div class="flex justify-center items-center gap-4">
+            <!-- Topbar Search -->
+            <div class="md:flex items-center relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
+                </div>
+                <input type="search"
+                    class="form-input px-8 rounded-lg border-transparent focus:border-transparent bg-themeblue-100 text-themeblue-900"
+                    placeholder="Search..." [(ngModel)]="filterText" (input)="filterData($event)">
+                <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3  text-themeblue-900">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
             </div>
-            <input type="search"
-                class="form-input px-8 rounded-lg border-transparent focus:border-transparent bg-themeblue-100 text-themeblue-900"
-                placeholder="Search..." [(ngModel)]="filterText" (input)="filterData($event)">
-            <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3  text-themeblue-900">
-                <i class="fa-solid fa-microphone"></i>
-            </button>
         </div>
 
         <div class="flex justify-center items-center gap-4">
             <!-- Action Button -->
-            <app-floating-dropdown *ngIf="selectedUserList.length != 0" [floatingDropdownId]="branchActionDropdownId" class="float-left">
+            <app-floating-dropdown *ngIf="selectedUserList.length != 0" [floatingDropdownId]="branchActionDropdownId"
+                class="float-left">
                 <button floating-dropdown-title (click)="openFloatingDropdown($event, branchActionDropdownId)"
                     class="floating-dropdown-btn relative text-base rounded-lg w-32 px-2.5 py-1.5 border-2 flex justify-between items-center focus:border-grey-200 bg-white">
                     Actions <i class="fa-solid fa-caret-down floating-dropdown-btn"></i>
@@ -195,6 +198,18 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="flex justify-between w-full mt-3">
+        <div class="text-base font-normal">
+            <p *ngIf="selectedUserList.length == 0; else selectedRecordCount">Total Records : <span
+                    class="font-semibold">{{totalRecords}}</span></p>
+            <ng-template #selectedRecordCount>
+                <div class="flex justify-center align-center gap-4">
+                    <p> <span class="font-semibold">{{selectedUserList.length}} </span>&nbsp;Records Seleted</p>
+                    <button (click)="clearSelectedUser($event)" class="border-b-2 hover:border-gray-400">Clear</button>
+                </div>
+            </ng-template>
         </div>
     </div>
 
