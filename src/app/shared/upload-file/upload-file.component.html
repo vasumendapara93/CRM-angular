@@ -57,7 +57,7 @@
               <td class="px-6 py-3 ">
                 <app-floating-dropdown [floatingDropdownId]="mappedField.FieldInFile + i" class="float-left">
                   <button floating-dropdown-title (click)="openFloatingDropdown($event, mappedField.FieldInFile + i)"
-                    class="relative text-base rounded-lg w-48 p-2.5 border-2 flex justify-between items-center focus:border-grey-200 bg-white">
+                    class="floating-dropdown-btn relative text-base rounded-lg w-48 p-2.5 border-2 flex justify-between items-center focus:border-grey-200 bg-white">
                     {{mappedField.FieldInDb?.displayName}} <i class="fa-solid fa-caret-down floating-dropdown-btn"></i>
                   </button>
                   <div floating-dropdown-menu

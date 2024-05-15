@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { APIService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
 import { FloatingDropdownService } from '../services/floating-dropdown.service';
@@ -12,6 +12,9 @@ import { MsgService } from '../services/msg.service';
 import { Color } from 'src/assets/static/Color';
 import { MappingFields } from 'src/assets/static/MappingFields';
 import { UploadFileComponent } from '../shared/upload-file/upload-file.component';
+import { AlertService } from '../services/alert.service';
+import { BtnText } from 'src/assets/static/BtnText';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-branch',
@@ -34,6 +37,7 @@ export class BranchComponent {
   branchNameDropDownId = 'branchNameDropDownId'
   branchCodeDropDownId = 'branchzCodeDropDownId'
   branchCreateDateDropDownId = 'branchCreateDateDropDownId'
+  branchActionDropdownId = 'branchActionDropdownId'
 
   addBranchFloatingModalId = 'addBranchFloatingModalId'
   addBranchCSVFloatingModalId = "addBranchCSVFloatingModalId"
@@ -49,7 +53,8 @@ export class BranchComponent {
     private floatingDropdown: FloatingDropdownService,
     private floatingModal: FloatingModalService,
     private route: ActivatedRoute,
-    private msgService: MsgService
+    private msgService: MsgService,
+    private alertService: AlertService
   ) {
     this.user = this.route.snapshot.data['user'];
     this.getbranches()
@@ -68,47 +73,6 @@ export class BranchComponent {
     branchName: this.branchName,
     branchCode: this.branchCode
   })
-
-
-  async createNewBranch() {
-    if (this.newBranchFrom.valid) {
-      this.isCreatingNewBranch = true
-      try {
-        this.apiService.post(API.CREATE_BRANCHE,
-          {
-            branchName: this.branchName.value,
-            branchCode: this.branchCode.value,
-            organizationId: this.user.id
-          }, {
-          headers: await this.authService.getAuthorizationHeader()
-        }
-        ).subscribe(
-          (response) => {
-            console.log(response)
-            if (response.isSuccess) {
-              this.msgService.setColor(this.msgBoxId, Color.success)
-              this.msgService.setMsg(this.msgBoxId, 'Branch Created Successfully')
-              this.msgService.openMsgBox(this.msgBoxId)
-              this.floatingModal.closeFloatingModal(this.addBranchFloatingModalId)
-              this.getbranches()
-              this.newBranchFrom.reset()
-            }
-            this.isCreatingNewBranch = false
-          },
-          (error) => {
-            console.log(error)
-
-            this.msgService.setColor(this.msgBoxId, Color.danger)
-            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
-            this.msgService.openMsgBox(this.msgBoxId)
-          }
-        )
-      } catch (e) {
-        console.log(e)
-      }
-    }
-  }
-
 
   openAddBranchForm(event: Event) {
     event.preventDefault()
@@ -171,6 +135,60 @@ export class BranchComponent {
   openFloatingDropdown(event: Event, id: string) {
     event.preventDefault();
     this.floatingDropdown.toggeleFloatingDropdown(id)
+  }
+
+  async createNewBranch() {
+    if (this.newBranchFrom.valid) {
+      this.isCreatingNewBranch = true
+      try {
+        this.apiService.post(API.CREATE_BRANCHE,
+          {
+            branchName: this.branchName.value,
+            branchCode: this.branchCode.value,
+            organizationId: this.user.id
+          }, {
+          headers: await this.authService.getAuthorizationHeader()
+        }
+        ).subscribe(
+          (response) => {
+            console.log(response)
+            if (response.isSuccess) {
+              this.msgService.setColor(this.msgBoxId, Color.success)
+              this.msgService.setMsg(this.msgBoxId, 'Branch Created Successfully')
+              this.msgService.openMsgBox(this.msgBoxId)
+              this.floatingModal.closeFloatingModal(this.addBranchFloatingModalId)
+              this.getbranches()
+              this.newBranchFrom.reset()
+            }
+            this.isCreatingNewBranch = false
+          },
+          (error) => {
+            console.log(error)
+
+            this.msgService.setColor(this.msgBoxId, Color.danger)
+            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+            this.msgService.openMsgBox(this.msgBoxId)
+          }
+        )
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
+
+  deleteSeletedRecords() {
+    this.alertService.setAlert({
+      title: 'Are you sure you want to delete the selected record?',
+      msg: 'Note: Any associated Activities, Visits, Drafts will also be Deleted',
+      okBtnColor: Color.danger,
+      okBtnText: BtnText.delete,
+      cancelBtnText : BtnText.cancel
+    })
+    this.alertService.onActionClicked.pipe(first()).subscribe(value =>{
+      if(value){
+        
+      }
+    })
   }
 
   async createBranchRange(emitedList: { [key: string]: any }[]) {

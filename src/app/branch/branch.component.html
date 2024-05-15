@@ -2,8 +2,9 @@
 <app-msg [MsgBoxId]="uploadBoxId"></app-msg>
 
 <app-floating-modal [floatingModalId]="addBranchFloatingModalId" title="Add Branch">
-    <form [formGroup]="newBranchFrom" (ngSubmit)="createNewBranch()" class="w-80 flex flex-col gap-4">
-        <app-input [control]="branchName" name="Branch Name" type="text" autocomplete="Name" placeholder="Branch Name"></app-input>
+    <form [formGroup]="newBranchFrom" (ngSubmit)="createNewBranch()" class="xs:w-80 w-full flex flex-col gap-4">
+        <app-input [control]="branchName" name="Branch Name" type="text" autocomplete="Name"
+            placeholder="Branch Name"></app-input>
         <app-input [control]="branchCode" name="Branch Code" type="text" placeholder="Branch Code"></app-input>
         <button [disabled]="isCreatingNewBranch" type="submit"
             class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
@@ -15,51 +16,79 @@
 </app-floating-modal>
 
 <app-floating-modal [floatingModalId]="addBranchCSVFloatingModalId" title="Add Branch CSV">
-   <app-upload-file #uploadFileComponent [mappingFieldsInput]="mappingFields.BranchFields" (onFinalListGenerated)="createBranchRange($event)"></app-upload-file>
+    <app-upload-file #uploadFileComponent [mappingFieldsInput]="mappingFields.BranchFields"
+        (onFinalListGenerated)="createBranchRange($event)"></app-upload-file>
 </app-floating-modal>
 
 <main class="p-6">
 
-  <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
+    <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
 
-  <div class="flex justify-between gap-4 w-full mb-4">
+    <div class="flex justify-between gap-4 w-full mb-4">
 
-    <!-- Topbar Search -->
-    <div class="md:flex items-center relative">
-      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-        <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
-      </div>
-      <input type="search"
-        class="form-input px-8 rounded-lg border-transparent focus:border-transparent bg-themeblue-100 text-themeblue-900"
-        placeholder="Search..." [(ngModel)]="filterText" (input)="filterData($event)">
-      <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3  text-themeblue-900">
-        <i class="fa-solid fa-microphone"></i>
-      </button>
-    </div>
-
-        <app-floating-dropdown [floatingDropdownId]="addLeadId">
-            <button floating-dropdown-title (click)="openFloatingDropdown($event, addLeadId)"
-                class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">
-                <i class="floating-dropdown-btn fa-solid fa-plus fa-lg  text-themeblue-900"></i>
-            </button>
-            <div floating-dropdown-menu
-                class="absolute top-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5"
-                style="right: -1.2rem;">
-                <div (click)="openAddBranchForm($event)"
-                    class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
-                    Create Branches
-                </div>
-                <div (click)="openAddBranchCSVForm($event)"
-                    class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
-                    Import CSV
-                </div>
+        <!-- Topbar Search -->
+        <div class="md:flex items-center relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
             </div>
-        </app-floating-dropdown>
+            <input type="search"
+                class="form-input px-8 rounded-lg border-transparent focus:border-transparent bg-themeblue-100 text-themeblue-900"
+                placeholder="Search..." [(ngModel)]="filterText" (input)="filterData($event)">
+            <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3  text-themeblue-900">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+        </div>
+
+        <div class="flex justify-center items-center gap-4">
+            <!-- Action Button -->
+            <app-floating-dropdown *ngIf="selectedUserList.length != 0" [floatingDropdownId]="branchActionDropdownId" class="float-left">
+                <button floating-dropdown-title (click)="openFloatingDropdown($event, branchActionDropdownId)"
+                    class="floating-dropdown-btn relative text-base rounded-lg w-32 px-2.5 py-1.5 border-2 flex justify-between items-center focus:border-grey-200 bg-white">
+                    Actions <i class="fa-solid fa-caret-down floating-dropdown-btn"></i>
+                </button>
+                <div floating-dropdown-menu
+                    class="absolute top-8 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border-2 border-grey-400 rounded-lg p-2 mr-5 w-fit min-w-32 sm:left-0 right-0"
+                    style="right: -1.2rem;">
+                    <div (click)="deleteSeletedRecords()"
+                        class="cursor-pointer flex items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 whitespace-nowrap">
+                        Delete
+                    </div>
+                    <div
+                        class="cursor-pointer flex items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 whitespace-nowrap">
+                        Assign
+                    </div>
+                    <div
+                        class="cursor-pointer flex items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 whitespace-nowrap">
+                        Create Task
+                    </div>
+                </div>
+            </app-floating-dropdown>
+
+            <!-- ADD Button -->
+            <app-floating-dropdown [floatingDropdownId]="addLeadId">
+                <button floating-dropdown-title (click)="openFloatingDropdown($event, addLeadId)"
+                    class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">
+                    <i class="floating-dropdown-btn fa-solid fa-plus fa-lg  text-themeblue-900"></i>
+                </button>
+                <div floating-dropdown-menu
+                    class="absolute top-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5"
+                    style="right: -1.2rem;">
+                    <div (click)="openAddBranchForm($event)"
+                        class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
+                        Create Branches
+                    </div>
+                    <div (click)="openAddBranchCSVForm($event)"
+                        class="cursor-pointer w-40 flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200">
+                        Import CSV
+                    </div>
+                </div>
+            </app-floating-dropdown>
+        </div>
     </div>
-    <div class="grid p-4 ">
+    <div class="grid">
         <div class="overflow-x-auto w-full rounded-lg">
             <div class="min-w-full inline-block align-middle rounded-lg">
-                <div class="overflow-auto border rounded-lg shadow h-max max-h-[55vh]">
+                <div class="overflow-auto border rounded-lg shadow h-max max-h-[60vh]">
                     <table class="min-w-full whitespace-nowrap text-base divide-y divide-gray-200">
                         <thead class="text-grey-500">
                             <tr class="bg-themeblue-100 sticky top-0">
@@ -140,9 +169,9 @@
                             class="divide-y divide-themeblue-100">
                             <tr *ngFor="let branch of filteredList" class="group hover:bg-themeblue-200">
                                 <td class="pl-4 py-3">
-                                    <div class="invisible group-hover:visible h-6 w-6 rounded-full bg-white flex justify-center items-center">
-                                        <i
-                                            class="fa-solid fa-ellipsis text-themeblue-900 fa-sm">
+                                    <div
+                                        class="invisible group-hover:visible h-6 w-6 rounded-full bg-white flex justify-center items-center">
+                                        <i class="fa-solid fa-ellipsis text-themeblue-900 fa-sm">
                                         </i>
                                     </div>
                                 </td>
