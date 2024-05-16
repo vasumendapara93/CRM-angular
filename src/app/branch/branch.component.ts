@@ -33,8 +33,8 @@ export class BranchComponent implements OnInit{
   totalRecords = 0
   recordPerPage = 10
   pageNoShowLimit = 3
-  pageNo = 1
-  recordPerPageOptions = [10,20,50,100]
+  pageNo: number = 1
+  recordPerPageOptions = [10,20,30,50,75,100]
   pageNoOptions : number[] = []
   user: IUser
   mappingFields = MappingFields
@@ -100,6 +100,22 @@ export class BranchComponent implements OnInit{
       }
     })
   }
+
+  onPrevious(pageNo: number){
+
+    if(this.pageNo <= 1){
+      return
+    }
+    this.changePageNo(Number(pageNo) - 1)
+  }
+
+  onNext(pageNo: number){
+    if(this.pageNo >= this.pageNoOptions.length){
+      return
+    }
+    this.changePageNo(Number(pageNo) + 1)
+  }
+
   changePageNo(pageNo: number){
     this.router.navigate([],
     {
@@ -113,7 +129,6 @@ export class BranchComponent implements OnInit{
   reloadPageNoOptions(){
     var pageNoOptionCount = Math.ceil(this.totalRecords / this.recordPerPage)
     this.pageNoOptions = Array(pageNoOptionCount).fill(0).map((x,i)=>i+1);
-    console.log(this.pageNoOptions)
   }
 
   openAddBranchForm(event: Event) {
