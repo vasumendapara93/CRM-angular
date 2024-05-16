@@ -14,14 +14,14 @@ import { MappingFields } from 'src/assets/static/MappingFields';
 import { UploadFileComponent } from '../shared/upload-file/upload-file.component';
 import { AlertService } from '../services/alert.service';
 import { BtnText } from 'src/assets/static/BtnText';
-import { first } from 'rxjs';
+import { Subject, debounceTime, first } from 'rxjs';
 
 @Component({
   selector: 'app-branch',
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.css']
 })
-export class BranchComponent implements OnInit{
+export class BranchComponent implements OnInit {
 
   @ViewChild('uploadFileComponent') uploadFileComponent!: UploadFileComponent;
 
@@ -34,10 +34,12 @@ export class BranchComponent implements OnInit{
   recordPerPage = 10
   pageNoShowLimit = 3
   pageNo = 1
-  recordPerPageOptions = [10,20,50,100]
-  pageNoOptions : number[] = []
+  searchString = ''
+  recordPerPageOptions = [10, 20, 50, 100]
+  pageNoOptions: number[] = []
   user: IUser
   mappingFields = MappingFields
+  private inputSearch = new Subject<string>();
 
   addLeadId = "add-lead"
   branchNameDropDownId = 'branchNameDropDownId'
@@ -75,6 +77,10 @@ export class BranchComponent implements OnInit{
       this.getbranches()
     })
 
+    this.inputSearch.pipe(debounceTime(1000)).subscribe(searchString => {
+      this.getbranches()
+    });
+
   }
 
   branchName = new FormControl('',
@@ -91,28 +97,28 @@ export class BranchComponent implements OnInit{
     branchCode: this.branchCode
   })
 
-  changeRecordPerPage(recordPerPage: number){
+  changeRecordPerPage(recordPerPage: number) {
     this.router.navigate([],
-    {
-      queryParams: {
-        recordPerPage: recordPerPage,
-        pageNo: 1
-      }
-    })
+      {
+        queryParams: {
+          recordPerPage: recordPerPage,
+          pageNo: 1
+        }
+      })
   }
-  changePageNo(pageNo: number){
+  changePageNo(pageNo: number) {
     this.router.navigate([],
-    {
-      queryParams: {
-        recordPerPage: this.recordPerPage,
-        pageNo: pageNo
-      }
-    })
+      {
+        queryParams: {
+          recordPerPage: this.recordPerPage,
+          pageNo: pageNo
+        }
+      })
   }
 
-  reloadPageNoOptions(){
+  reloadPageNoOptions() {
     var pageNoOptionCount = Math.ceil(this.totalRecords / this.recordPerPage)
-    this.pageNoOptions = Array(pageNoOptionCount).fill(0).map((x,i)=>i+1);
+    this.pageNoOptions = Array(pageNoOptionCount).fill(0).map((x, i) => i + 1);
     console.log(this.pageNoOptions)
   }
 
@@ -129,12 +135,12 @@ export class BranchComponent implements OnInit{
     console.log(this.floatingModal.isFloatingModalOpen(this.addBranchCSVFloatingModalId))
   }
 
-  clearSelectedUser(event:Event){
+  clearSelectedUser(event: Event) {
     event.preventDefault()
     this.selectedUserList = []
     var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
     allCheckbox.checked = false
-      allCheckbox.indeterminate = false
+    allCheckbox.indeterminate = false
   }
 
   toggelUserSelect(event: Event, branch: IBranch) {
@@ -170,159 +176,157 @@ export class BranchComponent implements OnInit{
 
   filterData(event: Event) {
     event.preventDefault();
-    var regex = new RegExp(this.filterText, "i");
-    this.filteredList = []
-    this.branchList.forEach(branch => {
-      if (regex.test(branch.branchName)) {
-        this.filteredList.push(branch)
-      } else if (regex.test(branch.branchCode)) {
-        this.filteredList.push(branch)
+    var searchInputField = event.target as HTMLInputElement
+    if (this.searchString == searchInputField.value) {
+      return
+    }
+    this.searchString = searchInputField.value
+    this.inputSearch.next(this.searchString)
+}
+
+openFloatingDropdown(event: Event, id: string) {
+  event.preventDefault();
+  this.floatingDropdown.toggeleFloatingDropdown(id)
+}
+
+deleteSeletedRecords() {
+  this.alertService.setAlert({
+    title: 'Are you sure you want to delete the selected record?',
+    msg: 'Note: Any associated Activities, Visits, Drafts will also be Deleted',
+    okBtnColor: Color.danger,
+    okBtnText: BtnText.delete,
+    cancelBtnText: BtnText.cancel
+  })
+  this.alertService.onActionClicked.pipe(first()).subscribe(async value => {
+    if (value) {
+      var ids = this.selectedUserList.map(user => user.id)
+      if (ids.includes(this.user.branchId)) {
+        var defaultBranch = this.branchList.find(b => b.id == this.user.branchId)
+        this.msgService.setColor(this.msgBoxId, Color.danger)
+        this.msgService.setMsg(this.msgBoxId, `${defaultBranch?.branchName} can't be deleted as it is default branch`)
+        this.msgService.openMsgBox(this.msgBoxId)
+        return
       }
-    });
-  }
-
-  openFloatingDropdown(event: Event, id: string) {
-    event.preventDefault();
-    this.floatingDropdown.toggeleFloatingDropdown(id)
-  }
-
-  deleteSeletedRecords() {
-    this.alertService.setAlert({
-      title: 'Are you sure you want to delete the selected record?',
-      msg: 'Note: Any associated Activities, Visits, Drafts will also be Deleted',
-      okBtnColor: Color.danger,
-      okBtnText: BtnText.delete,
-      cancelBtnText: BtnText.cancel
-    })
-    this.alertService.onActionClicked.pipe(first()).subscribe(async value => {
-      if (value) {
-        var ids = this.selectedUserList.map(user => user.id)
-        if(ids.includes(this.user.branchId)){
-          var defaultBranch = this.branchList.find(b => b.id == this.user.branchId)
-          this.msgService.setColor(this.msgBoxId, Color.danger)
-          this.msgService.setMsg(this.msgBoxId, `${defaultBranch?.branchName} can't be deleted as it is default branch`)
-          this.msgService.openMsgBox(this.msgBoxId)
-          return
-        }
-        console.log(ids)
-        this.apiService.delete(API.REMOVE_BRANCHE_RANGE, {
-          headers: await this.authService.getAuthorizationHeader(),
-          body :ids
-        }
-        ).subscribe(
-          (response) => {
-            if (response) {
-              console.log(response)
-              this.selectedUserList = []
-              this.msgService.setColor(this.msgBoxId, Color.success)
-              this.msgService.setMsg(this.msgBoxId, `Branches deleted successfully`)
-              this.msgService.openMsgBox(this.msgBoxId)
-              var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
-              allCheckbox.checked = false
-              allCheckbox.indeterminate = false
-              this.getbranches()
-            }
-          },
-          (error) => {
-            console.log(error)
+      console.log(ids)
+      this.apiService.delete(API.REMOVE_BRANCHE_RANGE, {
+        headers: await this.authService.getAuthorizationHeader(),
+        body: ids
+      }
+      ).subscribe(
+        (response) => {
+          if (response) {
+            console.log(response)
+            this.selectedUserList = []
+            this.msgService.setColor(this.msgBoxId, Color.success)
+            this.msgService.setMsg(this.msgBoxId, `Branches deleted successfully`)
+            this.msgService.openMsgBox(this.msgBoxId)
+            var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
+            allCheckbox.checked = false
+            allCheckbox.indeterminate = false
+            this.changePageNo(1)
           }
-        )
-      }
-    })
-  }
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    }
+  })
+}
 
   async createNewBranch() {
-    if (this.newBranchFrom.valid) {
-      this.isCreatingNewBranch = true
-      try {
-        this.apiService.post(API.CREATE_BRANCHE,
-          {
-            branchName: this.branchName.value,
-            branchCode: this.branchCode.value,
-            organizationId: this.user.id
-          }, {
-          headers: await this.authService.getAuthorizationHeader()
-        }
-        ).subscribe(
-          (response) => {
-            console.log(response)
-            if (response.isSuccess) {
-              this.msgService.setColor(this.msgBoxId, Color.success)
-              this.msgService.setMsg(this.msgBoxId, 'Branch Created Successfully')
-              this.msgService.openMsgBox(this.msgBoxId)
-              this.floatingModal.closeFloatingModal(this.addBranchFloatingModalId)
-              this.getbranches()
-              this.newBranchFrom.reset()
-            }
-            this.isCreatingNewBranch = false
-          },
-          (error) => {
-            console.log(error)
-
-            this.msgService.setColor(this.msgBoxId, Color.danger)
-            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
-            this.msgService.openMsgBox(this.msgBoxId)
-          }
-        )
-      } catch (e) {
-        console.log(e)
+  if (this.newBranchFrom.valid) {
+    this.isCreatingNewBranch = true
+    try {
+      this.apiService.post(API.CREATE_BRANCHE,
+        {
+          branchName: this.branchName.value,
+          branchCode: this.branchCode.value,
+          organizationId: this.user.id
+        }, {
+        headers: await this.authService.getAuthorizationHeader()
       }
+      ).subscribe(
+        (response) => {
+          console.log(response)
+          if (response.isSuccess) {
+            this.msgService.setColor(this.msgBoxId, Color.success)
+            this.msgService.setMsg(this.msgBoxId, 'Branch Created Successfully')
+            this.msgService.openMsgBox(this.msgBoxId)
+            this.floatingModal.closeFloatingModal(this.addBranchFloatingModalId)
+            this.getbranches()
+            this.newBranchFrom.reset()
+          }
+          this.isCreatingNewBranch = false
+        },
+        (error) => {
+          console.log(error)
+
+          this.msgService.setColor(this.msgBoxId, Color.danger)
+          this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+          this.msgService.openMsgBox(this.msgBoxId)
+        }
+      )
+    } catch (e) {
+      console.log(e)
     }
   }
+}
 
   async createBranchRange(emitedList: { [key: string]: any }[]) {
-    var newBarnchList: IBranch[] = []
-    emitedList.forEach(item => {
-      item['organizationId'] = this.user.id
-      newBarnchList.push(item as IBranch)
-    })
-    console.log(newBarnchList)
-    this.apiService.post(API.CREATE_BRANCHE_RANGE, newBarnchList, {
-      headers: await this.authService.getAuthorizationHeader()
-    }
-    ).subscribe(
-      (response) => {
-        console.log(response)
-        if (response) {
-          this.msgService.setColor(this.msgBoxId, Color.success)
-          this.msgService.setMsg(this.msgBoxId, 'Branches Created Successfully')
-          this.msgService.openMsgBox(this.msgBoxId)
-          this.getbranches()
-          this.floatingModal.closeFloatingModal(this.addBranchCSVFloatingModalId)
-          this.uploadFileComponent.file = null
-          this.uploadFileComponent.isExtracting = false
-          this.uploadFileComponent.isFileAccepted = false
-          this.uploadFileComponent.isReadingFile = false
-        }
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
+  var newBarnchList: IBranch[] = []
+  emitedList.forEach(item => {
+    item['organizationId'] = this.user.id
+    newBarnchList.push(item as IBranch)
+  })
+  console.log(newBarnchList)
+  this.apiService.post(API.CREATE_BRANCHE_RANGE, newBarnchList, {
+    headers: await this.authService.getAuthorizationHeader()
   }
+  ).subscribe(
+    (response) => {
+      console.log(response)
+      if (response) {
+        this.msgService.setColor(this.msgBoxId, Color.success)
+        this.msgService.setMsg(this.msgBoxId, 'Branches Created Successfully')
+        this.msgService.openMsgBox(this.msgBoxId)
+        this.getbranches()
+        this.floatingModal.closeFloatingModal(this.addBranchCSVFloatingModalId)
+        this.uploadFileComponent.file = null
+        this.uploadFileComponent.isExtracting = false
+        this.uploadFileComponent.isFileAccepted = false
+        this.uploadFileComponent.isReadingFile = false
+      }
+    },
+    (error) => {
+      console.log(error)
+    }
+  )
+}
 
   async getbranches() {
-    this.apiService.get(API.GET_BRANCHES + '/' + this.user.id, {
-      headers: await this.authService.getAuthorizationHeader(),
-      params: {
-        pageSize: this.recordPerPage,
-        pageNo: this.pageNo,
-      },
-    }
-    ).subscribe(
-      (response) => {
-        console.log(response)
-        if (response.data) {
-          console.log(response.data)
-          this.totalRecords = response.data.totalRecords
-          this.reloadPageNoOptions()
-          this.branchList = response.data.records
-          this.filteredList = this.branchList
-        }
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
+  this.apiService.get(API.GET_BRANCHES + '/' + this.user.id, {
+    headers: await this.authService.getAuthorizationHeader(),
+    params: {
+      search: this.searchString,
+      pageSize: this.recordPerPage,
+      pageNo: this.pageNo
+    },
   }
+  ).subscribe(
+    (response) => {
+      console.log(response)
+      if (response.data) {
+        console.log(response.data)
+        this.totalRecords = response.data.totalRecords
+        this.reloadPageNoOptions()
+        this.branchList = response.data.records
+        this.filteredList = this.branchList
+      }
+    },
+    (error) => {
+      console.log(error)
+    }
+  )
+}
 }
