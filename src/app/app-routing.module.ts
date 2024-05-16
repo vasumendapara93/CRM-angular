@@ -69,7 +69,7 @@ const routes: Routes = [
     component: ForgotpasswordComponent
   },
   {
-    path: '',
+    path: '**',
     component: NotFound404Component
   },
 

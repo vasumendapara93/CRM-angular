@@ -15,6 +15,9 @@ import { UploadFileComponent } from '../shared/upload-file/upload-file.component
 import { AlertService } from '../services/alert.service';
 import { BtnText } from 'src/assets/static/BtnText';
 import { Subject, debounceTime, first } from 'rxjs';
+import { Order } from 'src/assets/static/Order';
+import { BranchFields } from 'src/assets/static/BranchFields';
+import { TableColumns } from 'src/assets/static/TableColumns';
 
 @Component({
   selector: 'app-branch',
@@ -35,11 +38,15 @@ export class BranchComponent implements OnInit {
   pageNoShowLimit = 3
   pageNo = 1
   searchString = ''
+  orderBy : string | null = null
+  order : string | null = null
   recordPerPageOptions = [10, 20, 50, 100]
   pageNoOptions: number[] = []
   user: IUser
   mappingFields = MappingFields
   private inputSearch = new Subject<string>();
+  Order = Order
+  tableColumns = TableColumns.BranchColumns
 
   addLeadId = "add-lead"
   branchNameDropDownId = 'branchNameDropDownId'
@@ -74,6 +81,12 @@ export class BranchComponent implements OnInit {
     this.route.queryParams.subscribe((params: Params) => {
       this.pageNo = params['pageNo'] ?? 1
       this.recordPerPage = params['recordPerPage'] ?? 10
+      this.orderBy =  params['orderBy'] ?? null
+      if(this.order){ 
+        this.order =  params['order'] ?? Order.ASC
+      }else{
+        this.order =  params['order'] ?? null
+      }
       this.getbranches()
     })
 
@@ -102,7 +115,9 @@ export class BranchComponent implements OnInit {
       {
         queryParams: {
           recordPerPage: recordPerPage,
-          pageNo: 1
+          pageNo: 1,
+          orderBy : this.orderBy,
+          order : this.order
         }
       })
   }
@@ -111,7 +126,21 @@ export class BranchComponent implements OnInit {
       {
         queryParams: {
           recordPerPage: this.recordPerPage,
-          pageNo: pageNo
+          pageNo: pageNo,
+          orderBy : this.orderBy,
+          order : this.order
+        }
+      })
+  }
+
+  sortData(orderBy : string, order : string){
+    this.router.navigate([],
+      {
+        queryParams: {
+          recordPerPage: this.recordPerPage,
+          pageNo: this.pageNo,
+          orderBy : orderBy,
+          order : order
         }
       })
   }
@@ -309,6 +338,8 @@ deleteSeletedRecords() {
     headers: await this.authService.getAuthorizationHeader(),
     params: {
       search: this.searchString,
+      orderBy : this.orderBy,
+      order: this.order,
       pageSize: this.recordPerPage,
       pageNo: this.pageNo
     },

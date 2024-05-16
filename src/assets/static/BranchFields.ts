@@ -10,4 +10,14 @@ export class BranchFields {
     fieldName: 'BranchCode',
     isRequired : false
   }
+  static CreateDate = {
+    displayName : 'Create Date',
+    fieldName: 'CreateDate',
+    isRequired : false
+  }
+  static UpdateDate = {
+    displayName : 'Update Date',
+    fieldName: 'UpdateDate',
+    isRequired : false
+  }
 }
