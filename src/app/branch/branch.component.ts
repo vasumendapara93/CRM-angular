@@ -36,11 +36,11 @@ export class BranchComponent implements OnInit {
   totalRecords = 0
   recordPerPage = 10
   pageNoShowLimit = 3
-  pageNo = 1
+  pageNo: number = 1
   searchString = ''
   orderBy : string | null = null
   order : string | null = null
-  recordPerPageOptions = [10, 20, 50, 100]
+  recordPerPageOptions = [10, 20,30, 50,75, 100]
   pageNoOptions: number[] = []
   user: IUser
   mappingFields = MappingFields
