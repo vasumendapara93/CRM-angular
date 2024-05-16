@@ -133,6 +133,21 @@ export class BranchComponent implements OnInit {
       })
   }
 
+  onPrevious(pageNo: number){
+
+    if(this.pageNo <= 1){
+      return
+    }
+    this.changePageNo(Number(pageNo) - 1)
+  }
+
+  onNext(pageNo: number){
+    if(this.pageNo >= this.pageNoOptions.length){
+      return
+    }
+    this.changePageNo(Number(pageNo) + 1)
+  }
+
   sortData(orderBy : string, order : string){
     this.router.navigate([],
       {

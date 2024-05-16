@@ -45,7 +45,7 @@ import { AlertComponent } from './alert/alert.component';
     InputComponent,
     MsgComponent,
     UploadFileComponent,
-    AlertComponent
+    AlertComponent,
   ],
   providers:[
     provideEnvironmentNgxMask(),
