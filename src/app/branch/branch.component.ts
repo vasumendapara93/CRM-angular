@@ -182,8 +182,8 @@ export class BranchComponent implements OnInit {
     var pageNoOptionCount = Math.ceil(this.totalRecords / this.recordPerPage)
     this.pageNoOptions = Array(pageNoOptionCount).fill(0).map((x, i) => i + 1);
     if (this.pageNoShowOptions.length == 0 ||
-      this.pageNo == this.pageNoOptions[0] || 
-      this.pageNo == this.pageNoOptions[1] || 
+      this.pageNo == this.pageNoOptions[0] ||
+      this.pageNo == this.pageNoOptions[1] ||
       this.pageNo == this.pageNoOptions[2]
     ) {
       this.pageNoShowOptions = []
@@ -203,7 +203,7 @@ export class BranchComponent implements OnInit {
           this.pageNoShowOptions.unshift(this.pageNoOptions[(this.pageNoOptions.length - 1) - i])
         }
       }
-    } else if(this.pageNoShowOptions.length == 0) {
+    } else if (this.pageNoShowOptions.length == 0) {
       this.pageNoShowOptions = []
       let i = this.pageNoOptions.indexOf(Number(this.pageNo))
       if (this.pageNoOptions[i - 1]) {
@@ -217,7 +217,7 @@ export class BranchComponent implements OnInit {
     console.log(this.pageNoShowOptions)
   }
 
-  number(x : number | string){
+  number(x: number | string) {
     return Number(x)
   }
 
@@ -322,7 +322,11 @@ export class BranchComponent implements OnInit {
               var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
               allCheckbox.checked = false
               allCheckbox.indeterminate = false
-              this.changePageNo(1)
+              if (this.pageNo != 1) {
+                this.changePageNo(1)
+              } else {
+                this.getbranches()
+              }
             }
           },
           (error) => {
