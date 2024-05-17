@@ -166,7 +166,7 @@ export class BranchComponent implements OnInit {
     }
   }
 
-  sortData(orderBy: string, order: string) {
+  sortData(orderBy: string | null, order: string | null) {
     this.router.navigate([],
       {
         queryParams: {
@@ -434,4 +434,10 @@ export class BranchComponent implements OnInit {
       }
     )
   }
+}
+
+function disableScrolling(){
+  var x=window.scrollX;
+  var y=window.scrollY;
+  window.onscroll=function(){window.scrollTo(x, y);};
 }

@@ -10,7 +10,7 @@ import { FloatingDropdownService } from './services/floating-dropdown.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  {
+export class AppComponent {
   title = 'CRM';
 
   constructor(
@@ -22,5 +22,6 @@ export class AppComponent  {
     if (!(event.target as HTMLElement).classList.contains('floating-dropdown-btn')) {
       this.floatingDropdown.closeAllFloatingDropdown()
     }
+      window.onscroll = function () { };
   }
 }

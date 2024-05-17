@@ -101,36 +101,61 @@
                     class="float-left form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                 </th>
                 <th *ngFor="let field of tableColumns;let i = index " class="px-6 py-3 ">
-                  <span class="float-left">{{field.displayName}}</span>
-                  <app-floating-dropdown [floatingDropdownId]="field.displayName + i">
-                    <i floating-dropdown-title (click)="openFloatingDropdown($event, field.displayName + i)"
-                      class="fa-solid fa-filter float-right mt-1 floating-dropdown-btn"></i>
-                    <div floating-dropdown-menu
-                      class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
-                      style="right: -1.2rem;">
-                      <div (click)="sortData(field.fieldName, Order.ASC)"
-                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                        <p>{{Order.ASC}}</p>
-                        <i class="fa-solid fa-arrow-up-a-z"></i>
+                  <div class class="flex gap-4 justify-between items-center">
+                    <span class="float-left">{{field.displayName}}
+                      <i *ngIf="orderBy==field.fieldName && order == Order.DESC" class="fa-solid fa-arrow-down ml-2"></i>
+                      <i *ngIf="orderBy==field.fieldName && order == Order.ASC" class="fa-solid fa-arrow-up ml-2"></i>
+                    </span>
+                    <app-floating-dropdown [floatingDropdownId]="field.displayName + 'sorting' + i">
+                      <i floating-dropdown-title
+                        (click)="openFloatingDropdown($event, field.displayName + 'sorting' + i)"
+                        class="fa-solid fa-sort float-right mt-1 floating-dropdown-btn"></i>
+                      <div floating-dropdown-menu
+                        class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
+                        style="right: -1.2rem;">
+                        <div *ngIf="!(orderBy == field.fieldName && order == Order.ASC)" (click)="sortData(field.fieldName, Order.ASC)"
+                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                          <p>{{Order.ASC}}</p>
+                          <i class="fa-solid fa-arrow-up-a-z"></i>
+                        </div>
+                        <div *ngIf="!(orderBy == field.fieldName && order == Order.DESC)" (click)="sortData(field.fieldName, Order.DESC)"
+                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                          <p>{{Order.DESC}}</p>
+                          <i class="fa-solid fa-arrow-down-z-a"></i>
+                        </div>
+                        <div *ngIf="orderBy == field.fieldName" (click)="sortData(null, null)"
+                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                          <p>Unsort</p>
+                          <i class="fa-solid fa-filter-circle-xmark"></i>
+                        </div>
                       </div>
-                      <div (click)="sortData(field.fieldName, Order.DESC)"
-                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
-                        <p>{{Order.DESC}}</p>
-                        <i class="fa-solid fa-arrow-down-z-a"></i>
-                      </div>
-                    </div>
-                  </app-floating-dropdown>
+                    </app-floating-dropdown>
+                  </div>
                 </th>
               </tr>
             </thead>
             <tbody *ngIf="branchList != null && branchList != []; else loader " class="divide-y divide-themeblue-100">
-              <tr *ngFor="let branch of filteredList" class="group hover:bg-themeblue-200">
+              <tr *ngFor="let branch of filteredList; let i = index" class="group hover:bg-themeblue-200">
                 <td class="pl-4 py-3">
-                  <div
-                    class="invisible group-hover:visible h-6 w-6 rounded-full bg-white flex justify-center items-center">
-                    <i class="fa-solid fa-ellipsis text-themeblue-900 fa-sm">
-                    </i>
-                  </div>
+                  <app-floating-dropdown [floatingDropdownId]="branch.id  + i">
+                    <div floating-dropdown-title (click)="openFloatingDropdown($event, branch.id  + i)"
+                      class="floating-dropdown-btn invisible group-hover:visible h-6 w-6 rounded-full bg-white flex justify-center items-center">
+                      <i class="floating-dropdown-btn fa-solid fa-ellipsis text-themeblue-900 fa-sm">
+                      </i>
+                    </div>
+                    <div floating-dropdown-menu
+                      class="absolute top-6 left-0 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-fit text-base text-grey-800">
+                      <div
+                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                        <p>Edit</p>
+                      </div>
+                      <div
+                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                        <p>No Idea About Option</p>
+                      </div>
+                    </div>
+                  </app-floating-dropdown>
+
                 </td>
                 <td class="px-6 py-3">
                   <input type="checkbox" [checked]="selectedUserList.includes(branch)"
@@ -186,7 +211,9 @@
 
       </div>
       <div class="flex justify-center items-center gap-2 mt-2 sm:mt-0">
-        <p class="flex sm:hidden mt-0"><span class="font-semibold">{{number(pageNo)*number(recordPerPage) - (number(recordPerPage)-1)}}</span> &nbsp; to &nbsp; <span class="font-semibold">{{number(pageNo)*number(recordPerPage) }}</span></p>
+        <p class="flex sm:hidden mt-0"><span class="font-semibold">{{number(pageNo)*number(recordPerPage) -
+            (number(recordPerPage)-1)}}</span> &nbsp; to &nbsp; <span
+            class="font-semibold">{{number(pageNo)*number(recordPerPage) }}</span></p>
         <ul class="flex h-8 text-sm ">
           <li>
             <a (click)="onPrevious(pageNo)"
