@@ -97,7 +97,7 @@
             {{selectedSheet}} <i class="fa-solid fa-caret-up text-themeblue-900 floating-dropdown-btn"></i>
           </button>
           <div floating-dropdown-menu
-            class="absolute bottom-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border-2 border-grey-400 rounded-lg p-2 mr-5 w-fit sm:left-5 right-5 min-w-32"
+            class="absolute bottom-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border-2 border-grey-400 rounded p-2 mr-5 w-fit sm:left-5 right-5 min-w-32"
             style="right: -1.2rem;">
             <div *ngFor="let sn of sheetNames" (click)="selectSheet($event,sn)"
               [ngClass]="{'bg-themeblue-200': selectedSheet == sn}"

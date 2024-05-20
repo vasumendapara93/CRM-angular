@@ -31,12 +31,11 @@ safelist : [
       'backdrop':{
         900 : '#0000003a',
       },
-      'custom-bg-gray':{
-        900: 'f1f5f9'
+      'red':{
+        100:'#ffebeb'
       }
     },
   },
   plugins: [
-    require('flowbite/plugin')
   ],
 }

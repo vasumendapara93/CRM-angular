@@ -91,7 +91,7 @@ export class EmployeesComponent {
     this.userList.forEach(user => {
       if (regex.test(user.name)) {
         this.filteredList.push(user)
-      } else if (regex.test(user.phoneNumber)) {
+      } else if (regex.test(user.phoneNumber!)) {
         this.filteredList.push(user)
       } else if (regex.test(user.contactPerson!)) {
         this.filteredList.push(user)

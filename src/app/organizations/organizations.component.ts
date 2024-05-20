@@ -81,7 +81,7 @@ export class OrganizationsComponent {
     this.OrgList.forEach(org => {
       if(regex.test(org.name)){
         this.filteredList.push(org)
-      }else if(regex.test(org.phoneNumber)){
+      }else if(regex.test(org.phoneNumber!)){
         this.filteredList.push(org)
       }else if(regex.test(org.contactPerson!)){
         this.filteredList.push(org)

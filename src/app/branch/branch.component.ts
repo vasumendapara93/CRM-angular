@@ -77,6 +77,7 @@ export class BranchComponent implements OnInit {
     private router: Router
   ) {
     this.user = this.route.snapshot.data['user'];
+    console.log(this.user)
     this.getbranches()
   }
 

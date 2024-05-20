@@ -1,30 +1,56 @@
-import { Component,OnInit } from '@angular/core';
-import { initFlowbite } from 'flowbite';
+import { Component,ElementRef,OnInit, ViewChild } from '@angular/core';
 import { FloatingModalService } from 'src/app/services/floating-modal.service';
 import { Validators,FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import IUser from 'src/app/model/User.model';
+import { FloatingDropdownService } from 'src/app/services/floating-dropdown.service';
+import { Gender } from 'src/assets/static/Gender';
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.css']
 })
-export class ProfilePageComponent implements OnInit{
-  ngOnInit(): void {
-    initFlowbite();
-  }
+export class ProfilePageComponent{
+  @ViewChild('nameField') nameField!: ElementRef;
+  user: IUser
+  addNumberFloatingModalId = "addNumberFloatingModalId"
+  genderDropDownId = "genderDropDownId"
+  isEditable = false
 
-  constructor(
-    private floatingModal : FloatingModalService
-  ){}
-
-  
-  Mobilenumber = new FormControl('',
+  name = new FormControl('',[
+    Validators.required
+  ])
+  gender = new FormControl('',[
+    Validators.required
+  ])
+  mobilenumber = new FormControl('',
     [
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10)
     ])
+  
+
+  genderOptions :Gender[]= []
     
-  addNumberFloatingModalId = "addNumberFloatingModalId"
+    
+  constructor(
+    private route: ActivatedRoute,
+    private floatingModal : FloatingModalService,
+    private floatingDropdown : FloatingDropdownService
+  ) {
+    this.user = this.route.snapshot.data['user'];
+    this.name.setValue(this.user.name)
+    this.gender.setValue(this.user.gender)
+    this.gender.disable()
+    this.name.disable()
+    this.genderOptions = [
+      Gender.Male,
+      Gender.Female,
+      Gender.Other,
+      Gender.NotToSay,
+    ]
+  }
 
   openPhoneNumberForm(event : Event){
     event.preventDefault()
@@ -32,26 +58,30 @@ export class ProfilePageComponent implements OnInit{
     console.log(this.floatingModal.isFloatingModalOpen(this.addNumberFloatingModalId))
   }
 
-  mobilenumber : string =""
-  emailAddress : string =""
+  enableEdit(){
+    this.gender.enable()
+    this.name.enable()
+    this.isEditable = true
+    this.nameField.nativeElement.focus()
+  }
 
-  mobileImageURLs: string[] = [
-    'assets/images/profileImages/p1.svg',
-    'assets/images/profileImages/p2.svg',
-    'assets/images/profileImages/p3.svg'
-  ];
-  mobileRandomIndex: number = Math.floor(Math.random() * this.mobileImageURLs.length);
-  mobileRandomString: string = this.mobileImageURLs[this.mobileRandomIndex];
+  disableEdit(event? : Event){
+    if(event){
+      event.preventDefault()
+    }
+    this.gender.disable()
+    this.name.disable()
+    this.isEditable = false
+  }
 
-  emailImageURLs: string[] = [
-    'assets/images/profileImages/e1.svg',
-    'assets/images/profileImages/e2.svg',
-    'assets/images/profileImages/e3.svg'
-  ];
-  emailRandomIndex: number = Math.floor(Math.random() * this.emailImageURLs.length);
-  emailRandomString: string = this.emailImageURLs[this.emailRandomIndex];
+  openFloatingDropdown(event: Event, id: string) {
+    event.preventDefault();
+    this.floatingDropdown.toggeleFloatingDropdown(id)
+  }
 
-
+  changeGander(genderOpt : Gender){
+    this.gender.setValue(genderOpt)
+  }
 
 }
 

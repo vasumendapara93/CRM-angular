@@ -49,7 +49,10 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfilePageComponent
+        component: ProfilePageComponent,
+        resolve: {
+          user: UserResolveService
+        },
       },
       {
         path: 'branches',
