@@ -1,3 +1,4 @@
+import { Gender } from "src/assets/static/Gender"
 import IBranch from "./Branch.model"
 
 export default interface IUser{
@@ -12,7 +13,7 @@ export default interface IUser{
     role:{
         roleName:string
     },
-    gender : string
+    gender : Gender
     isActive : boolean
     organizationId : string
     branchId : string

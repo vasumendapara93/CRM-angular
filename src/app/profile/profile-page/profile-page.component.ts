@@ -40,6 +40,7 @@ export class ProfilePageComponent{
     private floatingDropdown : FloatingDropdownService
   ) {
     this.user = this.route.snapshot.data['user'];
+    console.log(this.user)
     this.name.setValue(this.user.name)
     this.gender.setValue(this.user.gender)
     this.gender.disable()
