@@ -14,7 +14,7 @@ import { MappingFields } from 'src/assets/static/MappingFields';
 import { UploadFileComponent } from '../shared/upload-file/upload-file.component';
 import { AlertService } from '../services/alert.service';
 import { BtnText } from 'src/assets/static/BtnText';
-import { Subject, debounceTime, first } from 'rxjs';
+import { Subject, debounceTime, first, from } from 'rxjs';
 import { Order } from 'src/assets/static/Order';
 import { BranchFields } from 'src/assets/static/BranchFields';
 import { TableColumns } from 'src/assets/static/TableColumns';
@@ -57,12 +57,14 @@ export class BranchComponent implements OnInit {
   branchRecordPerPageId = 'branchRecordPerPageId'
 
   addBranchFloatingModalId = 'addBranchFloatingModalId'
+  editBranchFloatingModalId = 'editBranchFloatingModalId'
   addBranchCSVFloatingModalId = "addBranchCSVFloatingModalId"
 
   msgBoxId = 'branchMsgBoxId'
   uploadBoxId = 'uploadFileMsgBoxID'
 
   isCreatingNewBranch = false
+  isEditingBranch = false
 
   constructor(
     private apiService: APIService,
@@ -102,6 +104,10 @@ export class BranchComponent implements OnInit {
       Validators.required,
     ])
   branchCode = new FormControl('',
+    [
+      Validators.required
+    ])
+  id = new FormControl('',
     [
       Validators.required
     ])
@@ -228,6 +234,13 @@ export class BranchComponent implements OnInit {
     console.log(this.floatingModal.isFloatingModalOpen(this.addBranchFloatingModalId))
   }
 
+  openEditBranchForm(branch : IBranch){
+    this.floatingModal.openFloatingModal(this.editBranchFloatingModalId)
+    this.branchName.setValue(branch.branchName)
+    this.branchCode.setValue(branch.branchCode)
+    this.id.setValue(branch.id)
+  }
+
   openAddBranchCSVForm(event: Event) {
     event.preventDefault()
     this.floatingModal.openFloatingModal(this.addBranchCSVFloatingModalId)
@@ -335,6 +348,47 @@ export class BranchComponent implements OnInit {
         )
       }
     })
+  }
+
+  async editBranch(event : Event){
+    event.preventDefault()
+    if (this.newBranchFrom.valid) {
+      this.isEditingBranch = true
+      try {
+        this.apiService.put(API.UPDATE_BRANCHE + '/' + this.id.value,
+          {
+            id :  this.id.value,
+            branchName: this.branchName.value,
+            branchCode: this.branchCode.value,
+            organizationId: this.user.id
+          }, {
+          headers: await this.authService.getAuthorizationHeader()
+        }
+        ).subscribe(
+          (response) => {
+            console.log(response)
+            if (response.isSuccess) {
+              this.msgService.setColor(this.msgBoxId, Color.success)
+              this.msgService.setMsg(this.msgBoxId, 'Branch Edited Successfully')
+              this.msgService.openMsgBox(this.msgBoxId)
+              this.floatingModal.closeFloatingModal(this.editBranchFloatingModalId)
+              this.getbranches()
+              this.newBranchFrom.reset()
+            }
+            this.isEditingBranch = false
+          },
+          (error) => {
+            console.log(error)
+
+            this.msgService.setColor(this.msgBoxId, Color.danger)
+            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+            this.msgService.openMsgBox(this.msgBoxId)
+          }
+        )
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
 
   async createNewBranch() {

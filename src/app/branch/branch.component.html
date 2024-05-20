@@ -15,6 +15,20 @@
   </form>
 </app-floating-modal>
 
+<app-floating-modal [floatingModalId]="editBranchFloatingModalId" title="Edit Branch">
+  <form [formGroup]="newBranchFrom" (ngSubmit)="editBranch($event)" class="xs:w-80 w-full flex flex-col gap-4">
+    <app-input [control]="branchName" name="Branch Name" type="text" autocomplete="Name"
+      placeholder="Branch Name"></app-input>
+    <app-input [control]="branchCode" name="Branch Code" type="text" placeholder="Branch Code"></app-input>
+    <button [disabled]="isCreatingNewBranch" type="submit"
+      class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
+      <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
+        *ngIf="isEditingBranch ; else SaveText" />
+      <ng-template #SaveText> Save </ng-template>
+    </button>
+  </form>
+</app-floating-modal>
+
 <app-floating-modal [floatingModalId]="addBranchCSVFloatingModalId" title="Add Branch CSV">
   <app-upload-file #uploadFileComponent [mappingFieldsInput]="mappingFields.BranchFields"
     (onFinalListGenerated)="createBranchRange($event)"></app-upload-file>
@@ -24,11 +38,11 @@
 
   <app-page-heading [heading]="pageTitle" [navigations]="['Menu', pageTitle]"></app-page-heading>
 
-  <div class="flex justify-between gap-4 w-full mb-2">
+  <div class="flex justify-between gap-4 w-full mb-2 sm:flex-nowrap flex-wrap ">
 
-    <div class="flex justify-center items-center gap-4">
+    <div class="flex justify-center items-center gap-4 w-full sm:w-fit">
       <!-- Search -->
-      <div class="md:flex items-center relative">
+      <div class="md:flex items-center relative w-full sm:w-fit">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
         </div>
@@ -41,7 +55,7 @@
       </div>
     </div>
 
-    <div class="flex justify-center items-center gap-4">
+    <div class="flex sm:justify-center items-center gap-4  sm:w-fit w-full" [ngClass]="{'justify-end':selectedUserList.length == 0, 'justify-between': selectedUserList.length != 0}">
       <!-- Action Button -->
       <app-floating-dropdown *ngIf="selectedUserList.length != 0" [floatingDropdownId]="branchActionDropdownId"
         class="float-left">
@@ -114,17 +128,17 @@
                         class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
                         style="right: -1.2rem;">
                         <div *ngIf="!(orderBy == field.fieldName && order == Order.ASC)" (click)="sortData(field.fieldName, Order.ASC)"
-                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                           <p>{{Order.ASC}}</p>
                           <i class="fa-solid fa-arrow-up-a-z"></i>
                         </div>
                         <div *ngIf="!(orderBy == field.fieldName && order == Order.DESC)" (click)="sortData(field.fieldName, Order.DESC)"
-                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                           <p>{{Order.DESC}}</p>
                           <i class="fa-solid fa-arrow-down-z-a"></i>
                         </div>
                         <div *ngIf="orderBy == field.fieldName" (click)="sortData(null, null)"
-                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                          class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                           <p>Unsort</p>
                           <i class="fa-solid fa-filter-circle-xmark"></i>
                         </div>
@@ -145,12 +159,12 @@
                     </div>
                     <div floating-dropdown-menu
                       class="absolute top-6 left-0 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-fit text-base text-grey-800">
-                      <div
-                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                      <div (click)="openEditBranchForm(branch)"
+                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                         <p>Edit</p>
                       </div>
                       <div
-                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200">
+                        class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                         <p>No Idea About Option</p>
                       </div>
                     </div>
