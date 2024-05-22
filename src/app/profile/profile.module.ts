@@ -5,6 +5,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ProfileModelFooterComponent } from './profile-model-footer/profile-model-footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 
 
 
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ImageCropperComponent
   ]
 })
 export class ProfileModule { }

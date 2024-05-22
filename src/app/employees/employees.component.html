@@ -264,7 +264,7 @@
                                     <app-tag *ngIf="!user.isActive" color="danger">Inactive</app-tag>
                                 </td>
                                 <td class="px-6 py-3">
-                                    <img *ngIf="user.image; else charactorImage" [src]="user.image"
+                                    <img *ngIf="user.image; else charactorImage" [src]="API.ORIGIN + user.image"
                                         alt="this.user?.name" class="rounded-full h-8 w-8">
                                     <ng-template #charactorImage>
                                         <div class="rounded-full h-8 w-8 flex justify-center items-center"

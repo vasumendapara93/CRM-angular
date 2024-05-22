@@ -1,26 +1,54 @@
-<app-floating-modal [floatingModalId]="addNumberFloatingModalId" title="Add Mobile Number">
-  <div class="w-80 flex flex-col">
-    <label class="block text-sm font-medium text-gray-900 dark:text-white"> Phone Number:</label>
-    <div class="relative">
-      <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none"
-        style="background: #f9fafb;">
-        <i class="fa-solid fa-phone"></i>
+<app-msg [MsgBoxId]="msgBoxId"></app-msg>
+
+<app-floating-modal [floatingModalId]="profileImageCropModalId" title="Profile Image">
+  <image-cropper class="h-fit w-[20rem] img-center" style="width:100%; max-width: 20rem;"
+    [imageChangedEvent]="imageChangedEvent" [aspectRatio]="1 / 1" [maintainAspectRatio]="true" [(transform)]="transform"
+    [canvasRotation]="canvasRotation" [alignImage]="'center'" (imageCropped)="imageCropped($event)"></image-cropper>
+  <div class="flex justify-center items-center gap-4 my-2 sm:flex-nowrap flex-wrap">
+    <div class="flex justify-center items-center gap-4 sm:justify-center justify-between w-full">
+      <div class="p-2.5 rounded-full shadow flex justify-center items-center w-full">
+        <input id="zoomSlider" type="range" min=100 value="100" max=1000 (input)="onZoomChange($event)"
+          class="w-full bg-gray-200 h-4 accent-themeblue-900 rounded-lg appearance-none ">
       </div>
-      <app-input [control]="mobilenumber" class="ml-5" name="mobilenumber" type="tel" autocomplete="mobilenumber"
-        placeholder="Mobile Number"></app-input>
-      <p></p>
+      <div (click)="leftRotate()"
+        class="h-9 w-9 rounded-full shadow flex justify-center items-center cursor-pointer flex-none">
+        <i class="fa-solid fa-rotate-left fa-lg"></i>
+      </div>
+      <div (click)="rightRotate()"
+        class="h-9 w-9 rounded-full shadow flex justify-center items-center  cursor-pointer flex-none">
+        <i class="fa-solid fa-rotate-right fa-lg"></i>
+      </div>
     </div>
-    <button [disabled]="false" type="submit" class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-6">
+  </div>
+  <form (ngSubmit)="updateprofileImage($event)" class="flex justify-between items-center gap-4 my-2 sm:flex-nowrap flex-wrap mt-4">
+    <button (click)="resetImageCrop($event)" class="text-danger py-1 sm:py-1 px-4 rounded bg-red-100">
+      Reset
+    </button>
+    <button (click)="updateprofileImage($event)" [disabled]="isUpdatingImage" type="submit"
+      class="text-white py-1 sm:py-1 rounded bg-themeblue-900 px-4">
       <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
-        *ngIf="false ; else addText" />
+        *ngIf="isUpdatingImage ; else Text" />
+      <ng-template #Text> Save </ng-template>
+    </button>
+  </form>
+</app-floating-modal>
+
+<app-floating-modal [floatingModalId]="addNumberFloatingModalId" title="Add Mobile Number">
+  <form [formGroup]="mobileFormGroup" (ngSubmit)="updatePhoneNumber($event)" class="xs:w-80 w-full flex flex-col gap-4">
+    <app-input [control]="mobilenumber" name="Mobile number" type="tel" autocomplete="mobilenumber"
+      placeholder="Mobile Number" format="00000 00000"></app-input>
+    <button (click)="updatePhoneNumber($event)" [disabled]="isUpdatingPhone" type="submit"
+      class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2 cursor-pointer">
+      <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
+        *ngIf="isUpdatingPhone ; else addText" />
       <ng-template #addText> Add </ng-template>
     </button>
-  </div>
+  </form>
 </app-floating-modal>
 
 <!-- Profile information component -->
 <div class="p-6 gap-4 flex flex-col mb-5">
-  <div class="bg-white p-6 border border-gray-200 card">
+  <form [formGroup]="userinfoForm" (ngSubmit)="updateUserInfo($event)" class="bg-white p-6 border border-gray-200 card">
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-xl font-bold text-black">Profile</h1>
       <div *ngIf="!isEditable;" (click)="enableEdit()"
@@ -28,9 +56,10 @@
         <i class="fa-solid fa-pen-to-square text-themeblue-900 text-lg"></i>
       </div>
       <div *ngIf="isEditable" class="flex gap-2">
-        <button [disabled]="false" type="submit" class="text-white py-1.5 sm:py-1.5 rounded bg-themeblue-900 px-4">
+        <button (click)="updateUserInfo($event)"
+        [disabled]="isUpdatingInfo" type="submit" class="text-white py-1.5 sm:py-1.5 rounded bg-themeblue-900 px-4">
           <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
-            *ngIf="false ; else saveText" />
+            *ngIf="isUpdatingInfo ; else saveText" />
           <ng-template #saveText> Save </ng-template>
         </button>
         <button (click)="disableEdit($event)" class="text-danger py-1.5 sm:py-1.5 px-4 rounded bg-red-100">
@@ -38,18 +67,50 @@
         </button>
       </div>
     </div>
-    <div class="flex justify-center sm:justify-start sm:flex-nowrap flex-wrap items-center mb-6">
-      <div class="mr-4 mb-2 sm:ml-0 ">
-        <img *ngIf="user.image; else charactorImage" [src]="user.image" [alt]="this.user.name"
-          class="w-16 h-16 rounded-full">
+    <div class="flex justify-center sm:justify-start sm:flex-nowrap flex-wrap items-center mb-6 gap-4">
+      <div class="h-16">
+        <input type="file" id="imageinput" class="hidden" (click)="clearValue()" (input)="onImageSelect($event)">
+        <div *ngIf="user.image; else charactorImage" class="inline-block relative group">
+          <img [src]="API.ORIGIN + user.image" crossorigin [alt]="this.user.name" class="w-16 h-16 rounded-full">
+          <app-floating-dropdown [floatingDropdownId]="profilePictureDropDownId"
+            class="float-none absolute top-0 left-0 ">
+            <button floating-dropdown-title
+              (click)="openFloatingDropdown($event, profilePictureDropDownId)"
+              class="floating-dropdown-btn bottom-0 right-0 p-2 bg-backdrop-800 rounded-full h-[4rem] w-[4rem] invisible cursor-pointer group-hover:visible">
+              <i class="floating-dropdown-btn fa-solid fa-camera text-white fa-xl"></i>
+            </button>
+            <div floating-dropdown-menu
+              class="absolute top-15 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border rounded-lg p-2 mr-5 w-fit left-[-50%] xs:left-0 xs:min-w-48">
+              <div (click)="openImageInput($event)"
+                class="cursor-pointer flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-700 hover:bg-gray-500 hover:bg-themeblue-200 whitespace-nowrap gap-4">
+                <p>New Picture</p>
+                <i class="fa-solid fa-pen"></i>
+              </div>
+              <div (click)="removeProfilePicture($event)"
+                class="cursor-pointer flex justify-between items-center py-2 px-3 rounded-md text-sm text-danger hover:bg-themeblue-200 whitespace-nowrap gap-4">
+                <p>Remove</p>
+                <i class="fa-solid fa-trash-can"></i>
+              </div>
+            </div>
+          </app-floating-dropdown>
+
+        </div>
         <ng-template #charactorImage>
-          <div class="w-16 h-16 rounded-full flex justify-center items-center" style="background: #666887;">
-            <p class="text-white text-3xl font-semibold">{{user.name![0].toUpperCase()}}
-            </p>
+          <div class="inline-block relative group">
+            <div class="w-16 h-16 rounded-full flex justify-center items-center cursor-default"
+              style="background: #666887;">
+              <p class="text-white text-3xl font-semibold">{{user.name![0].toUpperCase()}}
+              </p>
+            </div>
+            <button *ngIf="!user.image" (click)="openImageInput($event)"
+              class="absolute bottom-0 right-0 p-2 bg-backdrop-800 rounded-full h-full w-full invisible group-hover:visible">
+              <i class="fa-solid fa-camera text-white fa-xl"></i>
+            </button>
           </div>
         </ng-template>
       </div>
-      <div>
+
+      <div class="flex flex-col sm:items-start items-center">
         <p class="font-bold text-themeblue-900 text-xl">{{user.name}}</p>
         <p>{{user.email}}</p>
       </div>
@@ -59,19 +120,26 @@
         <p class="text-gray-700 font-semibold">Full Name</p>
         <input #nameField type="text" [formControl]="name" class="text-gray-800 bg-white duration-200"
           [ngClass]="{'border rounded px-4 py-2 w-11/12 focus:border-themeblue-400':isEditable}">
+        <p ngClass="mt-1 mb-3 text-red-600" *ngIf="name.errors?.['required']" class="text-red-400">
+         Name is required
+        </p>
       </div>
       <div class="w-full">
         <p class="text-gray-700 font-semibold">Gender</p>
         <app-floating-dropdown [floatingDropdownId]="genderDropDownId" class="float-left">
           <button floating-dropdown-title (click)="openFloatingDropdown($event, genderDropDownId)"
-            class="floating-dropdown-btn text-gray-800 bg-white duration-200 text-base flex justify-between items-center gap-4"  [ngClass]="{'border rounded px-4 pr-5 py-2 xs:w-52 focus:border-themeblue-400':isEditable}">
-            {{gender.value}} <i class="fa-solid fa-caret-down text-themeblue-900 floating-dropdown-btn" [ngClass]="{'hidden':!isEditable}"></i>
+            class="floating-dropdown-btn text-gray-800 bg-white duration-200 text-base flex justify-between items-center gap-4"
+            [ngClass]="{'border rounded px-4 pr-5 py-2 xs:w-52 focus:border-themeblue-400':isEditable,'cursor-default':!isEditable}">
+            {{gender.value}} <i class="fa-solid fa-caret-down text-themeblue-900 floating-dropdown-btn"
+              [ngClass]="{'hidden':!isEditable}"></i>
           </button>
+          <p ngClass="mt-1 mb-3 text-red-600" *ngIf="gender.errors?.['required']" class="text-red-400">
+            Gender is required
+          </p>
           <div floating-dropdown-menu
             class="absolute top-9 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border border-themeblue-400 rounded p-2 mr-5 w-fit left-0 xs:min-w-52">
-            <div *ngFor="let genderOpt of genderOptions"
-            (click)="changeGander(genderOpt)"
-            [ngClass]="{'text-themeblue-400 bg-themeblue-200': gender.value == genderOpt }"
+            <div *ngFor="let genderOpt of genderOptions" (click)="changeGander(genderOpt)"
+              [ngClass]="{'text-themeblue-400 bg-themeblue-200': gender.value == genderOpt }"
               class="cursor-pointer flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-500 hover:bg-themeblue-200 whitespace-nowrap">
               {{genderOpt}}
             </div>
@@ -79,13 +147,13 @@
         </app-floating-dropdown>
       </div>
     </div>
-  </div>
+  </form>
   <!-- email component -->
   <app-profile-modal title="Email Addresses" subTitle="
       You can use the following email addresses to sign in to your account 
       and also to reset your password if you ever forget it.">
     <div>
-      <app-profile-model-footer [email]="user.email" timespan="1 year ago" icon="fa-envelope">
+      <app-profile-model-footer [email]="user.email" icon="fa-envelope">
       </app-profile-model-footer>
     </div>
   </app-profile-modal>
@@ -94,18 +162,15 @@
   <app-profile-modal title="Mobile Numbers"
     subTitle="View and manage all of the mobile numbers associated with your account.">
     <div *ngIf="!user.phoneNumber; else mobileAvailable">
-      <div class="flex justify-center">
-        <a
-          class="relative rounded-lg px-5 py-1.5 overflow-hidden group bg-themeblue-900 relative hover:bg-gradient-to-r hover:from-bg-themeblue-900 hover:to-bg-themeblue-800 text-white hover:ring-2  hover:bg-themeblue-900 transition-all ease-out duration-300">
-          <span
-            class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-          <span class="relative text-l"><button (click)="openPhoneNumberForm($event)">Add Mobile
-              Number</button></span>
-        </a>
+      <div class="flex justify-center bg-white py-8">
+
+        <button class="rounded-lg px-6 py-2 bg-themeblue-900 text-white" (click)="openPhoneNumberForm($event)">Add
+          Mobile
+          Number</button>
       </div>
     </div>
     <ng-template #mobileAvailable>
-      <app-profile-model-footer [email]="user.phoneNumber!" timespan="1 year ago" icon='fa-phone'>
+      <app-profile-model-footer [email]="user.phoneNumber!" icon='fa-phone'>
       </app-profile-model-footer>
     </ng-template>
   </app-profile-modal>

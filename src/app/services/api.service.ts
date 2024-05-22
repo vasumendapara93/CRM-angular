@@ -29,6 +29,9 @@ export class APIService {
   put(url:string, body : any, options? : object | undefined) : Observable<any>{
     return this.httpClient.put(url, body, options).pipe(catchError(this.handleError))
   }
+  patch(url:string, body : any, options? : object | undefined) : Observable<any>{
+    return this.httpClient.patch(url, body, options).pipe(catchError(this.handleError))
+  }
 
 
   handleError(error: HttpErrorResponse) {

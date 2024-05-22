@@ -22,6 +22,7 @@ export class EmployeesComponent {
   filterText: string = ""
   user : IUser
   UserRole = UserRole
+  API = API
 
   addLeadId = "add-lead"
   NameDropDownId = 'NameDropDownId'

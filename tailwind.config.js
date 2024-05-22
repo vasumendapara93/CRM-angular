@@ -3,11 +3,11 @@ module.exports = {
   content: [
     "./src/**/*.{html,js}",
     "./node_modules/flowbite/**/*.js"
-],
-safelist : [
-  'bg-success',
-   'bg-danger',
-   'bg-warn'
+  ],
+  safelist: [
+    'bg-success',
+    'bg-danger',
+    'bg-warn'
   ],
   theme: {
     extend: {},
@@ -28,11 +28,12 @@ safelist : [
         500: '#2a349a',
         900: '#11153e',
       },
-      'backdrop':{
-        900 : '#0000003a',
+      'backdrop': {
+        800: '#00000084',
+        900: '#0000003a',
       },
-      'red':{
-        100:'#ffebeb'
+      'red': {
+        100: '#ffebeb'
       }
     },
   },

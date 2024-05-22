@@ -24,6 +24,7 @@
     "@ngx-loading-bar/router": "^6.0.2",
     "apexcharts": "^3.47.0",
     "ng-apexcharts": "^1.8.0",
+    "ngx-image-cropper": "^8.0.0",
     "ngx-mask": "^15.1.5",
     "rxjs": "~7.8.0",
     "simplebar-angular": "^3.2.4",

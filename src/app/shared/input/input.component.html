@@ -9,8 +9,7 @@
 
     <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['minlength']"
     class="text-red-400">
-    input length is {{control.errors?.['minlength'].actualLength}},
-    it should be minimum {{control.errors?.['minlength'].requiredLength}}
+    {{name}} length should be minimum {{control.errors?.['minlength'].requiredLength}}
    </p>
 
    <p ngClass="mt-1 mb-3 text-red-600" *ngIf="control.errors?.['email']"

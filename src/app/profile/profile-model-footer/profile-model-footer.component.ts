@@ -7,7 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ProfileModelFooterComponent {
   @Input() email: string = ""
-  @Input() timespan: string = ""
   @Input() icon : string = ''
 
   colorList = [
