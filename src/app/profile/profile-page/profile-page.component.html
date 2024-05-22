@@ -71,7 +71,7 @@
       <div class="h-16">
         <input type="file" id="imageinput" class="hidden" (click)="clearValue()" (input)="onImageSelect($event)">
         <div *ngIf="user.image; else charactorImage" class="inline-block relative group">
-          <img [src]="API.ORIGIN + user.image" crossorigin [alt]="this.user.name" class="w-16 h-16 rounded-full">
+          <img [src]="API.ORIGIN + user.image" [alt]="this.user.name" class="w-16 h-16 rounded-full">
           <app-floating-dropdown [floatingDropdownId]="profilePictureDropDownId"
             class="float-none absolute top-0 left-0 ">
             <button floating-dropdown-title

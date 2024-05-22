@@ -14,7 +14,7 @@ export class HeaderComponent {
   //notification
   @Output() toggleNotification = new EventEmitter<void>();
 
-  user: IUser
+  user: IUser = {} as IUser
   ProfileDropdownId = 'profileDropdown'
   API = API
   constructor(
@@ -22,7 +22,10 @@ export class HeaderComponent {
     private route: ActivatedRoute,
     private floatingDropdown: FloatingDropdownService
   ) {
-    this.user = this.route.snapshot.data['user'];
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+      console.log(this.user)
+    });
   }
 
   toggleFullScreen() {

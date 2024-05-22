@@ -43,7 +43,7 @@ export class BranchComponent implements OnInit {
   order: string | null = null
   recordPerPageOptions = [10, 20, 30, 50, 75, 100]
   pageNoOptions: number[] = []
-  user: IUser
+  user: IUser = {} as IUser
   mappingFields = MappingFields
   private inputSearch = new Subject<string>();
   Order = Order
@@ -76,8 +76,10 @@ export class BranchComponent implements OnInit {
     private alertService: AlertService,
     private router: Router
   ) {
-    this.user = this.route.snapshot.data['user'];
-    console.log(this.user)
+    this.route.parent!.data.subscribe(data => {
+      this.user = data['user'];
+      console.log(this.user)
+    });
     this.getbranches()
   }
 

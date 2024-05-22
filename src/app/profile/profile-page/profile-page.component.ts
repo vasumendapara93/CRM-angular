@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FloatingModalService } from 'src/app/services/floating-modal.service';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import IUser from 'src/app/model/User.model';
 import { FloatingDropdownService } from 'src/app/services/floating-dropdown.service';
 import { Gender } from 'src/assets/static/Gender';
@@ -14,7 +14,7 @@ import { PatchOprations } from 'src/assets/static/PatchOpratins';
 import { UserFields } from 'src/assets/static/UserFields';
 import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
-import { first } from 'rxjs';
+import { BehaviorSubject, first } from 'rxjs';
 import { BtnText } from 'src/assets/static/BtnText';
 import { AlertService } from 'src/app/services/alert.service';
 @Component({
@@ -24,7 +24,7 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class ProfilePageComponent {
   @ViewChild('nameField') nameField!: ElementRef;
-  user: IUser
+  user: IUser = {} as IUser
   addNumberFloatingModalId = "addNumberFloatingModalId"
   genderDropDownId = "genderDropDownId"
   profilePictureDropDownId = "profilePictureDropDownId"
@@ -73,12 +73,15 @@ export class ProfilePageComponent {
     private apiService: APIService,
     private authService: AuthService,
     private msgService: MsgService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {
-    this.user = this.route.snapshot.data['user'];
-    console.log(this.user)
-    this.name.setValue(this.user.name)
-    this.gender.setValue(this.user.gender)
+    this.route.parent!.data.subscribe(data => {
+      this.user = data['user'];
+      console.log(this.user)
+      this.name.setValue(this.user.name)
+      this.gender.setValue(this.user.gender)
+    });
     this.gender.disable()
     this.name.disable()
     this.genderOptions = [
@@ -160,7 +163,7 @@ export class ProfilePageComponent {
               this.floatingModal.closeFloatingModal(this.addNumberFloatingModalId)
               this.mobileFormGroup.reset()
               this.authService.getUser(this.user.id).then((user) => {
-                this.user = user
+                (this.route.parent!.data as BehaviorSubject<any>).next({ user : user})
               })
             }
             this.isUpdatingPhone = false
@@ -244,7 +247,7 @@ export class ProfilePageComponent {
       try {
         this.isUpdatingImage = true
         this.apiService.post(API.UPDATE_USER_PROFILE_PICTURE + '/' + this.user.id,
-        formData,
+          formData,
           {
             headers: await this.authService.getAuthorizationHeader()
           }
@@ -256,7 +259,7 @@ export class ProfilePageComponent {
               this.msgService.setMsg(this.msgBoxId, 'Profile Picture Updated Successfully')
               this.msgService.openMsgBox(this.msgBoxId)
               this.authService.getUser(this.user.id).then((user) => {
-                this.user = user
+                (this.route.parent!.data as BehaviorSubject<any>).next({ user : user})
                 this.floatingModal.closeFloatingModal(this.profileImageCropModalId)
               })
             } else {
@@ -321,7 +324,7 @@ export class ProfilePageComponent {
                 this.msgService.setMsg(this.msgBoxId, 'Profile Picture Removed Successfully')
                 this.msgService.openMsgBox(this.msgBoxId)
                 this.authService.getUser(this.user.id).then((user) => {
-                  this.user = user
+                  (this.route.parent!.data as BehaviorSubject<any>).next({ user : user})
                 })
               } else {
                 this.msgService.setColor(this.msgBoxId, Color.danger)
@@ -342,7 +345,8 @@ export class ProfilePageComponent {
           console.log(e)
           this.isUpdatingImage = false
         }
-      }})
+      }
+    })
 
   }
 
@@ -376,7 +380,7 @@ export class ProfilePageComponent {
               this.floatingModal.closeFloatingModal(this.addNumberFloatingModalId)
               this.mobileFormGroup.reset()
               this.authService.getUser(this.user.id).then((user) => {
-                this.user = user
+                (this.route.parent!.data as BehaviorSubject<any>).next({ user : user})
                 this.disableEdit()
               })
             } else {

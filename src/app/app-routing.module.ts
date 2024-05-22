@@ -42,24 +42,15 @@ const routes: Routes = [
       },
       {
         path: 'employees',
-        component: EmployeesComponent,
-        resolve: {
-          user: UserResolveService
-        },
+        component: EmployeesComponent
       },
       {
         path: 'profile',
-        component: ProfilePageComponent,
-        resolve: {
-          user: UserResolveService
-        },
+        component: ProfilePageComponent
       },
       {
         path: 'branches',
-        component: BranchComponent,
-        resolve: {
-          user: UserResolveService
-        },
+        component: BranchComponent
       }
     ]
   },
