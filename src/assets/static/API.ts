@@ -9,6 +9,7 @@ export class API {
     static UPDATE_USER: string = this.ORIGIN + '/api/user'
     static UPDATE_USER_PROFILE_PICTURE: string = this.ORIGIN + '/api/user/image'
     static GET_ORGANIZATIONS : string = this.ORIGIN + '/api/user/organization'
+    static CREATE_ORGANIZATIONS : string = this.ORIGIN + '/api/user/organization'
     static GET_EMPLOYEES : string = this.ORIGIN + '/api/user/employee'
     static GET_BRANCHES : string = this.ORIGIN + '/api/branch'
     static UPDATE_BRANCHE : string = this.ORIGIN + '/api/branch'

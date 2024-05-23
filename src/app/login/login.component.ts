@@ -4,6 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
+import { MsgService } from '../services/msg.service';
+import { Color } from 'src/assets/static/Color';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +17,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private msgService :MsgService
   ) { }
 
   ngOnInit(): void {
     this.email.setValue(this.storageService.getRememberEmail())
   }
 
+  msgBoxId = "loginMsgBoxId"
   isLogingIn = false
   msg = ""
 
@@ -62,13 +66,16 @@ export class LoginComponent implements OnInit {
           this.isLogingIn = false
         },
         (error) => {
-          console.log(error.error )
-          if (error.error.errorMessages[0] || error.error.errorMessages[0] != "") {
-            this.msg = error.error.errorMessages[0]
-          } else {
-            this.msg = "Somthing Is Wrong Try Again Later"
-          }
-          this.isLogingIn = false
+          console.log(error)
+            this.msgService.setColor(this.msgBoxId, Color.danger)
+            if (error.error.errorMessages && error.error.errorMessages[0] && error.error.errorMessages[0] != "") {
+              this.msgService.setMsg(this.msgBoxId, error.error.errorMessages[0])
+            } else {
+              this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+            }
+            this.msgService.openMsgBox(this.msgBoxId)
+
+            this.isLogingIn = false
         }
       )
     }

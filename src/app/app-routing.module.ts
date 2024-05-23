@@ -63,6 +63,10 @@ const routes: Routes = [
     component: ForgotpasswordComponent
   },
   {
+    path: 'account',
+    loadChildren :async () => (await import('./account/account.module')).AccountModule
+  },
+  {
     path: '**',
     component: NotFound404Component
   },

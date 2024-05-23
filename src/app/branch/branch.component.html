@@ -20,7 +20,7 @@
     <app-input [control]="branchName" name="Branch Name" type="text" autocomplete="Name"
       placeholder="Branch Name"></app-input>
     <app-input [control]="branchCode" name="Branch Code" type="text" placeholder="Branch Code"></app-input>
-    <button [disabled]="isCreatingNewBranch" type="submit"
+    <button [disabled]="isEditingBranch" type="submit"
       class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
       <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
         *ngIf="isEditingBranch ; else SaveText" />
@@ -120,10 +120,10 @@
                       <i *ngIf="orderBy==field.fieldName && order == Order.DESC" class="fa-solid fa-arrow-down ml-2"></i>
                       <i *ngIf="orderBy==field.fieldName && order == Order.ASC" class="fa-solid fa-arrow-up ml-2"></i>
                     </span>
-                    <app-floating-dropdown [floatingDropdownId]="field.displayName + 'sorting' + i">
+                    <app-floating-dropdown *ngIf="field.isSortable" [floatingDropdownId]="field.displayName + 'sorting' + i">
                       <i floating-dropdown-title
                         (click)="openFloatingDropdown($event, field.displayName + 'sorting' + i)"
-                        class="fa-solid fa-sort float-right mt-1 floating-dropdown-btn"></i>
+                        class="fa-solid fa-sort float-right floating-dropdown-btn"></i>
                       <div floating-dropdown-menu
                         class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
                         style="right: -1.2rem;">
