@@ -7,31 +7,23 @@
   <div class="flex justify-center items-center gap-4 my-2 sm:flex-nowrap flex-wrap">
     <div class="flex justify-center items-center gap-4 sm:justify-center justify-between w-full">
 
-
-      <div class="group relative w-full">
         <div class="p-2.5 rounded-full shadow flex justify-center items-center w-full">
           <input id="zoomSlider" type="range" min=100 value="100" max=1000 (input)="onZoomChange($event)"
             class="w-full bg-gray-200 h-4 accent-themeblue-900 rounded-lg appearance-none ">
         </div>
-        <div
-          class="bg-dark dark:bg-dark-2 absolute top-full left-1/2 z-20 mt-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
-          <span
-            class="bg-dark dark:bg-dark-2 absolute top-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"></span>
-          Zoom Image
-        </div>
-      </div>
 
       <div class="group relative">
         <div (click)="leftRotate()"
           class="h-9 w-9 rounded-full shadow flex justify-center items-center cursor-pointer flex-none">
           <i class="fa-solid fa-rotate-left fa-lg"></i>
-        </div>
-        <div
-          class="bg-dark dark:bg-dark-2 absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
-          <span
-            class="bg-dark dark:bg-dark-2 absolute bottom-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"></span>
-          LeftRotate
-        </div>
+        </div> <div
+        class="bg-dark dark:bg-dark-2 absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100"
+        >
+        <span
+           class="bg-dark dark:bg-dark-2 absolute bottom-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"
+           ></span>
+        Rotate Left
+     </div>
       </div>
 
 
@@ -39,13 +31,15 @@
         <div (click)="rightRotate()"
           class="h-9 w-9 rounded-full shadow flex justify-center items-center  cursor-pointer flex-none">
           <i class="fa-solid fa-rotate-right fa-lg"></i>
-        </div>
+        </div> 
         <div
-          class="bg-dark dark:bg-dark-2 absolute left-full top-1/2 z-20 ml-3 -translate-y-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
-          <span
-            class="bg-dark dark:bg-dark-2 absolute left-[-3px] top-1/2 -z-10 h-2 w-2 -translate-y-1/2 rotate-45"></span>
-          RightRotate
-        </div>
+        class="bg-dark dark:bg-dark-2 absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100"
+        >
+        <span
+           class="bg-dark dark:bg-dark-2 absolute bottom-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"
+           ></span>
+        Rotate Right
+     </div>
       </div>
 
 
@@ -83,10 +77,22 @@
   <form [formGroup]="userinfoForm" (ngSubmit)="updateUserInfo($event)" class="bg-white p-6 border border-gray-200 card">
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-xl font-bold text-black">Profile</h1>
+      
+      <div class="group relative">
       <div *ngIf="!isEditable;" (click)="enableEdit()"
         class="rounded-full hover:bg-themeblue-200 hover:text-themeblue-400 h-11 w-11 flex justify-center items-center">
         <i class="fa-solid fa-pen-to-square text-themeblue-900 text-lg"></i>
       </div>
+      <div
+                     class="bg-dark dark:bg-dark-2 absolute top-full left-1/2 z-20 mt-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100"
+                     >
+                     <span
+                        class="bg-dark dark:bg-dark-2 absolute top-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"
+                        ></span>
+                     Edit
+                  </div>
+      </div>
+
       <div *ngIf="isEditable" class="flex gap-2">
         <button (click)="updateUserInfo($event)" [disabled]="isUpdatingInfo" type="submit"
           class="text-white py-1.5 sm:py-1.5 rounded bg-themeblue-900 px-4">
