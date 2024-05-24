@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { SharedModule } from "../shared/shared.module";
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SharedModule } from "../shared/shared.module";
     imports: [
         CommonModule,
         AccountRoutingModule,
-        SharedModule
+        SharedModule,
+        ReactiveFormsModule
     ]
 })
 export class AccountModule { }
