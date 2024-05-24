@@ -1,18 +1,44 @@
-<div class="flex flex-col items-center justify-center px-6 py-8 h-screen lg:py-0" style="background-color: #e8e8e8;">
-  <div class="relative sm:w-[27rem] w-11/12 m-auto rounded-xl bg-white px-5 pb-24 space-y-4  border-t-4 border-danger" >
-    <img src="assets/images/logo-dark.png" class="h-28 w-28 mx-auto">
-    <form class="space-y-4 md:space-y-4 px-5" action="#">
-      <h1 class="xs:text-2xl text-xl font-bold text-center mb-10">Activate Account</h1>
-      <div class="mb-4 text-base">
-        <app-input name="Email" type="text" placeholder="Email" autocomplete="email" class="mt-2" />
+<div class="flex flex-col items-center justify-center px-6 py-8 h-screen lg:py-0 " style="background-color: #eae6e6;">
+  <div
+    class="relative sm:w-[27rem] w-11/12 m-auto rounded-xl bg-white px-5 pb-24 space-y-4  border-t-4 border-[red] shadow-xl">
+    <img src="assets/images/logo-dark.png" class="w-32 mx-auto">
+    <div *ngIf="this.pageError;else activationFormUI">
+      <div class="w-full flex justify-center items-center">
+        <div class="w-full h-[2px] bg-gray-200"></div>
+        <div class="rounded-full bg-red-200 h-14 w-14 flex justify-center items-center flex-none">
+          <i class="fa-solid fa-triangle-exclamation text-danger fa-2xl"></i>
+        </div>
+        <div class="w-full h-[2px] bg-gray-200"></div>
       </div>
-      <div class="mb-4 text-base">
-        <app-input name="Password" type="password" placeholder="Password" autocomplete="Password" class="mt-2" />
+
+      <div class="flex justify-center align-center flex-col w-full gap-6">
+        <p class="text-gray-800 text-center text-2xl font-semibold mt-6">Invalid email confirmation</p>
+        <p class="text-center px-6 text-base">{{errorMsg}}</p>
       </div>
-      <div class="text-center" type="submit">
-        <button class="w-4/5 text-white py-1.5 text-base sm:py-3 rounded-lg" style="background-color: #b24949;">Verify Your Mail</button>
-      </div>
-      <div class="bottom-0 absolute left-0 rounded-b-xl w-full  bg-red-200 flex justify-center items-center h-14">dfdf</div>
-    </form>
+    </div>
+
+    <ng-template #activationFormUI>
+      <form [formGroup]="activationForm" (ngSubmit)="activateAccount($event)" class="space-y-4 md:space-y-4 px-5">
+        <h1 class="xs:text-2xl text-xl font-bold text-center mb-8">Activate Account</h1>
+        <div class="mb-4 text-base">
+          <app-input [control]="name" name="Name" type="text" placeholder="Name" autocomplete="name" class="mt-2" />
+        </div>
+        <div class="mb-4 text-base">
+          <app-input [control]="password" name="Password" type="password" placeholder="Password" autocomplete="Password"
+            class="mt-2" />
+        </div>
+        <div class="text-center" type="submit">
+          <button [disabled]="isActivating" type="submit" (click)="activateAccount($event)"
+            class="w-full text-white py-1.5 text-base sm:py-3 rounded-lg" style="background-color: #d53131;">
+            <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
+              *ngIf="isActivating ; else ActivateText" />
+            <ng-template #ActivateText> Activate </ng-template>
+           </button>
+        </div>
+      </form>
+    </ng-template>
+
+    <div class="bottom-0 absolute left-0 rounded-b-xl w-full  bg-red-200 flex justify-center items-center h-14 px-6">©
+      2020, LimpidSystems All Rights Reserved.</div>
   </div>
 </div>
