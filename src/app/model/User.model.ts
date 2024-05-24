@@ -15,6 +15,7 @@ export default interface IUser{
     },
     gender : Gender
     isActive : boolean
+    isAccountActivated : boolean
     organizationId : string
     branchId : string
     branch : IBranch

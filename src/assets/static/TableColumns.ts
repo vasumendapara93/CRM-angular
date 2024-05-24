@@ -8,7 +8,7 @@ export class TableColumns {
         BranchFields.CreateDate
     ]
     static OrganizationColumns = [
-        UserFields.IsActive,
+        UserFields.IsAccountActivated,
         UserFields.Image,
         UserFields.Name,
         UserFields.Email,

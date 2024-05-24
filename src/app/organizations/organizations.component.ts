@@ -109,10 +109,13 @@ export class OrganizationsComponent implements OnInit {
       Validators.email
 
     ])
-  PhoneNumber = new FormControl('',
+  phoneNumber = new FormControl('',
     [
       Validators.required
-
+    ])
+  contactPerson = new FormControl('',
+    [
+      Validators.required
     ])
   id = new FormControl('',
     [
@@ -122,7 +125,8 @@ export class OrganizationsComponent implements OnInit {
   newOrganizationForm = new FormGroup({
     name: this.name,
     email: this.email,
-    phoneNumber: this.PhoneNumber
+    phoneNumber: this.phoneNumber,
+    contactPerson : this.contactPerson
   })
 
   changeRecordPerPage(recordPerPage: number) {
@@ -405,7 +409,8 @@ export class OrganizationsComponent implements OnInit {
           {
             name: this.name.value,
             email: this.email.value,
-            phoneNumber: this.PhoneNumber.value
+            phoneNumber: this.phoneNumber.value,
+            contactPerson: this.contactPerson.value
           }, {
           headers: await this.authService.getAuthorizationHeader()
         }

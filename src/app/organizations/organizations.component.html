@@ -5,7 +5,8 @@
     <form [formGroup]="newOrganizationForm" (ngSubmit)="createNewUser()" class="xs:w-80 w-full flex flex-col gap-4">
         <app-input [control]="name" name="Name" type="text" autocomplete="Name" placeholder="Name"></app-input>
         <app-input [control]="email" name="Email" type="text" placeholder="Email"></app-input>
-        <app-input [control]="PhoneNumber" name="Contact Number" type="text" placeholder="Contact Number" format="00000 00000"></app-input>
+        <app-input [control]="phoneNumber" name="Contact Number" type="text" placeholder="Contact Number" format="00000 00000"></app-input>
+        <app-input [control]="contactPerson" name="Contact Person Name" type="text" placeholder="Contact Person Name"></app-input>
         <button [disabled]="isCreatingNewUser" type="submit"
             class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
             <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
@@ -186,8 +187,8 @@
                                         class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </td>
                                 <td class="px-6 py-3">
-                                    <app-tag *ngIf="userItem.isActive" color="success">Active</app-tag>
-                                    <app-tag *ngIf="!userItem.isActive" color="danger">Inactive</app-tag>
+                                    <app-tag *ngIf="userItem.isAccountActivated" color="success">Active</app-tag>
+                                    <app-tag *ngIf="!userItem.isAccountActivated" color="danger">Pending...</app-tag>
                                 </td>
                                 <td class="px-6 py-3">
                                     <img *ngIf="userItem.image; else charactorImage" [src]="API.ORIGIN + userItem.image"

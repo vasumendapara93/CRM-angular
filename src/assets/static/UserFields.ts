@@ -32,6 +32,13 @@ export class UserFields {
     isSortable : false
   }
 
+  static IsAccountActivated = {
+    displayName : 'Status',
+    fieldName: 'IsAccountActivated',
+    isRequired : true,
+    isSortable : false
+  }
+
   static Email = {
     displayName : 'Email',
     fieldName: 'Email',
