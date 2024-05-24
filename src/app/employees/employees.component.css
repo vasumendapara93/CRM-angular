@@ -1,0 +1,17 @@
+/* toggle block */
+.panel {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+  
+  .panel.open {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .panel.closed {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  
