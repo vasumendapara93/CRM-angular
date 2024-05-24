@@ -6,6 +6,7 @@ import { FloatingDropdownService } from '../services/floating-dropdown.service';
 import { FloatingModalService } from '../services/floating-modal.service';
 import { API } from 'src/assets/static/API';
 import { ActivatedRoute } from '@angular/router';
+import { UserRole } from 'src/assets/static/UserRole';
 
 @Component({
   selector: 'app-employees',
@@ -20,6 +21,8 @@ export class EmployeesComponent {
   selectedUserList: IUser[] = []
   filterText: string = ""
   user : IUser
+  UserRole = UserRole
+  API = API
 
   addLeadId = "add-lead"
   NameDropDownId = 'NameDropDownId'
@@ -89,7 +92,7 @@ export class EmployeesComponent {
     this.userList.forEach(user => {
       if (regex.test(user.name)) {
         this.filteredList.push(user)
-      } else if (regex.test(user.phoneNumber)) {
+      } else if (regex.test(user.phoneNumber!)) {
         this.filteredList.push(user)
       } else if (regex.test(user.contactPerson!)) {
         this.filteredList.push(user)

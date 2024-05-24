@@ -42,10 +42,7 @@ const routes: Routes = [
       },
       {
         path: 'employees',
-        component: EmployeesComponent,
-        resolve: {
-          user: UserResolveService
-        },
+        component: EmployeesComponent
       },
       {
         path: 'profile',
@@ -53,10 +50,7 @@ const routes: Routes = [
       },
       {
         path: 'branches',
-        component: BranchComponent,
-        resolve: {
-          user: UserResolveService
-        },
+        component: BranchComponent
       }
     ]
   },
@@ -69,7 +63,11 @@ const routes: Routes = [
     component: ForgotpasswordComponent
   },
   {
-    path: '',
+    path: 'account',
+    loadChildren :async () => (await import('./account/account.module')).AccountModule
+  },
+  {
+    path: '**',
     component: NotFound404Component
   },
 

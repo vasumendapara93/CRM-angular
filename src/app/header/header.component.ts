@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import IUser from '../model/User.model';
 import { ActivatedRoute } from '@angular/router';
 import { FloatingDropdownService } from '../services/floating-dropdown.service';
+import { API } from 'src/assets/static/API';
 
 @Component({
   selector: 'app-header',
@@ -13,14 +14,18 @@ export class HeaderComponent {
   //notification
   @Output() toggleNotification = new EventEmitter<void>();
 
-  user: IUser
+  user: IUser = {} as IUser
   ProfileDropdownId = 'profileDropdown'
+  API = API
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
     private floatingDropdown: FloatingDropdownService
   ) {
-    this.user = this.route.snapshot.data['user'];
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+      console.log(this.user)
+    });
   }
 
   toggleFullScreen() {

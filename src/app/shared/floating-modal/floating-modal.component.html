@@ -1,11 +1,11 @@
 <!-- Main modal -->
-<div (click)="closeFloatingModal()" *ngIf="floatingMoadal.isFloatingModalOpen(floatingModalId)" appEventBlocker
+<div *ngIf="floatingMoadal.isFloatingModalOpen(floatingModalId)" appEventBlocker
     [ngClass]="{'close-backdrop-animation': !isFloatingModalClosed}"
     class="top-0 h-full bg-backdrop-900 fixed left-0 right-0 flex justify-center items-center open-backdrop-animation"
     style="z-index: 51;">
 </div>
 <div style="z-index: 52;"
-    class="py-4 px-6 bg-white rounded-lg shadow-lg open-sliding-animation fixed right-1/2 bottom-1/2 translate-y-2/4 translate-x-2/4 sm:w-fit w-5/6"
+    class="py-4 px-6 bg-white rounded-lg shadow-lg open-sliding-animation fixed right-1/2 bottom-1/2 translate-y-2/4 translate-x-2/4 xs:w-fit w-5/6"
     *ngIf="floatingMoadal.isFloatingModalOpen(floatingModalId)"
     [ngClass]="{'close-sliding-animation': !isFloatingModalClosed}">
 
@@ -18,5 +18,5 @@
     <div class="mt-4">
         <ng-content ></ng-content>
     </div>
-    
+
 </div>

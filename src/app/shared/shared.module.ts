@@ -12,6 +12,7 @@ import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
 import { MsgComponent } from './msg/msg.component';
 import { EventBlockerDirective } from '../services/directives/event-blocker.directive';
 import { UploadFileComponent } from './upload-file/upload-file.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
     InputComponent,
     MsgComponent,
     EventBlockerDirective,
-    UploadFileComponent
+    UploadFileComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
     FloatingModalComponent,
     InputComponent,
     MsgComponent,
-    UploadFileComponent
+    UploadFileComponent,
+    AlertComponent,
   ],
   providers:[
     provideEnvironmentNgxMask(),

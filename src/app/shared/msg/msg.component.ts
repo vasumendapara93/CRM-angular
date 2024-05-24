@@ -1,5 +1,6 @@
 import { Call } from '@angular/compiler';
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject, debounceTime } from 'rxjs';
 import { MsgService } from 'src/app/services/msg.service';
 
 @Component({
@@ -11,9 +12,12 @@ export class MsgComponent implements OnInit, OnDestroy {
   @Input() MsgBoxId = ""
   isCloseing = false
   closeCall = true
+  closingSignal = new Subject<boolean>
 
   constructor(public msgService: MsgService) {
-
+    this.closingSignal.pipe(debounceTime(5000)).subscribe(closingSignal => {
+      this.closeMsgBox()
+    });
   }
 
   ngOnInit(): void {
@@ -34,10 +38,7 @@ export class MsgComponent implements OnInit, OnDestroy {
   }
 
   closeMsgBoxAfterTiming() {
-    console.log("Call")
-    setTimeout(() => {
-      this.closeMsgBox()
-    }, 5000);
+   this.closingSignal.next(true)
   }
 
   closeMsgBox() {

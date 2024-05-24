@@ -144,3 +144,12 @@ input[type=number] {
 .filter-gray-500 {
   filter: brightness(0) saturate(100%) invert(47%) sepia(9%) saturate(927%) hue-rotate(176deg) brightness(94%) contrast(96%);
 }
+
+/* Do not Remove this - Important section*/
+.img-center> div{
+  display: flex;
+  justify-content: center;
+  max-height: 20rem;
+  flex: none;
+  width: fit-content;
+}
