@@ -62,7 +62,7 @@
         <app-floating-dropdown [floatingDropdownId]="ProfileDropdownId">
             <button floating-dropdown-title (click)="openFloatingDropdown($event, ProfileDropdownId)"
                 class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect p-2">
-                <img *ngIf="this.user.image; else charactorImage" [src]="this.user.image" alt="this.user?.name"
+                <img *ngIf="this.user.image; else charactorImage" [src]="API.ORIGIN + user.image" alt="this.user?.name"
                     class="floating-dropdown-btn rounded-full h-8 w-8">
                 <ng-template #charactorImage>
                     <div class="floating-dropdown-btn rounded-full h-8 w-8 flex justify-center items-center"
