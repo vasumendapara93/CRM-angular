@@ -23,6 +23,8 @@ export class EmployeesComponent {
   user : IUser
   UserRole = UserRole
   API = API
+  
+  showBlockPanel: boolean = false;
 
   addLeadId = "add-lead"
   NameDropDownId = 'NameDropDownId'
@@ -85,6 +87,11 @@ export class EmployeesComponent {
     }
   }
 
+  //toggle block panel
+  toggleBlockPanel() {
+    this.showBlockPanel = !this.showBlockPanel;
+  }
+
   filterData(event: Event) {
     event.preventDefault();
     var regex = new RegExp(this.filterText, "i");
@@ -101,7 +108,6 @@ export class EmployeesComponent {
       }
     });
   }
-
   openFloatingDropdown(event: Event, id: string) {
     event.preventDefault();
     this.floatingDropdown.toggeleFloatingDropdown(id)
