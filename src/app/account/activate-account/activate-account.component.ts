@@ -62,7 +62,6 @@ export class ActivateAccountComponent implements OnInit {
           (response) => {
             console.log(response)
             if (response.success) {
-              console.log(response.data)
               this.isActivating = false
               this.router.navigate(['login'])
             }
