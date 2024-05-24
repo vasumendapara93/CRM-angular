@@ -1,9 +1,9 @@
 <!-- Topbar Start -->
-<header class="app-header flex items-center px-5 xs:gap-4 gap-0 ">
+<header class="app-header flex items-center px-5 gap-4">
 
     <!-- Brand Logo -->
     <a routerLink="" class="logo-box">
-        <img src="assets/images/logo-dark.png" class="h-20 mb-1" alt="Limpid Systems">
+        <img src="assets/img/logo-dark.png" class="h-20 mb-1" alt="Limpid Systems">
     </a>
 
     <!-- Sidenav Menu Toggle Button -->
@@ -13,10 +13,11 @@
             <i class="fa-solid fa-bars fa-xl"></i>
         </span>
     </button>
-
+    
+   
     <!-- Notification Toggle Button -->
-    <div class="md:flex">
-        <button (click)="onToggleNotification()" id="Notification-toggle" type="button"
+           <div class="md:flex group cursor-pointer relative">
+            <button (click)="onToggleNotification()" id="Notification-toggle" type="button"
             class="nav-link p-2 waves-effect">
             <div class="bg-danger h-3 w-3 rounded-full absolute animate-ping opacity-75" style="top: 6.5px;right: 10.8px;"></div>
             <div class="bg-danger h-2.5 w-2.5 rounded-full absolute right-3 top-2 opacity"></div>
@@ -24,27 +25,44 @@
                 <i class="fa-regular fa-bell fa-lg"></i>
             </span>
         </button>
-    </div>
-
+              <div
+                 class="bg-dark dark:bg-dark-2 absolute top-full left-1/2 z-20 mt-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100"
+                 >
+                 <span
+                    class="bg-dark dark:bg-dark-2 absolute top-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"
+                    ></span>
+                 Notification
+              </div>
+           </div>
 
 
     <!-- Fullscreen Toggle Button -->
     <div class="md:flex hidden">
+        <div class="md:flex group cursor-pointer relative">
         <button (click)="toggleFullScreen()" data-toggle="fullscreen" type="button" class="nav-link p-2 waves-effect">
             <span class="sr-only">Fullscreen Mode</span>
             <span class="flex items-center justify-center h-6 w-6">
                 <i id="fullScreenToggleBtnIcon" class="fa-solid fa-expand fa-lg"></i>
             </span>
         </button>
+              <div
+                 class="bg-dark dark:bg-dark-2 absolute top-full left-1/2 z-20 mt-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100"
+                 >
+                 <span
+                    class="bg-dark dark:bg-dark-2 absolute top-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"
+                    ></span>
+                 Fullscreen
+              </div>
+           </div>
     </div>
 
 
     <!-- Profile Dropdown Button -->
-    <div>
+    <div class="md:flex group cursor-pointer relative">
         <app-floating-dropdown [floatingDropdownId]="ProfileDropdownId">
             <button floating-dropdown-title (click)="openFloatingDropdown($event, ProfileDropdownId)"
                 class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect p-2">
-                <img *ngIf="user.image; else charactorImage" [src]="API.ORIGIN + user.image" alt="this.user?.name"
+                <img *ngIf="this.user.image; else charactorImage" [src]="this.user.image" alt="this.user?.name"
                     class="floating-dropdown-btn rounded-full h-8 w-8">
                 <ng-template #charactorImage>
                     <div class="floating-dropdown-btn rounded-full h-8 w-8 flex justify-center items-center"

@@ -6,21 +6,53 @@
     [canvasRotation]="canvasRotation" [alignImage]="'center'" (imageCropped)="imageCropped($event)"></image-cropper>
   <div class="flex justify-center items-center gap-4 my-2 sm:flex-nowrap flex-wrap">
     <div class="flex justify-center items-center gap-4 sm:justify-center justify-between w-full">
-      <div class="p-2.5 rounded-full shadow flex justify-center items-center w-full">
-        <input id="zoomSlider" type="range" min=100 value="100" max=1000 (input)="onZoomChange($event)"
-          class="w-full bg-gray-200 h-4 accent-themeblue-900 rounded-lg appearance-none ">
+
+
+      <div class="group relative w-full">
+        <div class="p-2.5 rounded-full shadow flex justify-center items-center w-full">
+          <input id="zoomSlider" type="range" min=100 value="100" max=1000 (input)="onZoomChange($event)"
+            class="w-full bg-gray-200 h-4 accent-themeblue-900 rounded-lg appearance-none ">
+        </div>
+        <div
+          class="bg-dark dark:bg-dark-2 absolute top-full left-1/2 z-20 mt-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
+          <span
+            class="bg-dark dark:bg-dark-2 absolute top-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"></span>
+          Zoom Image
+        </div>
       </div>
-      <div (click)="leftRotate()"
-        class="h-9 w-9 rounded-full shadow flex justify-center items-center cursor-pointer flex-none">
-        <i class="fa-solid fa-rotate-left fa-lg"></i>
+
+      <div class="group relative">
+        <div (click)="leftRotate()"
+          class="h-9 w-9 rounded-full shadow flex justify-center items-center cursor-pointer flex-none">
+          <i class="fa-solid fa-rotate-left fa-lg"></i>
+        </div>
+        <div
+          class="bg-dark dark:bg-dark-2 absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
+          <span
+            class="bg-dark dark:bg-dark-2 absolute bottom-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"></span>
+          LeftRotate
+        </div>
       </div>
-      <div (click)="rightRotate()"
-        class="h-9 w-9 rounded-full shadow flex justify-center items-center  cursor-pointer flex-none">
-        <i class="fa-solid fa-rotate-right fa-lg"></i>
+
+
+      <div class="group relative">
+        <div (click)="rightRotate()"
+          class="h-9 w-9 rounded-full shadow flex justify-center items-center  cursor-pointer flex-none">
+          <i class="fa-solid fa-rotate-right fa-lg"></i>
+        </div>
+        <div
+          class="bg-dark dark:bg-dark-2 absolute left-full top-1/2 z-20 ml-3 -translate-y-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
+          <span
+            class="bg-dark dark:bg-dark-2 absolute left-[-3px] top-1/2 -z-10 h-2 w-2 -translate-y-1/2 rotate-45"></span>
+          RightRotate
+        </div>
       </div>
+
+
     </div>
   </div>
-  <form (ngSubmit)="updateprofileImage($event)" class="flex justify-between items-center gap-4 my-2 sm:flex-nowrap flex-wrap mt-4">
+  <form (ngSubmit)="updateprofileImage($event)"
+    class="flex justify-between items-center gap-4 my-2 sm:flex-nowrap flex-wrap mt-4">
     <button (click)="resetImageCrop($event)" class="text-danger py-1 sm:py-1 px-4 rounded bg-red-100">
       Reset
     </button>
@@ -56,8 +88,8 @@
         <i class="fa-solid fa-pen-to-square text-themeblue-900 text-lg"></i>
       </div>
       <div *ngIf="isEditable" class="flex gap-2">
-        <button (click)="updateUserInfo($event)"
-        [disabled]="isUpdatingInfo" type="submit" class="text-white py-1.5 sm:py-1.5 rounded bg-themeblue-900 px-4">
+        <button (click)="updateUserInfo($event)" [disabled]="isUpdatingInfo" type="submit"
+          class="text-white py-1.5 sm:py-1.5 rounded bg-themeblue-900 px-4">
           <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
             *ngIf="isUpdatingInfo ; else saveText" />
           <ng-template #saveText> Save </ng-template>
@@ -74,8 +106,7 @@
           <img [src]="API.ORIGIN + user.image" [alt]="this.user.name" class="w-16 h-16 rounded-full">
           <app-floating-dropdown [floatingDropdownId]="profilePictureDropDownId"
             class="float-none absolute top-0 left-0 ">
-            <button floating-dropdown-title
-              (click)="openFloatingDropdown($event, profilePictureDropDownId)"
+            <button floating-dropdown-title (click)="openFloatingDropdown($event, profilePictureDropDownId)"
               class="floating-dropdown-btn bottom-0 right-0 p-2 bg-backdrop-800 rounded-full h-[4rem] w-[4rem] invisible cursor-pointer group-hover:visible">
               <i class="floating-dropdown-btn fa-solid fa-camera text-white fa-xl"></i>
             </button>
@@ -121,7 +152,7 @@
         <input #nameField type="text" [formControl]="name" class="text-gray-800 bg-white duration-200"
           [ngClass]="{'border rounded px-4 py-2 w-11/12 focus:border-themeblue-400':isEditable}">
         <p ngClass="mt-1 mb-3 text-red-600" *ngIf="name.errors?.['required']" class="text-red-400">
-         Name is required
+          Name is required
         </p>
       </div>
       <div class="w-full">
