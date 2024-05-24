@@ -33,7 +33,8 @@ module.exports = {
         900: '#0000003a',
       },
       'red': {
-        100: '#ffebeb'
+        100: '#ffebeb',
+        200: '#fbe0e0'
       }
     },
   },
