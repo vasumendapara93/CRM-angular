@@ -24,6 +24,7 @@
 
     <div class="flex justify-between gap-4 w-full mb-4">
 
+      
         <!-- Topbar Search -->
         <div class="md:flex items-center relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -37,35 +38,13 @@
             </button>
         </div>
 
-
-        <!-- toggle block -->
         <div class="md:flex items-center relative">
             <button (click)="toggleBlockPanel()" class="background-dark text-black px-4 py-2 rounded-md">
                 Click
             </button>
         </div>
-        <div *ngIf="showBlockPanel" class="top-0 h-full bg-backdrop-900 fixed left-0 right-0" style="z-index: 51;"></div>
-        <div *ngIf="showBlockPanel || showBlockPanel === false"
-            [ngClass]="{'open': showBlockPanel, 'closed': !showBlockPanel}"
-            id="close" style="z-index: 52;"
-            class="w-1/2 panel fixed top-0 end-0 h-full z-50 bg-white shadow-lg rounded-l-lg">
-            <div class="flex justify-between items-center py-3 px-4">
-                <h3 class="font-bold text-gray-800 text-base">
-                    Notifications
-                </h3>
-                <i (click)="toggleBlockPanel()"
-                    class="fa-solid fa-xmark fa-lg inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-lg text-gray-500 hover:text-themeblur-200 focus:outline-none focus:ring-offset-2 focus:ring-offset-white nav-link"></i>
-            </div>
-            <div class="p-4">
-                <p class="text-gray-800">
-                    Some text as placeholder. In real life you can have the elements you have chosen. Like, text,
-                    images, lists, etc.
-                </p>
-            </div>
-        </div>
-        
-
-
+        <!-- Sliding Modal -->
+        <app-sliding-modal *ngIf="showBlockPanel" (close)="toggleBlockPanel()"></app-sliding-modal>
 
         <app-floating-dropdown [floatingDropdownId]="addLeadId">
             <button floating-dropdown-title (click)="openFloatingDropdown($event, addLeadId)"
