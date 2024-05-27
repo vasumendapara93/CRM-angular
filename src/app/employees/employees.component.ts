@@ -8,6 +8,7 @@ import { API } from 'src/assets/static/API';
 import { ActivatedRoute } from '@angular/router';
 import { UserRole } from 'src/assets/static/UserRole';
 
+
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
@@ -87,11 +88,10 @@ export class EmployeesComponent {
     }
   }
 
-  //toggle block panel
-  toggleBlockPanel() {
-    this.showBlockPanel = !this.showBlockPanel;
-  }
-
+ //toggle block panel
+ toggleBlockPanel() {
+  this.showBlockPanel = !this.showBlockPanel;
+}
   filterData(event: Event) {
     event.preventDefault();
     var regex = new RegExp(this.filterText, "i");

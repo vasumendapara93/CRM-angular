@@ -49,6 +49,7 @@ export class HeaderComponent {
   onToggleNotification() {
     this.toggleNotification.emit();
   }
+  
   toggleSideNavBar() {
     // Menu Toggle Button ( Placed in Topbar)
     var html = document.getElementsByTagName("html")[0];
