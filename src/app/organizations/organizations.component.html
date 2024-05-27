@@ -5,8 +5,10 @@
     <form [formGroup]="newOrganizationForm" (ngSubmit)="createNewUser()" class="xs:w-80 w-full flex flex-col gap-4">
         <app-input [control]="name" name="Name" type="text" autocomplete="Name" placeholder="Name"></app-input>
         <app-input [control]="email" name="Email" type="text" placeholder="Email"></app-input>
-        <app-input [control]="phoneNumber" name="Contact Number" type="text" placeholder="Contact Number" format="00000 00000"></app-input>
-        <app-input [control]="contactPerson" name="Contact Person Name" type="text" placeholder="Contact Person Name"></app-input>
+        <app-input [control]="phoneNumber" name="Contact Number" type="text" placeholder="Contact Number"
+            format="00000 00000"></app-input>
+        <app-input [control]="contactPerson" name="Contact Person Name" type="text"
+            placeholder="Contact Person Name"></app-input>
         <button [disabled]="isCreatingNewUser" type="submit"
             class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
             <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
@@ -44,14 +46,11 @@
             <!-- Search -->
             <div class="md:flex items-center relative w-full sm:w-fit">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <i class="fa-solid fa-magnifying-glass text-themeblue-900"></i>
+                    <i class="bx bx-search text-lg text-themeblue-900"></i>
                 </div>
                 <input type="search"
                     class="form-input px-8 rounded-lg border-transparent focus:border-transparent bg-themeblue-100 text-themeblue-900"
                     placeholder="Search..." [(ngModel)]="filterText" (input)="filterData($event)">
-                <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3  text-themeblue-900">
-                    <i class="fa-solid fa-microphone"></i>
-                </button>
             </div>
         </div>
 
@@ -62,7 +61,7 @@
                 class="float-left">
                 <button floating-dropdown-title (click)="openFloatingDropdown($event, userActionDropdownId)"
                     class="floating-dropdown-btn relative text-base rounded-lg w-32 px-2.5 py-1.5 border-2 flex justify-between items-center focus:border-grey-200 bg-white">
-                    Actions <i class="fa-solid fa-caret-down floating-dropdown-btn"></i>
+                    Actions <i class="bx bx-chevron-down text-xl floating-dropdown-btn"></i>
                 </button>
                 <div floating-dropdown-menu
                     class="absolute top-8 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border-2 border-grey-400 rounded-lg p-2 mr-5 w-fit min-w-32 sm:left-0 right-0"
@@ -85,8 +84,8 @@
             <!-- ADD Button -->
             <app-floating-dropdown [floatingDropdownId]="addLeadId">
                 <button floating-dropdown-title (click)="openFloatingDropdown($event, addLeadId)"
-                    class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">
-                    <i class="floating-dropdown-btn fa-solid fa-plus fa-lg  text-themeblue-900"></i>
+                    class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect flex justify-center items-center h-10 w-10 rounded-lg bg-themeblue-100">
+                    <i class="floating-dropdown-btn bx bx-plus text-2xl  text-themeblue-900"></i>
                 </button>
                 <div floating-dropdown-menu
                     class="absolute top-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5"
@@ -117,17 +116,17 @@
                                 </th>
                                 <th *ngFor="let field of tableColumns;let i = index " class="px-6 py-3 ">
                                     <div class class="flex gap-4 justify-between items-center">
-                                        <span class="float-left">{{field.displayName}}
+                                        <span class="float-left flex items-center justify-center gap-2" >{{field.displayName}}
                                             <i *ngIf="orderBy==field.fieldName && order == Order.DESC"
-                                                class="fa-solid fa-arrow-down ml-2"></i>
+                                                class="ph-arrow-down text-lg"></i>
                                             <i *ngIf="orderBy==field.fieldName && order == Order.ASC"
-                                                class="fa-solid fa-arrow-up ml-2"></i>
+                                                class="ph-arrow-up text-lg"></i>
                                         </span>
                                         <app-floating-dropdown *ngIf="field.isSortable"
                                             [floatingDropdownId]="field.displayName + 'sorting' + i">
                                             <i floating-dropdown-title
                                                 (click)="openFloatingDropdown($event, field.displayName + 'sorting' + i)"
-                                                class="fa-solid fa-sort float-right floating-dropdown-btn"></i>
+                                                class="bx bx-filter text-2xl float-right floating-dropdown-btn"></i>
                                             <div floating-dropdown-menu
                                                 class="absolute top-4 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white shadow-lg rounded-lg p-2 mr-5 w-32"
                                                 style="right: -1.2rem;">
@@ -135,18 +134,18 @@
                                                     (click)="sortData(field.fieldName, Order.ASC)"
                                                     class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                                                     <p>{{Order.ASC}}</p>
-                                                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                                                    <i class="bx bx-sort-a-z text-xl"></i>
                                                 </div>
                                                 <div *ngIf="!(orderBy == field.fieldName && order == Order.DESC)"
                                                     (click)="sortData(field.fieldName, Order.DESC)"
                                                     class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                                                     <p>{{Order.DESC}}</p>
-                                                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                                                    <i class="bx bx-sort-z-a text-xl"></i>
                                                 </div>
                                                 <div *ngIf="orderBy == field.fieldName" (click)="sortData(null, null)"
                                                     class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                                                     <p>Unsort</p>
-                                                    <i class="fa-solid fa-filter-circle-xmark"></i>
+                                                    <i class="ph-prohibit text-lg"></i>
                                                 </div>
                                             </div>
                                         </app-floating-dropdown>
@@ -164,7 +163,7 @@
                                             (click)="openFloatingDropdown($event, userItem.id  + i)"
                                             class="floating-dropdown-btn invisible group-hover:visible h-6 w-6 rounded-full bg-white flex justify-center items-center">
                                             <i
-                                                class="floating-dropdown-btn fa-solid fa-ellipsis text-themeblue-900 fa-sm">
+                                                class="floating-dropdown-btn bx bx-dots-horizontal-rounded text-lg text-themeblue-900">
                                             </i>
                                         </div>
                                         <div floating-dropdown-menu
@@ -191,6 +190,7 @@
                                     <app-tag *ngIf="!userItem.isAccountActivated" color="danger">Pending...</app-tag>
                                 </td>
                                 <td class="px-6 py-3">
+                                    <div class="flex justify-start items-center gap-4">
                                     <img *ngIf="userItem.image; else charactorImage" [src]="API.ORIGIN + userItem.image"
                                         [alt]="this.userItem?.name" class="rounded-full h-8 w-8">
                                     <ng-template #charactorImage>
@@ -201,18 +201,20 @@
                                             </p>
                                         </div>
                                     </ng-template>
+                                    <p class="font-semibold group-hover:text-themeblue-400">{{userItem.name}}</p>
+                                </div>
                                 </td>
-                                <td class="px-6 py-3 group-hover:text-themeblue-400">{{userItem.name}}</td>
                                 <td class="px-6 py-3">
                                     <a class="group-hover:text-themeblue-400"
                                         [href]="'mailto:'+ userItem.email">{{userItem.email}}</a>
                                 </td>
                                 <td class="px-6 py-3">
-                                    {{userItem.phoneNumber}}
-                                    &nbsp;
-                                    <a [href]="'tel:'+ userItem.phoneNumber">
-                                        <i class="fa-solid fa-phone text-gray-500 group-hover:text-themeblue-400"></i>
-                                    </a>
+                                    <div class="flex justify-center items-center gap-2">
+                                        <p>{{userItem.phoneNumber}}</p>
+                                        <a [href]="'tel:'+ userItem.phoneNumber" class="flex justify-center items-center">
+                                            <i class="ph-phone text-lg text-gray-500 group-hover:text-themeblue-400"></i>
+                                        </a>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-3">{{userItem.contactPerson}}</td>
                             </tr>
@@ -245,7 +247,7 @@
                 <app-floating-dropdown floatingDropdownId="branchRecordPerPageId">
                     <button floating-dropdown-title (click)="openFloatingDropdown($event, 'branchRecordPerPageId')"
                         class="floating-dropdown-btn border-grey-400 border-2 text-themeblue-900 py-1 w-16 px-2 ml-2 sm:mr-5 mr-0 rounded flex justify-between items-center focus:border-grey-400">
-                        {{recordPerPage}} <i class="fa-solid fa-caret-up text-themeblue-900 floating-dropdown-btn"></i>
+                        {{recordPerPage}} <i class="bx bx-chevron-up text-xl text-themeblue-900 floating-dropdown-btn"></i>
                     </button>
                     <div floating-dropdown-menu
                         class="absolute bottom-9 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border-2 border-grey-400 rounded p-2 mr-5 w-fit right-0 min-w-16">

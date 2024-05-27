@@ -1,7 +1,7 @@
 /* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
-@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import 'boxicons';
 
 
 :root {
@@ -113,11 +113,11 @@ input[type=number] {
   color: white;
 }
 
-.fa-chevron-right {
+.bx-chevron-right {
   transition: 0.2s;
 }
 
-.collapsible-menu.active .fa-chevron-right {
+.collapsible-menu.active .bx-chevron-right {
   transform: rotate(90deg);
 }
 

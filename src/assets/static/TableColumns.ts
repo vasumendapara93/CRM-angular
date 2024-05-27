@@ -9,7 +9,6 @@ export class TableColumns {
     ]
     static OrganizationColumns = [
         UserFields.IsAccountActivated,
-        UserFields.Image,
         UserFields.Name,
         UserFields.Email,
         UserFields.PhoneNumber,

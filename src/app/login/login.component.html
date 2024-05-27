@@ -3,11 +3,9 @@
 <app-login-modal title="Have an account?">
     <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="mb-4">
-            masteruser@gmail.com
             <app-input name="Email" [control]="email" type="text" placeholder="Email" autocomplete="email" />
         </div>
         <div class="mb-4">
-            Master User
             <app-input name="Password" [control]="password" type="password" placeholder="Password"
                 autocomplete="Password" />
         </div>

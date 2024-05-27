@@ -30,8 +30,7 @@ export class HeaderComponent {
 
   toggleFullScreen() {
     var fullScreenToggleBtnIcon = document.getElementById('fullScreenToggleBtnIcon')
-    fullScreenToggleBtnIcon?.classList.toggle('fa-compress')
-    fullScreenToggleBtnIcon?.classList.toggle('fa-expand')
+    fullScreenToggleBtnIcon?.classList.toggle('ph-arrows-in')
     if (!document.fullscreenElement) {
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
@@ -39,6 +38,7 @@ export class HeaderComponent {
     } else {
       document.exitFullscreen()
     }
+    fullScreenToggleBtnIcon?.classList.toggle('ph-arrows-out')
   }
 
   openFloatingDropdown(event: Event, id: string) {

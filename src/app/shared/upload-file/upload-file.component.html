@@ -19,14 +19,14 @@
 <ng-template #fileDetail>
   <div *ngIf="!isExtracting; else fieldmapping" class="flex mt-5 w-full xs:w-80 items-center justify-between">
     <div class="rounded-full h-14 w-14 bg-success flex justify-center items-center mr-5 flex-none">
-      <i class="fa-regular fa-file fa-2xl text-white"></i>
+      <i class="ph-file-csv text-3xl text-white"></i>
     </div>
     <div class="flex flex-col justify-center items-start">
       <p class="text-base">Your file has been uploaded successfully</p>
       <p class="text-base font-semibold">{{file?.name}}</p>
     </div>
     <i (click)="cancelFile()"
-      class="fa-solid fa-xmark  inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-full hover:text-themeblur-200 focus:outline-none focus:ring-offset-2 focus:ring-offset-white nav-link "></i>
+      class="bx bx-x text-xl  inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-full hover:text-themeblur-200 focus:outline-none focus:ring-offset-2 focus:ring-offset-white nav-link "></i>
   </div>
   <button *ngIf="!isExtracting;" (click)="extractDataFromExcel($event)"
     class="text-white py-1.5 w-36 rounded bg-themeblue-900 w-full mt-5"> Next</button>
@@ -58,7 +58,7 @@
                 <app-floating-dropdown [floatingDropdownId]="mappedField.FieldInFile + i" class="float-left">
                   <button floating-dropdown-title (click)="openFloatingDropdown($event, mappedField.FieldInFile + i)"
                     class="floating-dropdown-btn relative text-base rounded-lg w-48 p-2.5 border-2 flex justify-between items-center focus:border-grey-200 bg-white">
-                    {{mappedField.FieldInDb?.displayName}} <i class="fa-solid fa-caret-down floating-dropdown-btn"></i>
+                    {{mappedField.FieldInDb?.displayName}} <i class="bx bx-chevron-down text-xl floating-dropdown-btn"></i>
                   </button>
                   <div floating-dropdown-menu
                     class="absolute top-10 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border-2 border-grey-400 rounded-lg p-2 mr-5 w-fit min-w-48 sm:left-0 right-0"
@@ -94,7 +94,7 @@
         <app-floating-dropdown floatingDropdownId="selectSheetId">
           <button floating-dropdown-title (click)="openFloatingDropdown($event, 'selectSheetId')"
             class="floating-dropdown-btn border-grey-400 border-2 text-themeblue-900 py-1.5 w-32 px-2 ml-5 rounded mt-2 flex justify-between items-center focus:border-grey-400">
-            {{selectedSheet}} <i class="fa-solid fa-caret-up text-themeblue-900 floating-dropdown-btn"></i>
+            {{selectedSheet}} <i class="bx bx-chevron-up text-xl text-themeblue-900 floating-dropdown-btn"></i>
           </button>
           <div floating-dropdown-menu
             class="absolute bottom-11 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border-2 border-grey-400 rounded p-2 mr-5 w-fit sm:left-5 right-5 min-w-32"

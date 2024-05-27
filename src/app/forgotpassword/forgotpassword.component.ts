@@ -181,12 +181,14 @@ export class ForgotpasswordComponent {
   showPasswordToggle(event: Event) {
     event.preventDefault()
     var eyeIcon = document.getElementById('eye-icon')
-    eyeIcon?.classList.toggle('fa-eye')
-    eyeIcon?.classList.toggle('fa-eye-slash')
+    eyeIcon?.classList.toggle('ph-eye')
+    eyeIcon?.classList.toggle('ph-eye-slash')
     this.showPassword = !this.showPassword
   }
 
   changeEmail() {
+    this.showmsg = false
+    this.msg = ''
     var OTPField = document.getElementById('OTPField')
     var FormOuter = OTPField?.parentElement?.parentElement?.parentElement
     FormOuter!.style.height = (FormOuter!.offsetHeight + 3) + "px"

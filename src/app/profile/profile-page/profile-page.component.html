@@ -7,39 +7,36 @@
   <div class="flex justify-center items-center gap-4 my-2 sm:flex-nowrap flex-wrap">
     <div class="flex justify-center items-center gap-4 sm:justify-center justify-between w-full">
 
-        <div class="p-2.5 rounded-full shadow flex justify-center items-center w-full">
-          <input id="zoomSlider" type="range" min=100 value="100" max=1000 (input)="onZoomChange($event)"
-            class="w-full bg-gray-200 h-4 accent-themeblue-900 rounded-lg appearance-none ">
-        </div>
+      <div class="p-2.5 rounded-full shadow flex justify-center items-center w-full">
+        <input id="zoomSlider" type="range" min=100 value="100" max=1000 (input)="onZoomChange($event)"
+          class="w-full bg-gray-200 h-4 accent-themeblue-900 rounded-lg appearance-none ">
+      </div>
 
       <div class="group relative">
         <div (click)="leftRotate()"
           class="h-9 w-9 rounded-full shadow flex justify-center items-center cursor-pointer flex-none">
-          <i class="fa-solid fa-rotate-left fa-lg"></i>
-        </div> <div
-        class="bg-dark dark:bg-dark-2 absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100"
-        >
-        <span
-           class="bg-dark dark:bg-dark-2 absolute bottom-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"
-           ></span>
-        Rotate Left
-     </div>
+          <i class="bx bx-rotate-left text-2xl"></i>
+        </div>
+        <div
+          class="bg-dark dark:bg-dark-2 absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
+          <span
+            class="bg-dark dark:bg-dark-2 absolute bottom-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"></span>
+          Rotate Left
+        </div>
       </div>
 
 
       <div class="group relative">
         <div (click)="rightRotate()"
           class="h-9 w-9 rounded-full shadow flex justify-center items-center  cursor-pointer flex-none">
-          <i class="fa-solid fa-rotate-right fa-lg"></i>
-        </div> 
+          <i class="bx bx-rotate-right text-2xl"></i>
+        </div>
         <div
-        class="bg-dark dark:bg-dark-2 absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100"
-        >
-        <span
-           class="bg-dark dark:bg-dark-2 absolute bottom-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"
-           ></span>
-        Rotate Right
-     </div>
+          class="bg-dark dark:bg-dark-2 absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
+          <span
+            class="bg-dark dark:bg-dark-2 absolute bottom-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"></span>
+          Rotate Right
+        </div>
       </div>
 
 
@@ -77,20 +74,18 @@
   <form [formGroup]="userinfoForm" (ngSubmit)="updateUserInfo($event)" class="bg-white p-6 border border-gray-200 card">
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-xl font-bold text-black">Profile</h1>
-      
+
       <div class="group relative">
-      <div *ngIf="!isEditable;" (click)="enableEdit()"
-        class="rounded-full hover:bg-themeblue-200 hover:text-themeblue-400 h-11 w-11 flex justify-center items-center">
-        <i class="fa-solid fa-pen-to-square text-themeblue-900 text-lg"></i>
-      </div>
-      <div
-                     class="bg-dark dark:bg-dark-2 absolute top-full left-1/2 z-20 mt-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100"
-                     >
-                     <span
-                        class="bg-dark dark:bg-dark-2 absolute top-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"
-                        ></span>
-                     Edit
-                  </div>
+        <div *ngIf="!isEditable;" (click)="enableEdit()"
+          class="rounded-full hover:bg-themeblue-200 hover:text-themeblue-400 h-11 w-11 flex justify-center items-center">
+          <i class="bx bx-edit-alt text-themeblue-900 text-2xl"></i>
+        </div>
+        <div
+          class="bg-dark dark:bg-dark-2 absolute top-full left-1/2 z-20 mt-3 -translate-x-1/2 whitespace-nowrap rounded-[5px] py-1.5 px-3.5 text-sm text-white opacity-0 group-hover:opacity-100">
+          <span
+            class="bg-dark dark:bg-dark-2 absolute top-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45"></span>
+          Edit
+        </div>
       </div>
 
       <div *ngIf="isEditable" class="flex gap-2">
@@ -113,20 +108,20 @@
           <app-floating-dropdown [floatingDropdownId]="profilePictureDropDownId"
             class="float-none absolute top-0 left-0 ">
             <button floating-dropdown-title (click)="openFloatingDropdown($event, profilePictureDropDownId)"
-              class="floating-dropdown-btn bottom-0 right-0 p-2 bg-backdrop-800 rounded-full h-[4rem] w-[4rem] invisible cursor-pointer group-hover:visible">
-              <i class="floating-dropdown-btn fa-solid fa-camera text-white fa-xl"></i>
+              class="floating-dropdown-btn bottom-0 right-0 p-2 bg-backdrop-800 rounded-full h-[4rem] w-[4rem] invisible cursor-pointer group-hover:visible flex justify-center items-center">
+              <i class="floating-dropdown-btn ph-camera text-white text-2xl"></i>
             </button>
             <div floating-dropdown-menu
               class="absolute top-15 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border rounded-lg p-2 mr-5 w-fit left-[-50%] xs:left-0 xs:min-w-48">
               <div (click)="openImageInput($event)"
                 class="cursor-pointer flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-700 hover:bg-gray-500 hover:bg-themeblue-200 whitespace-nowrap gap-4">
                 <p>New Picture</p>
-                <i class="fa-solid fa-pen"></i>
+                <i class="ph-camera-rotate text-xl"></i>
               </div>
               <div (click)="removeProfilePicture($event)"
                 class="cursor-pointer flex justify-between items-center py-2 px-3 rounded-md text-sm text-danger hover:bg-themeblue-200 whitespace-nowrap gap-4">
                 <p>Remove</p>
-                <i class="fa-solid fa-trash-can"></i>
+                <i class="ph-camera-slash text-xl"></i>
               </div>
             </div>
           </app-floating-dropdown>
@@ -141,7 +136,7 @@
             </div>
             <button *ngIf="!user.image" (click)="openImageInput($event)"
               class="absolute bottom-0 right-0 p-2 bg-backdrop-800 rounded-full h-full w-full invisible group-hover:visible">
-              <i class="fa-solid fa-camera text-white fa-xl"></i>
+              <i class="ph-camera text-white text-2xl"></i>
             </button>
           </div>
         </ng-template>
@@ -167,7 +162,7 @@
           <button floating-dropdown-title (click)="openFloatingDropdown($event, genderDropDownId)"
             class="floating-dropdown-btn text-gray-800 bg-white duration-200 text-base flex justify-between items-center gap-4"
             [ngClass]="{'border rounded px-4 pr-5 py-2 xs:w-52 focus:border-themeblue-400':isEditable,'cursor-default':!isEditable}">
-            {{gender.value}} <i class="fa-solid fa-caret-down text-themeblue-900 floating-dropdown-btn"
+            {{gender.value}} <i class="bx bx-chevron-down text-xl text-themeblue-900 floating-dropdown-btn"
               [ngClass]="{'hidden':!isEditable}"></i>
           </button>
           <p ngClass="mt-1 mb-3 text-red-600" *ngIf="gender.errors?.['required']" class="text-red-400">
@@ -190,7 +185,7 @@
       You can use the following email addresses to sign in to your account 
       and also to reset your password if you ever forget it.">
     <div>
-      <app-profile-model-footer [email]="user.email" icon="fa-envelope">
+      <app-profile-model-footer [email]="user.email" icon="ph-envelope-simple">
       </app-profile-model-footer>
     </div>
   </app-profile-modal>
@@ -207,7 +202,7 @@
       </div>
     </div>
     <ng-template #mobileAvailable>
-      <app-profile-model-footer [email]="user.phoneNumber!" icon='fa-phone'>
+      <app-profile-model-footer [email]="user.phoneNumber!" icon='ph-phone'>
       </app-profile-model-footer>
     </ng-template>
   </app-profile-modal>
