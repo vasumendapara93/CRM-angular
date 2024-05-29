@@ -265,8 +265,8 @@
                                         class="form-checkbox rounded h-3 w-3 sm:h-4 sm:w-4 login-checkbox focus:outline-none">
                                 </td>
                                 <td class="px-6 py-3">
-                                    <app-tag *ngIf="userItem.isAccountActivated" color="success">Active</app-tag>
-                                    <app-tag *ngIf="!userItem.isAccountActivated" color="danger">Pending...</app-tag>
+                                    <app-tag *ngIf="userItem.isAccountActivated" color="success">ACTIVE</app-tag>
+                                    <app-tag *ngIf="!userItem.isAccountActivated" color="danger">PENDING</app-tag>
                                 </td>
                                 <td class="px-6 py-3 cursor-pointer" (click)="showDetail(userItem.id)">
                                     <div class="flex justify-start items-center gap-4">

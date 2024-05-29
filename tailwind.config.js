@@ -7,7 +7,13 @@ module.exports = {
   safelist: [
     'bg-success',
     'bg-danger',
-    'bg-warn'
+    'bg-warn',
+    'border-success',
+    'border-danger',
+    'border-warn',
+    'text-success',
+    'text-danger',
+    'text-warn'
   ],
   theme: {
     extend: {},

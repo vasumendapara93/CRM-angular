@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
 export class TagComponent {
   @Input() color = ""
 
-  public get bgColor() : string {
-    return `bg-${this.color}`
+  public get borderColor() : string {
+    return `border-${this.color} text-${this.color}`
   }
   
 }
