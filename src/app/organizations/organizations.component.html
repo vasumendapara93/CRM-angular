@@ -15,14 +15,14 @@
                 <ng-template #deactiveText> Deactive </ng-template>
             </button>
             <div class="bg-gray-200 h-4 w-[1px] hidden 2xs:block"></div>
-            <button *ngIf="!detailUser?.isAccountActivated" [disabled]="false"
+            <button *ngIf="!detailUser?.isAccountActivated" [disabled]="isResendingActivationRequest" (click)="resentInvite(detailUser!.id)"
                 class=" rounded-lg text-base text-themeblue-900 font-semibold flex-none w-fit underline-offset-2 hover:underline duration-300">
-                <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center py-1.5 sm:py-1.5"
-                    *ngIf="false ; else resendInviteText" />
+                <app-dot-wave-loader colorCode="#11153e" class="flex justify-center items-center py-1.5 sm:py-1.5"
+                    *ngIf="isResendingActivationRequest ; else resendInviteText" />
                 <ng-template #resendInviteText> Resend Invite </ng-template>
             </button>
             <div *ngIf="!detailUser?.isAccountActivated" class="bg-gray-200 h-4 w-[1px] hidden 2xs:block"></div>
-            <div class="flex justify-center items-center cursor-pointer">
+            <div class="flex justify-center items-center cursor-pointer" (click)="deleteUser(detailUser!.id)">
                 <i class="ph-trash ph-lg hover:text-[red] duration-300"></i>
             </div>
         </div>

@@ -9,7 +9,9 @@ export class API {
     static UPDATE_USER: string = this.ORIGIN + '/api/user'
     static UPDATE_USER_PROFILE_PICTURE: string = this.ORIGIN + '/api/user/image'
     static GET_ORGANIZATIONS : string = this.ORIGIN + '/api/user/organization'
-    static CREATE_ORGANIZATIONS : string = this.ORIGIN + '/api/user/organization'
+    static CREATE_ORGANIZATION : string = this.ORIGIN + '/api/user/organization'
+    static DELETE_ORGANIZATION : string = this.ORIGIN + '/api/user/organization'
+    static REMOVE_ORGANIZATION_RANGE : string = this.ORIGIN + '/api/user/organization/range'
     static GET_EMPLOYEES : string = this.ORIGIN + '/api/user/employee'
     static GET_BRANCHES : string = this.ORIGIN + '/api/branch'
     static UPDATE_BRANCHE : string = this.ORIGIN + '/api/branch'
@@ -18,5 +20,6 @@ export class API {
     static REMOVE_BRANCHE_RANGE : string = this.ORIGIN + '/api/branch/range'
     static REMOVE_BRANCHE : string = this.ORIGIN + '/api/branch'
     static ACTIVATE_ACCOUNT : string = this.ORIGIN + '/api/user/activate'
+    static REND_ACTIVATION_REQUEST : string = this.ORIGIN + '/api/user/activatation/resend'
     
 }

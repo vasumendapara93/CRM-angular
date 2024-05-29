@@ -63,6 +63,8 @@ export class OrganizationsComponent implements OnInit {
   isCreatingNewUser = false
   isEditingUser = false
   showBlockPanel: boolean = false;
+  isResendingActivationRequest = false
+  isDeletingUser = false
 
   API = API
 
@@ -101,7 +103,7 @@ export class OrganizationsComponent implements OnInit {
           }
         } else {
           this.detailUserId = params['user']
-          if (this.detailUserId != undefined) {
+          if (this.detailUserId != undefined && this.detailUserId != null) {
             this.getUserDetail()
           }
         }
@@ -154,6 +156,7 @@ export class OrganizationsComponent implements OnInit {
 
   closeBlockPanel() {
     this.showBlockPanel = false;
+    this.detailUserId = null
     this.router.navigate([],
       {
         queryParams: {
@@ -163,10 +166,9 @@ export class OrganizationsComponent implements OnInit {
           order: this.order,
         }
       })
-    this.detailUserId = null
   }
 
-  showDetail(id: string) {
+  showDetail(id: string | null) {
     this.router.navigate([],
       {
         queryParams: {
@@ -412,15 +414,7 @@ export class OrganizationsComponent implements OnInit {
     this.alertService.onActionClicked.pipe(first()).subscribe(async (value: any) => {
       if (value) {
         var ids = this.selectedUserList.map(user => user.id)
-        // if (ids.includes(this.user.branchId)) {
-        //   var defaultBranch = this.branchList.find(b => b.id == this.user.branchId)
-        //   this.msgService.setColor(this.msgBoxId, Color.danger)
-        //   this.msgService.setMsg(this.msgBoxId, `${defaultBranch?.name} can't be deleted as it is default branch`)
-        //   this.msgService.openMsgBox(this.msgBoxId)
-        //   return
-        // }
-        // console.log(ids)
-        this.apiService.delete(API.REMOVE_BRANCHE_RANGE, {
+        this.apiService.delete(API.REMOVE_ORGANIZATION_RANGE, {
           headers: await this.authService.getAuthorizationHeader(),
           body: ids
         }
@@ -430,7 +424,7 @@ export class OrganizationsComponent implements OnInit {
               console.log(response)
               this.selectedUserList = []
               this.msgService.setColor(this.msgBoxId, Color.success)
-              this.msgService.setMsg(this.msgBoxId, `Organization deleted successfully`)
+              this.msgService.setMsg(this.msgBoxId, `Organizations deleted successfully`)
               this.msgService.openMsgBox(this.msgBoxId)
               var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
               allCheckbox.checked = false
@@ -493,7 +487,7 @@ export class OrganizationsComponent implements OnInit {
     if (this.newOrganizationForm.valid) {
       this.isCreatingNewUser = true
       try {
-        this.apiService.post(API.CREATE_ORGANIZATIONS,
+        this.apiService.post(API.CREATE_ORGANIZATION,
           {
             name: this.name.value,
             email: this.email.value,
@@ -567,6 +561,96 @@ export class OrganizationsComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+
+  async resentInvite(id: string) {
+    this.isResendingActivationRequest = true
+    try {
+      this.apiService.post(API.REND_ACTIVATION_REQUEST + '/' + id,
+        null, {
+        headers: await this.authService.getAuthorizationHeader()
+      }
+      ).subscribe(
+        (response) => {
+          console.log(response)
+          if (response.isSuccess) {
+            this.msgService.setColor(this.msgBoxId, Color.success)
+            this.msgService.setMsg(this.msgBoxId, 'Organization Create Request Sent Successfully')
+            this.msgService.openMsgBox(this.msgBoxId)
+          }
+          this.isResendingActivationRequest = false
+        },
+        (error) => {
+          console.log(error)
+          this.msgService.setColor(this.msgBoxId, Color.danger)
+          if (error.error.errorMessages && error.error.errorMessages[0] && error.error.errorMessages[0] != "") {
+            this.msgService.setMsg(this.msgBoxId, error.error.errorMessages[0])
+          } else {
+            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+          }
+          this.msgService.openMsgBox(this.msgBoxId)
+
+          this.isResendingActivationRequest = false
+        }
+      )
+    } catch (e) {
+      console.log(e)
+      this.msgService.setColor(this.msgBoxId, Color.danger)
+      this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+      this.msgService.openMsgBox(this.msgBoxId)
+      this.isResendingActivationRequest = false
+    }
+  }
+
+  async deleteUser(id: string) {
+    this.isDeletingUser = true
+    this.alertService.setAlert({
+      title: 'Are you sure you want to delete the User?',
+      msg: 'Note: Any associated Activities, Visits, Drafts will also be Deleted and can\'t be recovered',
+      okBtnColor: Color.danger,
+      okBtnText: BtnText.delete,
+      cancelBtnText: BtnText.cancel
+    })
+    this.alertService.onActionClicked.pipe(first()).subscribe(async (value: any) => {
+      if (value) {
+        try {
+          this.apiService.delete(API.DELETE_ORGANIZATION + '/' + id, {
+            headers: await this.authService.getAuthorizationHeader()
+          }
+          ).subscribe(
+            (response) => {
+              console.log(response)
+              if (response.isSuccess) {
+                this.msgService.setColor(this.msgBoxId, Color.success)
+                this.msgService.setMsg(this.msgBoxId, 'Organization Deleted Successfully')
+                this.msgService.openMsgBox(this.msgBoxId)
+                this.showDetail(null)
+                this.closeBlockPanel()
+              }
+              this.isDeletingUser = false
+            },
+            (error) => {
+              console.log(error)
+              this.msgService.setColor(this.msgBoxId, Color.danger)
+              if (error.error.errorMessages && error.error.errorMessages[0] && error.error.errorMessages[0] != "") {
+                this.msgService.setMsg(this.msgBoxId, error.error.errorMessages[0])
+              } else {
+                this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+              }
+              this.msgService.openMsgBox(this.msgBoxId)
+
+              this.isDeletingUser = false
+            }
+          )
+        } catch (e) {
+          console.log(e)
+          this.msgService.setColor(this.msgBoxId, Color.danger)
+          this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+          this.msgService.openMsgBox(this.msgBoxId)
+          this.isDeletingUser = false
+        }
+      }
+    })
   }
 
   async getUsers() {
