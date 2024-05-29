@@ -136,7 +136,7 @@
                           <p>{{Order.DESC}}</p>
                           <i class="bx bx-sort-z-a text-xl"></i>
                         </div>
-                        <div *ngIf="orderBy == field.fieldName" (clph-funnel-simple-xick)="sortData(null, null)"
+                        <div *ngIf="orderBy == field.fieldName" (click)="sortData(null, null)"
                           class="flex justify-between items-center py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-themeblue-200 cursor-pointer">
                           <p>Unsort</p>
                           <i class="ph-prohibit text-lg"></i>
