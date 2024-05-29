@@ -144,6 +144,9 @@ export class UploadFileComponent {
   }
 
   mapField(index: number, mapfield: { fieldInDb: FieldInDb, isMapped: boolean }, alreadyMappedField: MappedField) {
+    if(mapfield.fieldInDb.fieldName == alreadyMappedField.FieldInDb?.fieldName){
+      return
+    }
     var mappingField = this.mappingFields.find(element => element.fieldInDb.fieldName == alreadyMappedField.FieldInDb?.fieldName)
     if (mappingField) {
       mappingField!.isMapped = false
@@ -153,9 +156,11 @@ export class UploadFileComponent {
       var mappedField = this.mappedFields.find(element => element.FieldInDb!.fieldName == mapfield.fieldInDb.fieldName)
       if (mappedField) {
         mappedField!.FieldInDb = this.defaultSelectedField
+        mappedField!.valueForEmpty = null
       }
     }
     this.mappedFields[index].FieldInDb = mapfield.fieldInDb
+    this.mappedFields[index].valueForEmpty = null
     var i = this.mappingFields.findIndex(element => element == mapfield)
     this.mappingFields[i].isMapped = true
   }
