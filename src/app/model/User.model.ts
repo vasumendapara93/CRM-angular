@@ -23,4 +23,5 @@ export default interface IUser{
     joiningDate : string
     subscriptionStartDate : string
     subscriptionEndDate : string,
+    createDate : string,
 }

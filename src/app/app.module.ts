@@ -23,7 +23,6 @@ import { ProfileModule } from './profile/profile.module';
 import { EmployeesComponent } from './employees/employees.component';
 import { BranchComponent } from './branch/branch.component';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { SlidingModalComponent } from './sliding-modal/sliding-modal.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +39,7 @@ import { SlidingModalComponent } from './sliding-modal/sliding-modal.component';
     LeadsComponent,
     OrganizationsComponent,
     EmployeesComponent,
-    BranchComponent,
-    SlidingModalComponent
+    BranchComponent
   ],
   imports: [
     BrowserModule,

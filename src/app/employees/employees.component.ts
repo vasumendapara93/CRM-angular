@@ -88,10 +88,6 @@ export class EmployeesComponent {
     }
   }
 
- //toggle block panel
- toggleBlockPanel() {
-  this.showBlockPanel = !this.showBlockPanel;
-}
   filterData(event: Event) {
     event.preventDefault();
     var regex = new RegExp(this.filterText, "i");

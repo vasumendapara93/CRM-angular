@@ -38,14 +38,6 @@
             </button>
         </div>
 
-        <div class="md:flex items-center relative">
-            <button (click)="toggleBlockPanel()" class="background-dark text-black px-4 py-2 rounded-md">
-                Click
-            </button>
-        </div>
-        <!-- Sliding Modal -->
-        <app-sliding-modal *ngIf="showBlockPanel" (close)="toggleBlockPanel()"></app-sliding-modal>
-
         <app-floating-dropdown [floatingDropdownId]="addLeadId">
             <button floating-dropdown-title (click)="openFloatingDropdown($event, addLeadId)"
                 class="floating-dropdown-btn nav-link flex items-center gap-2.5 waves-effect px-3 py-5 h-10 w-10 rounded-lg bg-themeblue-100">

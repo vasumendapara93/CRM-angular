@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, OnDestroy, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sliding-modal',
@@ -6,7 +6,7 @@ import { Component, EventEmitter, Output, OnInit, OnDestroy } from '@angular/cor
   styleUrls: ['./sliding-modal.component.css']
 })
 export class SlidingModalComponent implements OnInit, OnDestroy {
-
+  @Input() title: string = ''
   @Output() close = new EventEmitter<void>();
   closing: boolean = false;
 
@@ -28,6 +28,6 @@ export class SlidingModalComponent implements OnInit, OnDestroy {
     this.closing = true;
     setTimeout(() => {
       this.close.emit();
-    }, 300); // Match this duration with the slide-out animation duration
+    }, 450); // Match this duration with the slide-out animation duration
   }
 }

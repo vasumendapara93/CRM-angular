@@ -13,6 +13,7 @@ import { MsgComponent } from './msg/msg.component';
 import { EventBlockerDirective } from '../services/directives/event-blocker.directive';
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { AlertComponent } from './alert/alert.component';
+import { SlidingModalComponent } from './sliding-modal/sliding-modal.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AlertComponent } from './alert/alert.component';
     MsgComponent,
     EventBlockerDirective,
     UploadFileComponent,
-    AlertComponent
+    AlertComponent,
+    SlidingModalComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +48,7 @@ import { AlertComponent } from './alert/alert.component';
     MsgComponent,
     UploadFileComponent,
     AlertComponent,
+    SlidingModalComponent
   ],
   providers:[
     provideEnvironmentNgxMask(),

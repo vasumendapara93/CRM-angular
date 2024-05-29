@@ -80,7 +80,6 @@ export class BranchComponent implements OnInit {
       this.user = data['user'];
       console.log(this.user)
     });
-    this.getbranches()
   }
 
   ngOnInit(): void {

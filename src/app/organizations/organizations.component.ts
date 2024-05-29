@@ -46,6 +46,8 @@ export class OrganizationsComponent implements OnInit {
   private inputSearch = new Subject<string>();
   Order = Order
   tableColumns = TableColumns.OrganizationColumns
+  detailUser: IUser | undefined
+  detailUserId: string | null = null
 
   addLeadId = "add-lead"
   userActionDropdownId = 'userActionDropdownId'
@@ -60,6 +62,7 @@ export class OrganizationsComponent implements OnInit {
 
   isCreatingNewUser = false
   isEditingUser = false
+  showBlockPanel: boolean = false;
 
   API = API
 
@@ -77,7 +80,6 @@ export class OrganizationsComponent implements OnInit {
       this.user = data['user'];
       console.log(this.user)
     });
-    this.getUsers()
   }
 
   ngOnInit(): void {
@@ -90,7 +92,22 @@ export class OrganizationsComponent implements OnInit {
       } else {
         this.order = params['order'] ?? null
       }
-      this.getUsers()
+      if (params['user']) {
+        if (this.detailUserId == params['user'] || this.userList.length == 0) {
+          this.getUsers()
+          this.detailUserId = params['user']
+          if (this.detailUserId != undefined) {
+            this.getUserDetail()
+          }
+        } else {
+          this.detailUserId = params['user']
+          if (this.detailUserId != undefined) {
+            this.getUserDetail()
+          }
+        }
+      } else {
+        this.getUsers()
+      }
     })
 
     this.inputSearch.pipe(debounceTime(1000)).subscribe(() => {
@@ -111,7 +128,9 @@ export class OrganizationsComponent implements OnInit {
     ])
   phoneNumber = new FormControl('',
     [
-      Validators.required
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10),
     ])
   contactPerson = new FormControl('',
     [
@@ -126,14 +145,81 @@ export class OrganizationsComponent implements OnInit {
     name: this.name,
     email: this.email,
     phoneNumber: this.phoneNumber,
-    contactPerson : this.contactPerson
+    contactPerson: this.contactPerson
   })
+
+  openBlockPanel() {
+    this.showBlockPanel = true;
+  }
+
+  closeBlockPanel() {
+    this.showBlockPanel = false;
+    this.router.navigate([],
+      {
+        queryParams: {
+          recordPerPage: this.recordPerPage,
+          pageNo: this.pageNo,
+          orderBy: this.orderBy,
+          order: this.order,
+        }
+      })
+    this.detailUserId = null
+  }
+
+  showDetail(id: string) {
+    this.router.navigate([],
+      {
+        queryParams: {
+          user: id,
+          recordPerPage: this.recordPerPage,
+          pageNo: this.pageNo,
+          orderBy: this.orderBy,
+          order: this.order,
+        }
+      })
+  }
+
+  async getUserDetail() {
+    try {
+      this.apiService.get(API.GET_USER, {
+        params: {
+          userId: this.detailUserId
+        },
+        headers: await this.authService.getAuthorizationHeader()
+      }
+      ).subscribe(
+        (response) => {
+          console.log(response)
+          if (response.isSuccess) {
+            this.detailUser = response.data
+            this.openBlockPanel()
+          }
+        },
+        (error) => {
+          console.log(error)
+          this.msgService.setColor(this.msgBoxId, Color.danger)
+          if (error.error.errorMessages && error.error.errorMessages[0] && error.error.errorMessages[0] != "") {
+            this.msgService.setMsg(this.msgBoxId, error.error.errorMessages[0])
+          } else {
+            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong With This Account Try Again Laters')
+          }
+          this.msgService.openMsgBox(this.msgBoxId)
+        }
+      )
+    } catch (e) {
+      console.log(e)
+      this.msgService.setColor(this.msgBoxId, Color.danger)
+      this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+      this.msgService.openMsgBox(this.msgBoxId)
+    }
+  }
 
   changeRecordPerPage(recordPerPage: number) {
     this.pageNoShowOptions = []
     this.router.navigate([],
       {
         queryParams: {
+          user: this.detailUserId,
           recordPerPage: recordPerPage,
           pageNo: 1,
           orderBy: this.orderBy,
@@ -145,6 +231,7 @@ export class OrganizationsComponent implements OnInit {
     this.router.navigate([],
       {
         queryParams: {
+          user: this.detailUserId,
           recordPerPage: this.recordPerPage,
           pageNo: pageNo,
           orderBy: this.orderBy,
@@ -188,6 +275,7 @@ export class OrganizationsComponent implements OnInit {
     this.router.navigate([],
       {
         queryParams: {
+          user: this.detailUserId,
           recordPerPage: this.recordPerPage,
           pageNo: this.pageNo,
           orderBy: orderBy,

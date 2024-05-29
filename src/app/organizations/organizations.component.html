@@ -1,6 +1,84 @@
 <app-msg [MsgBoxId]="msgBoxId"></app-msg>
 <app-msg [MsgBoxId]="uploadBoxId"></app-msg>
 
+<!-- Sliding Modal -->
+<app-sliding-modal *ngIf="showBlockPanel" (close)="closeBlockPanel()">
+    <div heading class="w-full flex justify-between 2xs:items-center items-start px-2 2xs:ml-6 ml-3 flex-wrap gap-4">
+        <div class="flex flex-col justify-center items-start gap-1">
+            <p class="text-themeblue-900 text-2xl font-bold 2xs:leading-4 leading-5">{{detailUser?.name}}</p>
+            <p class="text-gray-500 text-sm font-semibold line">Added On {{detailUser?.createDate | date:'MMM dd, yyyy'}}</p>
+        </div>
+        <div class="flex justify-center 2xs:items-center items-start 2xs:gap-3 gap-2 w-fit 2xs:flex-row flex-col">
+            <button [disabled]="false" class="text-white rounded-lg text-base text-[red] flex-none w-fit underline-offset-2 hover:underline duration-900">
+                <app-dot-wave-loader colorCode="#FF0000" class="flex justify-center items-center py-1.5 sm:py-1.5  "
+                    *ngIf="false ; else deactiveText" />
+                <ng-template #deactiveText> Deactive </ng-template>
+            </button>
+            <div class="bg-gray-200 h-4 w-[1px] hidden 2xs:block"></div>
+            <button *ngIf="!detailUser?.isAccountActivated" [disabled]="false"
+                class=" rounded-lg text-base text-themeblue-900 font-semibold flex-none w-fit underline-offset-2 hover:underline duration-300">
+                <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center py-1.5 sm:py-1.5"
+                    *ngIf="false ; else resendInviteText" />
+                <ng-template #resendInviteText> Resend Invite </ng-template>
+            </button>
+            <div *ngIf="!detailUser?.isAccountActivated" class="bg-gray-200 h-4 w-[1px] hidden 2xs:block"></div>
+            <div class="flex justify-center items-center cursor-pointer">
+                <i class="ph-trash ph-lg hover:text-[red] duration-300"></i>
+            </div>
+        </div>
+    </div>
+    <div body>
+        <div class="bg-gray-300 w-full h-[1px] mb-10"></div>
+ 
+        <div class="grid grid-cols-2 gap-8">
+            <div class="sm:col-span-1 col-span-2 flex justify-center items-center sm:w-fit w-full mb-6">
+                <img *ngIf="detailUser!.image; else charactorImage" [src]="API.ORIGIN + detailUser!.image"
+                    [alt]="this.detailUser?.name" class="rounded-2xl h-[12rem] w-[12rem] flex-none">
+                <ng-template #charactorImage>
+                    <div class="rounded-2xl h-[12rem] w-[12rem] flex justify-center items-center flex-none"
+                        style="background: #666887;">
+                        <p class="text-white text-[10rem] font-semibold">
+                            {{detailUser!.name![0].toUpperCase()}}
+                        </p>
+                    </div>
+                </ng-template>
+                </div>  
+            <div class="sm:col-span-1 col-span-2 grid grid-cols-1 gap-8 sm:py-8 py-0">
+                <div>
+                    <p class="text-sm leading-0">NAME</p>
+                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.name}}</p>
+                </div>
+                <div>
+                    <p class="text-sm leading-0">EMAIL</p>
+                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.email}}</p>
+                </div>
+            </div>
+            <div class="sm:col-span-1 col-span-2">
+                    <p class="text-sm leading-0">CONTACT PERSON</p>
+                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.contactPerson}}</p>
+            </div>
+            <div class="sm:col-span-1 col-span-2">
+                    <p class="text-sm leading-0">CONTACT NUMBER</p>
+                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.phoneNumber}}</p>
+            </div>
+            <div class="col-span-2">
+                    <p class="text-sm leading-0">ADDRESS</p>
+                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.address}}</p>
+            </div>
+            <div class="sm:col-span-1 col-span-2">
+                    <p class="text-sm leading-0">SUBSCRPITION START</p>
+                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.subscriptionEndDate | date:'MMM dd, yyyy'}}</p>
+            </div>
+            <div class="sm:col-span-1 col-span-2">
+                    <p class="text-sm leading-0">SUBSCRPITION END</p>
+                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.subscriptionEndDate | date:'MMM dd, yyyy'}}</p>
+            </div>
+          </div>
+
+
+    </div>
+</app-sliding-modal>
+
 <app-floating-modal [floatingModalId]="addOrgFloatingModalId" title="Add Organization">
     <form [formGroup]="newOrganizationForm" (ngSubmit)="createNewUser()" class="xs:w-80 w-full flex flex-col gap-4">
         <app-input [control]="name" name="Name" type="text" autocomplete="Name" placeholder="Name"></app-input>
@@ -9,7 +87,7 @@
             format="00000 00000"></app-input>
         <app-input [control]="contactPerson" name="Contact Person Name" type="text"
             placeholder="Contact Person Name"></app-input>
-        <button [disabled]="isCreatingNewUser" type="submit"
+        <button [disabled]="isCreatingNewUser" type="submit" (click)="createNewUser()"
             class="w-4/5 text-white py-2 sm:py-3 rounded bg-themeblue-900 w-full mt-2">
             <app-dot-wave-loader colorCode="#FFFFFF" class="flex justify-center items-center my-1 mt-1.5"
                 *ngIf="isCreatingNewUser ; else GetStartText" />
@@ -116,7 +194,8 @@
                                 </th>
                                 <th *ngFor="let field of tableColumns;let i = index " class="px-6 py-3 ">
                                     <div class class="flex gap-4 justify-between items-center">
-                                        <span class="float-left flex items-center justify-center gap-2" >{{field.displayName}}
+                                        <span
+                                            class="float-left flex items-center justify-center gap-2">{{field.displayName}}
                                             <i *ngIf="orderBy==field.fieldName && order == Order.DESC"
                                                 class="ph-arrow-down text-lg"></i>
                                             <i *ngIf="orderBy==field.fieldName && order == Order.ASC"
@@ -189,20 +268,21 @@
                                     <app-tag *ngIf="userItem.isAccountActivated" color="success">Active</app-tag>
                                     <app-tag *ngIf="!userItem.isAccountActivated" color="danger">Pending...</app-tag>
                                 </td>
-                                <td class="px-6 py-3">
+                                <td class="px-6 py-3 cursor-pointer" (click)="showDetail(userItem.id)">
                                     <div class="flex justify-start items-center gap-4">
-                                    <img *ngIf="userItem.image; else charactorImage" [src]="API.ORIGIN + userItem.image"
-                                        [alt]="this.userItem?.name" class="rounded-full h-8 w-8">
-                                    <ng-template #charactorImage>
-                                        <div class="rounded-full h-8 w-8 flex justify-center items-center"
-                                            style="background: #666887;">
-                                            <p class="text-white text-lg font-semibold">
-                                                {{userItem.name![0].toUpperCase()}}
-                                            </p>
-                                        </div>
-                                    </ng-template>
-                                    <p class="font-semibold group-hover:text-themeblue-400">{{userItem.name}}</p>
-                                </div>
+                                        <img *ngIf="userItem.image; else charactorImage"
+                                            [src]="API.ORIGIN + userItem.image" [alt]="this.userItem?.name"
+                                            class="rounded-full h-8 w-8">
+                                        <ng-template #charactorImage>
+                                            <div class="rounded-full h-8 w-8 flex justify-center items-center"
+                                                style="background: #666887;">
+                                                <p class="text-white text-lg font-semibold">
+                                                    {{userItem.name![0].toUpperCase()}}
+                                                </p>
+                                            </div>
+                                        </ng-template>
+                                        <p class="font-semibold group-hover:text-themeblue-400">{{userItem.name}}</p>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-3">
                                     <a class="group-hover:text-themeblue-400"
@@ -211,8 +291,10 @@
                                 <td class="px-6 py-3">
                                     <div class="flex justify-center items-center gap-2">
                                         <p>{{userItem.phoneNumber}}</p>
-                                        <a [href]="'tel:'+ userItem.phoneNumber" class="flex justify-center items-center">
-                                            <i class="ph-phone text-lg text-gray-500 group-hover:text-themeblue-400"></i>
+                                        <a [href]="'tel:'+ userItem.phoneNumber"
+                                            class="flex justify-center items-center">
+                                            <i
+                                                class="ph-phone text-lg text-gray-500 group-hover:text-themeblue-400"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -247,7 +329,8 @@
                 <app-floating-dropdown floatingDropdownId="branchRecordPerPageId">
                     <button floating-dropdown-title (click)="openFloatingDropdown($event, 'branchRecordPerPageId')"
                         class="floating-dropdown-btn border-grey-400 border-2 text-themeblue-900 py-1 w-16 px-2 ml-2 sm:mr-5 mr-0 rounded flex justify-between items-center focus:border-grey-400">
-                        {{recordPerPage}} <i class="bx bx-chevron-up text-xl text-themeblue-900 floating-dropdown-btn"></i>
+                        {{recordPerPage}} <i
+                            class="bx bx-chevron-up text-xl text-themeblue-900 floating-dropdown-btn"></i>
                     </button>
                     <div floating-dropdown-menu
                         class="absolute bottom-9 z-50 transition-[margin,opacity] duration-900 mt-2 bg-white border-2 border-grey-400 rounded p-2 mr-5 w-fit right-0 min-w-16">

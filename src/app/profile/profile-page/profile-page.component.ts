@@ -39,6 +39,7 @@ export class ProfilePageComponent {
     'image/jpeg',
     'image/jpg',
     'image/bmp',
+    'image/png'
   ]
   imageChangedEvent: Event | null = null
   transform: ImageTransform = {
