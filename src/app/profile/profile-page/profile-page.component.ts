@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MsgService } from 'src/app/services/msg.service';
 import { Color } from 'src/assets/static/Color';
 import { PatchOprations } from 'src/assets/static/PatchOpratins';
-import { UserFields } from 'src/assets/static/UserFields';
+import { UserFields } from 'src/assets/static/ModelFields/UserFields';
 import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject, first } from 'rxjs';

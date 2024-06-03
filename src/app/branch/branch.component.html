@@ -103,7 +103,7 @@
     <div class="overflow-x-auto w-full rounded-lg">
       <div class="min-w-full inline-block align-middle rounded-lg">
         <div class="overflow-auto border rounded-lg shadow h-max max-h-[55vh]">
-          <table class="min-w-full whitespace-nowrap text-base divide-y divide-gray-200">
+          <table class="min-w-full whitespace-nowrap text-base divide-y divide-gray-200 ">
             <thead class="text-grey-500">
               <tr class="bg-themeblue-100 sticky top-0">
                 <th></th>
@@ -147,7 +147,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody *ngIf="branchList != null && branchList != []; else loader " class="divide-y divide-themeblue-100">
+            <tbody *ngIf="branchList != null && branchList != []; else loader " class="divide-y divide-themeblue-100 ">
               <tr *ngFor="let branch of filteredList; let i = index" class="group hover:bg-themeblue-200">
                 <td class="pl-4 py-3">
                   <app-floating-dropdown [floatingDropdownId]="branch.id  + i" class="float-left">

@@ -2,7 +2,7 @@
 <app-msg [MsgBoxId]="uploadBoxId"></app-msg>
 
 <!-- Sliding Modal -->
-<app-sliding-modal *ngIf="showBlockPanel" (close)="closeBlockPanel()">
+<app-sliding-modal class="sm:w-[40rem] w-full fixed top-0 right-0 bottom-0 z-[50]" *ngIf="showBlockPanel" (close)="closeBlockPanel()">
     <div heading class="w-full flex justify-between 2xs:items-center items-start px-2 2xs:ml-6 ml-3 flex-wrap gap-4">
         <div class="flex flex-col justify-center items-start gap-1">
             <p class="text-themeblue-900 text-2xl font-bold 2xs:leading-4 leading-5">{{detailUser?.name}}</p>
@@ -55,7 +55,7 @@
             </div>
             <div class="sm:col-span-1 col-span-2">
                     <p class="text-sm leading-0">CONTACT PERSON</p>
-                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.contactPerson}}</p>
+                    <p class="text-lg font-bold text-gray-800 ml-2">{{detailUser?.contactPerson ?? '--'}}</p>
             </div>
             <div class="sm:col-span-1 col-span-2">
                     <p class="text-sm leading-0">CONTACT NUMBER</p>
@@ -281,7 +281,7 @@
                                                 </p>
                                             </div>
                                         </ng-template>
-                                        <p class="font-semibold group-hover:text-themeblue-400">{{userItem.name}}</p>
+                                        <p class="font-semibold group-hover:text-themeblue-400 text-[black]">{{userItem.name}}</p>
                                     </div>
                                 </td>
                                 <td class="px-6 py-3">

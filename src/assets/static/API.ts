@@ -21,5 +21,9 @@ export class API {
     static REMOVE_BRANCHE : string = this.ORIGIN + '/api/branch'
     static ACTIVATE_ACCOUNT : string = this.ORIGIN + '/api/user/activate'
     static REND_ACTIVATION_REQUEST : string = this.ORIGIN + '/api/user/activatation/resend'
+    static GET_LEAD : string = this.ORIGIN + '/api/lead'
+    static GET_LEADS : string = this.ORIGIN + '/api/lead/all'
+    static CREATE_LEAD : string = this.ORIGIN + '/api/lead'
+    static CREATE_LEAD_RANGE : string = this.ORIGIN + '/api/lead/range'
     
 }

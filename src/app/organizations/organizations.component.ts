@@ -203,7 +203,7 @@ export class OrganizationsComponent implements OnInit {
           if (error.error.errorMessages && error.error.errorMessages[0] && error.error.errorMessages[0] != "") {
             this.msgService.setMsg(this.msgBoxId, error.error.errorMessages[0])
           } else {
-            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong With This Account Try Again Laters')
+            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong With This Account Try Again Later')
           }
           this.msgService.openMsgBox(this.msgBoxId)
         }
@@ -405,7 +405,7 @@ export class OrganizationsComponent implements OnInit {
 
   deleteSeletedRecords() {
     this.alertService.setAlert({
-      title: 'Are you sure you want to delete the selected record?',
+      title: 'Are you sure you want to delete the selected organizations?',
       msg: 'Note: Any associated Activities, Visits, Drafts will also be Deleted',
       okBtnColor: Color.danger,
       okBtnText: BtnText.delete,
@@ -605,7 +605,7 @@ export class OrganizationsComponent implements OnInit {
   async deleteUser(id: string) {
     this.isDeletingUser = true
     this.alertService.setAlert({
-      title: 'Are you sure you want to delete the User?',
+      title: 'Are you sure you want to delete the organoization?',
       msg: 'Note: Any associated Activities, Visits, Drafts will also be Deleted and can\'t be recovered',
       okBtnColor: Color.danger,
       okBtnText: BtnText.delete,

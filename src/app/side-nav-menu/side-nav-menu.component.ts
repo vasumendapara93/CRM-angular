@@ -32,10 +32,6 @@ export class SideNavMenuComponent implements OnInit {
                 let parentMenu = element.parentElement.parentElement.parentElement;
                 if (parentMenu && parentMenu.classList.contains('menu-item')) {
                     const collapseElement = parentMenu.querySelector('[data-fc-type="collapse"]');
-                    // if (collapseElement && frost != null) {
-                    //     const collapse = frost.Collapse.getInstanceOrCreate(collapseElement);
-                    //     collapse.show();
-                    // }
                 }
             }
         })

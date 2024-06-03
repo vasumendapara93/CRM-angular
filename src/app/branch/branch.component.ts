@@ -16,7 +16,6 @@ import { AlertService } from '../services/alert.service';
 import { BtnText } from 'src/assets/static/BtnText';
 import { Subject, debounceTime, first, from } from 'rxjs';
 import { Order } from 'src/assets/static/Order';
-import { BranchFields } from 'src/assets/static/BranchFields';
 import { TableColumns } from 'src/assets/static/TableColumns';
 
 @Component({
@@ -420,14 +419,23 @@ export class BranchComponent implements OnInit {
           },
           (error) => {
             console.log(error)
-
             this.msgService.setColor(this.msgBoxId, Color.danger)
-            this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+            if (error.error.errorMessages && error.error.errorMessages[0] && error.error.errorMessages[0] != "") {
+              this.msgService.setMsg(this.msgBoxId, error.error.errorMessages[0])
+            } else {
+              this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+            }
             this.msgService.openMsgBox(this.msgBoxId)
+
+            this.isCreatingNewBranch = false
           }
         )
       } catch (e) {
         console.log(e)
+        this.msgService.setColor(this.msgBoxId, Color.danger)
+        this.msgService.setMsg(this.msgBoxId, 'Somthing Is Wrong Try Again Later')
+        this.msgService.openMsgBox(this.msgBoxId)
+        this.isCreatingNewBranch = false
       }
     }
   }
