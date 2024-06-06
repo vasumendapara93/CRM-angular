@@ -415,7 +415,7 @@ export class LeadsComponent  implements OnInit {
     this.alertService.onActionClicked.pipe(first()).subscribe(async (value: any) => {
       if (value) {
         var ids = this.selectedLeadList.map(lead => lead.id)
-        this.apiService.delete(API.REMOVE_ORGANIZATION_RANGE, {
+        this.apiService.delete(API.REMOVE_LEAD_RANGE, {
           headers: await this.authService.getAuthorizationHeader(),
           body: ids
         }
@@ -425,7 +425,7 @@ export class LeadsComponent  implements OnInit {
               console.log(response)
               this.selectedLeadList = []
               this.msgService.setColor(this.msgBoxId, Color.success)
-              this.msgService.setMsg(this.msgBoxId, `Organizations deleted successfully`)
+              this.msgService.setMsg(this.msgBoxId, `Leads deleted successfully`)
               this.msgService.openMsgBox(this.msgBoxId)
               var allCheckbox = document.getElementById('AllOrgCheckbox') as HTMLInputElement
               allCheckbox.checked = false
