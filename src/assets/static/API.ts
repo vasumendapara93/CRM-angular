@@ -25,5 +25,6 @@ export class API {
     static GET_LEADS : string = this.ORIGIN + '/api/lead/all'
     static CREATE_LEAD : string = this.ORIGIN + '/api/lead'
     static CREATE_LEAD_RANGE : string = this.ORIGIN + '/api/lead/range'
+    static REMOVE_LEAD_RANGE : string = this.ORIGIN + '/api/lead/range'
     
 }
