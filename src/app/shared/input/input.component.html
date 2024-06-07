@@ -1,4 +1,4 @@
-<input [formControl]="control" type={{type}} class="w-full px-3 py-2 sm:px-4 sm:py-3 border-none rounded-sm  login-text-color border-transparent focus:border-transparent" style="background: #f9fafb;"
+<input [formControl]="control" type={{type}} class="w-full my-1 px-3 py-2 sm:px-4 sm:py-3 border-none rounded-md  login-text-color border-transparent focus:border-transparent" style="background: #f1f6ff;"
     placeholder={{placeholder}} [mask]="format" [autocomplete]="autocomplete"/>
 
 <ng-container *ngIf="control.touched && control.dirty">
@@ -40,4 +40,4 @@
    class="text-red-400">
        Email already teken, Please try another email
   </p>
-</ng-container> 
+</ng-container>
